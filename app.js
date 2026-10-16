@@ -2,22 +2,22 @@
 // Edit the names and wins here if you want to change the built-in starting data.
 const DEFAULT_DRIVERS = [
   {name:'otke44',wins:3},
-  {name:'Danny Mac 🔵🐦',wins:13},
-  {name:'Evan',wins:6},
+  {name:'DannyMacF1',wins:13},
+  {name:'evthelegend46',wins:6},
   {name:'Rhysvoaden1',wins:9},
   {name:'FraserG',wins:1},
   {name:'Parv09',wins:2},
-  {name:'Roca',wins:5},
-  {name:'zach',wins:5},
-  {name:'George',wins:1},
+  {name:'Roca F1',wins:5},
+  {name:'zchxq',wins:5},
+  {name:'PRENClipz',wins:1},
   {name:'JoshsSzn',wins:1},
-  {name:'Damian',wins:2},
+  {name:'pekima',wins:2},
   {name:'[FSR] DuneNY',wins:1},
   {name:'FormulaKyle2311',wins:1},
   {name:'oliverbroadford',wins:1},
-  {name:'Turbo',wins:14},
-  {name:'𝗥𝗼𝗴𝘂𝗲𝗠𝗮𝗿𝘀𝗵𝗮𝗹',wins:2},
-  {name:'AERT Max Lorrai',wins:3},
+  {name:'TurboJG123',wins:14},
+  {name:'RogueMarshal',wins:2},
+  {name:'[AERT] Max Lorrai',wins:3},
   {name:'Alexgaitor',wins:1},
   {name:'Jouzam',wins:1},
   {name:'Stoobler',wins:1}
@@ -75,7 +75,7 @@ function renderProClubs(data){
   const squadCount=document.getElementById('squadCount');
   const resultsEl=document.getElementById('recentResults');
   const updatedEl=document.getElementById('clubUpdated');
-  if(!title||!message||!statsEl||!squadRows||!resultsEl)return;
+  if(!title||!message||!statsEl||!resultsEl)return;
   title.textContent=(data.clubName||'TTDM United')+' ';
   const dot=document.createElement('span');dot.className='club-status-dot';title.appendChild(dot);
   if(!data.configured){message.textContent=data.message||'Club data has not synced yet. Check the GitHub Actions workflow.';squadRows.innerHTML='<tr><td colspan="6">No squad data available yet.</td></tr>';squadCount.textContent='Awaiting data';resultsEl.innerHTML='<p class="club-empty">No match data available yet.</p>';return;}
@@ -84,10 +84,6 @@ function renderProClubs(data){
   const values=[['WINS',s.wins],['DRAWS',s.draws],['LOSSES',s.losses],['GOALS',s.goals],['SKILL RATING',s.skillRating]];
   statsEl.replaceChildren();
   values.forEach(([label,value])=>{const card=document.createElement('div');card.className='club-stat';const lab=document.createElement('span');lab.textContent=label;const val=document.createElement('strong');val.textContent=safeText(value);card.append(lab,val);statsEl.appendChild(card)});
-  const players=Array.isArray(data.players)?data.players:[];squadCount.textContent=`${players.length} players`;
-  squadRows.replaceChildren();
-  if(!players.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=6;td.textContent='No player stats returned for this squad yet.';tr.appendChild(td);squadRows.appendChild(tr)}
-  players.forEach(p=>{const tr=document.createElement('tr');[p.name,p.position,p.gamesPlayed,p.goals,p.assists,p.rating].forEach(v=>{const td=document.createElement('td');td.textContent=safeText(v);tr.appendChild(td)});squadRows.appendChild(tr)});
   const matches=Array.isArray(data.matches)?data.matches.slice(0,5):[];resultsEl.replaceChildren();
   if(!matches.length){const empty=document.createElement('p');empty.className='club-empty';empty.textContent='EA has not returned recent league matches yet.';resultsEl.appendChild(empty)}
   matches.forEach(m=>{const card=document.createElement('article');card.className='result-card';const outcome=document.createElement('div');outcome.className='result-outcome';outcome.textContent=safeText(m.result);const score=document.createElement('div');score.className='result-score';score.textContent=`${safeText(m.goals)} – ${safeText(m.goalsAgainst)}`;const opp=document.createElement('div');opp.className='result-opponent';opp.textContent=safeText(m.opponent);const date=document.createElement('div');date.className='result-date';date.textContent=m.timestamp?new Date(Number(m.timestamp)*1000).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'Recent match';card.append(outcome,score,opp,date);resultsEl.appendChild(card)});
