@@ -1,0 +1,30 @@
+name: Update TikTok follower count
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Refresh public follower count
+        run: python scripts/update_followers.py
+      - name: Commit updated count
+        run: |
+          if git diff --quiet -- followers.json; then
+            echo "Follower count has not changed."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add followers.json
+            git commit -m "Update TikTok follower count"
+            git push
+          fi
