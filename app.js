@@ -20,7 +20,8 @@ const DEFAULT_DRIVERS = [
   {name:'[AERT] Max Lorrai',wins:3},
   {name:'Alexgaitor',wins:1},
   {name:'Jouzam',wins:1},
-  {name:'Stoobler',wins:1}
+  {name:'Stoobler',wins:1},
+  {name:'chronic-teziq',wins:1}
 ];
 // These are sample entries to demonstrate the layout. Replace them with real results in Admin mode.
 const STORAGE_KEY = "dannymacf1-championship-v1";
