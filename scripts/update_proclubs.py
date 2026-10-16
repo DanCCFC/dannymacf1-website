@@ -16,20 +16,23 @@ CLUB_ID = os.environ.get("FC_CLUB_ID", "155779")
 PLATFORM = os.environ.get("FC_PLATFORM", "common-gen5")
 OUTPUT = "proclubs.json"
 
+
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/131.0.0.0 Safari/537.36"
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9",
+    "sec-ch-ua": '"Google Chrome";v="141", "Not?A_Brand";v="8", "Chromium";v="141"',
+    "sec-fetch-site": "same-origin",
+    "user-agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
     ),
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-GB,en;q=0.9",
     "Origin": "https://www.ea.com",
     "Referer": (
         "https://www.ea.com/en-gb/games/ea-sports-fc/"
         "clubs/overview?clubId=155779&platform=common-gen5"
     ),
 }
+
 
 
 def get_json(endpoint, params):
