@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="#0b0c10" name="theme-color"/>
+  <meta content="Join DannyMacF1 live on TikTok, meet the community, and climb the stream championship leaderboard." name="description"/>
+  <title>
+   DannyMacF1 — The Grid
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <div class="live-banner" hidden="" id="liveBanner">
+   <span class="live-banner-dot">
+   </span>
+   DANNYMACF1 IS LIVE —
+   <a href="https://www.tiktok.com/@DannyMacF1" rel="noopener noreferrer" target="_blank">
+    WATCH NOW ↗
+   </a>
+  </div>
+  <header class="site-header wrap">
+   <a aria-label="DannyMacF1 home" class="brand" href="#home">
+    <img alt="DannyMacF1 logo" class="brand-logo-img" src="assets/dannymacf1-horizontal.png"/>
+   </a>
+   <button aria-label="Toggle navigation" class="menu-toggle" id="menuToggle">
+    ☰
+   </button>
+   <nav id="nav">
+    <a href="#championship">
+     Leaderboard
+    </a>
+    <a href="#proclubs">
+     Pro Clubs
+    </a>
+    <a href="#faqs">
+     FAQs
+    </a>
+    <a href="#memberships">
+     Memberships
+    </a>
+    <a href="#partners">
+     Partners
+    </a>
+    <a class="nav-cta" href="https://www.tiktok.com/@DannyMacF1" rel="noopener" target="_blank">
+     Watch on TikTok ↗
+    </a>
+   </nav>
+  </header>
+  <main id="home">
+   <section class="hero wrap" id="home">
+    <div class="hero-copy">
+     <div class="eyebrow">
+      <span class="eyebrow-line">
+      </span>
+      DANNYMACF1
+     </div>
+     <h1>
+      THE HOME OF
+      <br/>
+      <span class="outline">
+       F1 26 LOBBIES.
+      </span>
+     </h1>
+     <p class="hero-text">
+      Watch the TikTok livestreams or join the Discord to get involved in the lobbies, chat and community.
+     </p>
+     <div class="hero-actions">
+      <a class="button button-primary" href="https://www.tiktok.com/@DannyMacF1" rel="noopener noreferrer" target="_blank">
+       <span class="play">
+        ▶
+       </span>
+       TIKTOK LIVESTREAMS ↗
+      </a>
+      <a class="button button-ghost" href="https://discord.com/" rel="noopener noreferrer" target="_blank">
+       JOIN THE DISCORD ↗
+      </a>
+     </div>
+     <a aria-label="View DannyMacF1 on TikTok" class="follower-card" href="https://www.tiktok.com/@DannyMacF1" rel="noopener noreferrer" target="_blank">
+      <span class="follower-label">
+       <span class="follower-live-dot">
+       </span>
+       TIKTOK FOLLOWERS
+      </span>
+      <strong id="followerCount">
+       —
+      </strong>
+      <span class="follower-foot" id="followerUpdated">
+       Follower count loading…
+      </span>
+     </a>
+    </div>
+    <div class="hero-art">
+     <img alt="Formula racing cars battling on track" class="hero-logo" src="assets/f1-lobby-hero.png"/>
+    </div>
+   </section>
+   <section class="section wrap" id="championship">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow">
+       <span class="eyebrow-line">
+       </span>
+       EVERY WIN COUNTS
+      </div>
+      <h2>
+       THE
+       <span class="accent">
+        CHAMPIONSHIP
+       </span>
+      </h2>
+     </div>
+     <p class="section-intro">
+      Championship wins from the F1 25 lobbies, listed by total wins. Ties follow the order in which each driver first won.
+     </p>
+    </div>
+    <div class="leaderboard-panel">
+     <div class="panel-top">
+      <div>
+       <span class="panel-kicker">
+        F1 25 LOBBY STANDINGS
+       </span>
+       <h3>
+        Driver standings
+        <span class="live-dot">
+        </span>
+       </h3>
+      </div>
+     </div>
+     <div class="table-wrap">
+      <table>
+       <thead>
+        <tr>
+         <th>
+          POS.
+         </th>
+         <th>
+          DRIVER / USERNAME
+         </th>
+         <th>
+          CHAMPIONSHIPS
+         </th>
+        </tr>
+       </thead>
+       <tbody id="leaderboardRows">
+       </tbody>
+      </table>
+     </div>
+     <div class="panel-bottom">
+      <span>
+       <span class="pulse">
+       </span>
+       F1 25 LOBBY CHAMPIONS
+      </span>
+      <span id="lastUpdated">
+       Updated when results are posted
+      </span>
+     </div>
+    </div>
+    <p class="fine-print">
+     FraserG, George, JoshsSzn, [FSR] DuneNY, FormulaKyle2311, oliverbroadford, Alexgaitor, Jouzam and Stoobler are each recorded with one win.
+    </p>
+   </section>
+
+   <!-- FAQs: PC hardware, sim-racing equipment and in-game camera settings. -->
+   <section class="section wrap faq-section" id="faqs">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow">
+       <span class="eyebrow-line"></span>
+       QUICK ANSWERS
+      </div>
+      <h2>THE <span class="accent">FAQs.</span></h2>
+     </div>
+     <p class="section-intro">My PC specs, sim-racing gear and F1 camera settings — all in one place.</p>
+    </div>
+
+    <div class="faq-grid">
+     <article class="faq-card">
+      <span class="faq-number">01 / PC BUILD</span>
+      <h3>What PC do I stream with?</h3>
+      <dl class="spec-list">
+       <div><dt>CPU</dt><dd>Intel Core i5-14400F</dd></div>
+       <div><dt>GPU</dt><dd>NVIDIA GeForce RTX 4060</dd></div>
+       <div><dt>RAM</dt><dd>32GB (2 × 16GB) DDR5, 5600MT/s</dd></div>
+      </dl>
+     </article>
+
+     <article class="faq-card">
+      <span class="faq-number">02 / SIM RACING</span>
+      <h3>What wheel and pedals do I use?</h3>
+      <dl class="spec-list">
+       <div><dt>Wheel</dt><dd>Fanatec F1 Esports V2</dd></div>
+       <div><dt>Wheel base</dt><dd>Fanatec ClubSport V2.5</dd></div>
+       <div><dt>Pedals</dt><dd>Fanatec CSL Pedals (no clutch)</dd></div>
+      </dl>
+      <p class="faq-note">Looking to emulate my setup? This is the closest bundle you can buy brand new.</p>
+      <a class="faq-link" href="https://www.fanatec.com/eu/en/p/sim-racing-bundles/r2r_csl_dd_qr2_f1e_5nm_eu/csl-dd-qr2-ready2race-f1-esports-bundle-eu" target="_blank" rel="noopener noreferrer">VIEW FANATEC BUNDLE ↗</a>
+     </article>
+
+     <article class="faq-card faq-card-wide">
+      <span class="faq-number">03 / F1 CAMERA</span>
+      <h3>What are my camera settings?</h3>
+      <p class="faq-note">Car-specific settings: <strong>Disabled</strong> · Edit camera settings: <strong>Global</strong> · Camera: <strong>TV Pod Offset</strong></p>
+      <dl class="camera-settings">
+       <div><dt>Field of view</dt><dd>-20</dd></div>
+       <div><dt>Offset: lateral</dt><dd>-11</dd></div>
+       <div><dt>Offset: horizontal</dt><dd>20</dd></div>
+       <div><dt>Offset: vertical</dt><dd>-20</dd></div>
+       <div><dt>Angle</dt><dd>-15</dd></div>
+       <div><dt>Near clip plane</dt><dd>20</dd></div>
+       <div><dt>Mirror angle</dt><dd>2</dd></div>
+       <div><dt>Camera shake</dt><dd>0</dd></div>
+      </dl>
+     </article>
+    </div>
+   </section>
+
+   <section class="section wrap" id="proclubs">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow">
+       <span class="eyebrow-line">
+       </span>
+       THE CLUBHOUSE
+      </div>
+      <h2>
+       TTDM
+       <span class="accent">
+        UNITED.
+       </span>
+      </h2>
+     </div>
+     <p class="section-intro">
+      The FC 27 Pro Clubs home for TTDM United. Check the squad, team record and recent results, powered by EA's publicly accessible club data.
+     </p>
+    </div>
+    <div class="proclubs-panel">
+     <div class="proclubs-top">
+      <div>
+       <span class="panel-kicker">
+        EA SPORTS FC 27 · PRO CLUBS
+       </span>
+       <h3 id="clubStatusTitle">
+        TTDM United
+        <span class="club-status-dot">
+        </span>
+       </h3>
+       <p id="clubStatusMessage">
+        Club statistics will appear here once the data sync is enabled.
+       </p>
+      </div>
+      <div class="club-platform">
+       CROSS-PLAY
+       <br/>
+       <b>
+        GEN 5
+       </b>
+      </div>
+     </div>
+     <div class="club-stats" id="clubStats">
+      <div class="club-stat">
+       <span>
+        WINS
+       </span>
+       <strong>
+        —
+       </strong>
+      </div>
+      <div class="club-stat">
+       <span>
+        DRAWS
+       </span>
+       <strong>
+        —
+       </strong>
+      </div>
+      <div class="club-stat">
+       <span>
+        LOSSES
+       </span>
+       <strong>
+        —
+       </strong>
+      </div>
+      <div class="club-stat">
+       <span>
+        GOALS
+       </span>
+       <strong>
+        —
+       </strong>
+      </div>
+      <div class="club-stat">
+       <span>
+        SKILL RATING
+       </span>
+       <strong>
+        —
+       </strong>
+      </div>
+     </div>
+     <div class="club-subhead">
+      <h4>
+       THE SQUAD
+      </h4>
+      <span id="squadCount">
+       Awaiting data
+      </span>
+     </div>
+     <div class="table-wrap">
+      <table class="squad-table">
+       <thead>
+        <tr>
+         <th>
+          PLAYER
+         </th>
+         <th>
+          POS.
+         </th>
+         <th>
+          APPS
+         </th>
+         <th>
+          G
+         </th>
+         <th>
+          A
+         </th>
+         <th>
+          AVG. RAT.
+         </th>
+        </tr>
+       </thead>
+       <tbody id="squadRows">
+        <tr>
+         <td colspan="6">
+          Squad stats will appear here after the first successful sync.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="club-subhead">
+      <h4>
+       RECENT RESULTS
+      </h4>
+      <span>
+       LAST 5 LEAGUE MATCHES
+      </span>
+     </div>
+     <div class="recent-results" id="recentResults">
+      <p class="club-empty">
+       Recent match results will appear here after the first successful sync.
+      </p>
+     </div>
+     <div class="club-foot">
+      <span id="clubUpdated">
+       Data sync not yet run
+      </span>
+      <a href="https://www.ea.com/games/ea-sports-fc/clubs/rankings" rel="noopener noreferrer" target="_blank">
+       FIND CLUBS ON EA ↗
+      </a>
+     </div>
+    </div>
+    <p class="fine-print">
+     Stats are sourced from EA's undocumented public endpoints and may be delayed or unavailable. This is a community-made feature and is not affiliated with or endorsed by EA.
+    </p>
+   </section>
+
+   <section class="membership-section" id="memberships">
+    <div class="wrap membership-inner">
+     <div class="section-head">
+      <div>
+       <div class="eyebrow">
+        <span class="eyebrow-line">
+        </span>
+        BACK THE PADDOCK
+       </div>
+       <h2>
+        CHOOSE YOUR
+        <span class="accent">
+         TIER.
+        </span>
+       </h2>
+      </div>
+      <p class="section-intro">
+       Support the streams, rep the community and get involved. Replace these cards with your actual TikTok subscription benefits and prices.
+      </p>
+     </div>
+     <div class="tier-grid">
+      <article class="tier-card">
+       <div class="tier-top">
+        <span class="tier-number">
+         01
+        </span>
+        <span class="tier-label">
+         THE CREW
+        </span>
+       </div>
+       <h3>
+        TTDM+
+       </h3>
+       <div class="tier-price">
+        £3.00
+        <span>
+         / month or Server Boost
+        </span>
+       </div>
+       <ul>
+        <li>
+         🌍 One track choice per lobby stream
+        </li>
+        <li>
+         🏁 Guaranteed F1 lobby access
+        </li>
+        <li>
+         ⚽ Guaranteed FC Clubs team access
+        </li>
+       </ul>
+       <a class="tier-link" href="https://www.tiktok.com/@DannyMacF1" rel="noopener" target="_blank">
+        JOIN VIA TIKTOK ↗
+       </a>
+      </article>
+      <article class="tier-card tier-featured">
+       <div class="featured-flag">
+        MORE TRACK CHOICES
+       </div>
+       <div class="tier-top">
+        <span class="tier-number">
+         02
+        </span>
+        <span class="tier-label">
+         LEVEL UP
+        </span>
+       </div>
+       <h3>
+        TTDM++
+       </h3>
+       <div class="tier-price">
+        £5.00
+        <span>
+         / month
+        </span>
+       </div>
+       <ul>
+        <li>
+         🌍🌍 Two guaranteed track choices per stream
+        </li>
+        <li>
+         🏁 Guaranteed F1 lobby access
+        </li>
+        <li>
+         ⚽ Guaranteed FC Clubs team access
+        </li>
+        <li>
+         🏎️ Guaranteed top-four car in realistic-grid lobbies
+        </li>
+       </ul>
+       <a class="tier-link" href="https://www.tiktok.com/@DannyMacF1" rel="noopener" target="_blank">
+        UPGRADE VIA TIKTOK ↗
+       </a>
+      </article>
+      <article class="tier-card">
+       <div class="tier-top">
+        <span class="tier-number">
+         03
+        </span>
+        <span class="tier-label">
+         ALL IN
+        </span>
+       </div>
+       <h3>
+        SUPER FAN
+       </h3>
+       <div class="tier-price">
+        TikTok
+        <span>
+         managed price
+        </span>
+       </div>
+       <ul>
+        <li>
+         🌟 Everything included in TTDM++
+        </li>
+        <li>
+         📱 Additional TikTok-related perks
+        </li>
+       </ul>
+       <a class="tier-link" href="https://www.tiktok.com/@DannyMacF1" rel="noopener" target="_blank">
+        BECOME A SUPER FAN ↗
+       </a>
+      </article>
+     </div>
+     <p class="fine-print">
+      Membership benefits and pricing shown as supplied. Confirm availability and the Super Fan price in TikTok.
+     </p>
+    </div>
+   </section>
+   <section class="section wrap" id="partners">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow">
+       <span class="eyebrow-line">
+       </span>
+       GOOD PEOPLE. GOOD GEAR.
+      </div>
+      <h2>
+       THE
+       <span class="accent">
+        PARTNERS.
+       </span>
+      </h2>
+     </div>
+     <p class="section-intro">
+      Brands and tools we rate. Partner with us or check out the links below.
+     </p>
+    </div>
+    <div class="partner-grid">
+     <!-- NordVPN: affiliate partner (listed first) -->
+     <a class="partner-card" href="https://go.nordvpn.net/aff_c?offer_id=612&amp;aff_id=133853&amp;url_id=14830" rel="sponsored noopener noreferrer" target="_blank">
+      <span class="partner-icon" aria-hidden="true">↗</span>
+      <span class="partner-logo-stage partner-logo-stage-wide">
+       <img class="partner-logo partner-logo-nordvpn" src="assets/partner-nordvpn.png" alt="NordVPN logo"/>
+      </span>
+      <span class="partner-label">PRIVACY &amp; SECURITY</span>
+      <strong>NordVPN</strong>
+      <small>Explore NordVPN · Affiliate link</small>
+     </a>
+     <!-- NordPass: affiliate partner -->
+     <a class="partner-card" href="https://go.nordpass.io/aff_c?offer_id=488&amp;aff_id=133853&amp;url_id=9356" rel="sponsored noopener noreferrer" target="_blank">
+      <span class="partner-icon" aria-hidden="true">↗</span>
+      <span class="partner-logo-stage partner-logo-stage-wide">
+       <img class="partner-logo partner-logo-nordpass" src="assets/partner-nordpass.png" alt="NordPass logo"/>
+      </span>
+      <span class="partner-label">PASSWORD MANAGER</span>
+      <strong>NordPass</strong>
+      <small>Explore NordPass · Affiliate link</small>
+     </a>
+     <!-- LOADED: formerly CDKeys -->
+     <a class="partner-card" href="https://www.loaded.com/" rel="noopener noreferrer" target="_blank">
+      <span class="partner-icon" aria-hidden="true">↗</span>
+      <span class="partner-logo-stage partner-logo-stage-icon">
+       <img class="partner-logo partner-logo-loaded" src="assets/partner-loaded.png" alt="LOADED logo"/>
+      </span>
+      <span class="partner-label">GAMES &amp; DIGITAL DEALS</span>
+      <strong>LOADED</strong>
+      <small>Formerly CDKeys · Visit LOADED</small>
+     </a>
+     <!-- Vitesse Racing League -->
+     <a class="partner-card" href="https://vitesseracingleague.co.uk/" rel="noopener noreferrer" target="_blank">
+      <span class="partner-icon" aria-hidden="true">↗</span>
+      <span class="partner-logo-stage partner-logo-stage-icon">
+       <img class="partner-logo partner-logo-vitesse" src="assets/partner-vitesse.png" alt="Vitesse Racing League logo"/>
+      </span>
+      <span class="partner-label">RACING COMMUNITY</span>
+      <strong>Vitesse Racing League</strong>
+      <small>Visit the league website</small>
+     </a>
+    </div>
+    <p class="affiliate-note">
+     NordVPN and NordPass links are affiliate links, so DannyMacF1 may earn a commission from qualifying purchases at no extra cost to you. LOADED (formerly CDKeys) and Vitesse Racing League are linked as partner resources.
+    </p>
+   </section>
+  </main>
+  <footer class="footer">
+   <div class="wrap footer-inner">
+    <a class="brand" href="#home">
+     <img alt="DannyMacF1 logo" class="brand-logo-img" src="assets/dannymacf1-horizontal.png"/>
+    </a>
+    <span>
+     BUILT FOR THE PADDOCK. ©
+     <span id="year">
+     </span>
+     DANNYMACF1
+    </span>
+    <a href="#home">
+     BACK TO TOP ↑
+    </a>
+   </div>
+  </footer>
+  <script src="app.js">
+  </script>
+ </body>
+</html>
+

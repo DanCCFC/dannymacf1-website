@@ -1,0 +1,7 @@
+{
+  "configured": false,
+  "clubName": "TTDM United",
+  "platform": "common-gen5",
+  "message": "Club stats have not synced yet. Run the Update TTDM United Pro Clubs data workflow in GitHub Actions.",
+  "updatedAt": null
+}

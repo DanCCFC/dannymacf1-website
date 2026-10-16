@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Leaderboard Admin — DannyMacF1
+  </title>
+  <link href="styles.css" rel="stylesheet"/>
+  <style>
+   .admin-wrap{max-width:760px;padding-top:55px;padding-bottom:80px}.admin-wrap h1{font:900 52px/.95 var(--display)}.admin-note{padding:16px;border:1px solid #806b28;background:#211f16;color:#e7d7a0;font-size:12px;margin:22px 0}.admin-row{display:grid;grid-template-columns:1fr 130px 40px;gap:10px;margin:10px 0}.admin-row input{width:100%;background:#11141a;border:1px solid #39404b;color:white;padding:12px;font:inherit}.admin-row button,.admin-controls button{background:var(--lime);border:0;padding:10px 13px;font-weight:800;cursor:pointer}.admin-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.admin-controls .secondary{background:transparent;color:white;border:1px solid #444}.admin-wrap label{font-size:10px;color:#aeb6c3;letter-spacing:1px;font-weight:800}.back-link{display:inline-block;margin-bottom:25px;color:var(--lime);font-size:12px}@media(max-width:500px){.admin-row{grid-template-columns:1fr 85px 38px}}
+  </style>
+ </head>
+ <body>
+  <div class="topline">
+   <span class="pulse">
+   </span>
+   ADMIN AREA
+   <span class="topline-right">
+    DANNYMACF1
+   </span>
+  </div>
+  <main class="wrap admin-wrap">
+   <a class="back-link" href="index.html">
+    ← BACK TO WEBSITE
+   </a>
+   <div class="eyebrow">
+    <span class="eyebrow-line">
+    </span>
+    COMMUNITY CONTROL
+   </div>
+   <h1>
+    LEADERBOARD
+    <br/>
+    <span class="accent">
+     ADMIN.
+    </span>
+   </h1>
+   <p class="section-intro">
+    Add competitors, update championship wins and save the standings.
+   </p>
+   <div class="admin-note">
+    <strong>
+     Important:
+    </strong>
+    This starter admin stores results in this browser only. It is not a secure login and does not sync to other visitors' devices. For a live public leaderboard with secure admin access, connect a database and authentication service before launch.
+   </div>
+   <div id="adminRows">
+   </div>
+   <div class="admin-controls">
+    <button id="addRow">
+     + ADD DRIVER
+    </button>
+    <button id="save">
+     SAVE STANDINGS
+    </button>
+    <button class="secondary" id="reset">
+     RESET SAMPLE DATA
+    </button>
+   </div>
+   <p class="fine-print" id="message" role="status">
+   </p>
+  </main>
+  <script>
+   const KEY="dannymacf1-championship-v1";const SAMPLE=[{name:"Pitlane Pro",wins:12},{name:"TurboTash",wins:9},{name:"ApexAndy",wins:7},{name:"LateBraker",wins:5},{name:"GridRunner",wins:3}];
+let rows=[];try{rows=JSON.parse(localStorage.getItem(KEY))||SAMPLE}catch{rows=SAMPLE}
+const host=document.getElementById("adminRows");
+function draw(){host.innerHTML='<div class="admin-row"><label>USERNAME</label><label>CHAMPIONSHIP WINS</label><span></span></div>';rows.forEach((r,i)=>{const row=document.createElement("div");row.className="admin-row";row.innerHTML=`<input aria-label="Driver username" maxlength="32" value="${esc(r.name)}"><input aria-label="Championship wins" type="number" min="0" step="1" value="${Math.max(0,Number(r.wins)||0)}"><button aria-label="Remove driver">×</button>`;row.children[0].addEventListener("input",e=>rows[i].name=e.target.value);row.children[1].addEventListener("input",e=>rows[i].wins=Math.max(0,parseInt(e.target.value||"0",10)));row.children[2].addEventListener("click",()=>{rows.splice(i,1);draw()});host.appendChild(row)})}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("addRow").onclick=()=>{rows.push({name:"New driver",wins:0});draw()};
+document.getElementById("save").onclick=()=>{rows=rows.filter(r=>r.name.trim()).map(r=>({name:r.name.trim(),wins:Math.max(0,parseInt(r.wins,10)||0)}));localStorage.setItem(KEY,JSON.stringify(rows));localStorage.setItem(KEY+"-updated",new Date().toISOString());document.getElementById("message").textContent="Saved in this browser. These changes will show on the homepage in this browser only.";draw()};
+document.getElementById("reset").onclick=()=>{if(confirm("Reset to sample drivers?")){rows=SAMPLE.map(x=>({...x}));localStorage.removeItem(KEY);localStorage.removeItem(KEY+"-updated");draw();document.getElementById("message").textContent="Sample data restored."}};
+draw();
+  </script>
+ </body>
+</html>
+
