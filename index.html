@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261017-10" rel="stylesheet"/>
+  <link href="styles.css?v=20261017-11" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -209,31 +209,27 @@
      </div>
     </div>
 
-    <div class="penrose-format-panel">
-     <div class="penrose-squad-heading">
+    <div class="penrose-results-panel">
+     <div class="penrose-results-header">
       <div>
-       <span class="penrose-kicker">OFFICIAL COMPETITION FORMAT</span>
-       <h3>SIX WEEKS. TWO GROUPS. ONE FINAL.</h3>
+       <span class="penrose-kicker">OUR CAMPAIGN</span>
+       <h3>RACE RESULTS.</h3>
+       <p>We'll record our finish, points and notes after each event. Later rounds remain provisional until our progression is confirmed.</p>
+      </div>
+      <div class="penrose-group-status">
+       <span>GROUP ASSIGNMENT</span>
+       <strong id="penroseGroupStatus">To be confirmed</strong>
       </div>
      </div>
-     <div class="penrose-groups">
-      <div class="penrose-group"><strong>GROUP A</strong><span>Higher Ability</span></div>
-      <div class="penrose-group"><strong>GROUP B</strong><span>Lower Ability</span></div>
-      <p>Placement determines the group. No team is eliminated in Week 1, and each group then runs its own competition under the same sporting regulations.</p>
-     </div>
-     <ol class="penrose-rounds">
-      <li><span>WEEK 1</span><strong>Placement Round</strong><small>Placement only · no elimination</small></li>
-      <li><span>WEEK 2</span><strong>Group Race 1</strong><small>No elimination</small></li>
-      <li><span>WEEK 3</span><strong>Group Race 2</strong><small>Progression depends on group size</small></li>
-      <li><span>WEEK 4</span><strong>Knockout</strong><small>Teams compete to progress</small></li>
-      <li><span>WEEK 5</span><strong>Semi-Final</strong><small>Five teams qualify for each Final</small></li>
-      <li class="penrose-final-round"><span>WEEK 6</span><strong>Group Final</strong><small>Five teams · 20 drivers · group champion crowned</small></li>
+     <div class="penrose-results-summary" id="penroseResultsSummary">No race results recorded yet.</div>
+     <ol class="penrose-results-list" id="penroseResultsRounds" aria-live="polite">
+      <li class="penrose-result-row penrose-result-next">
+       <span class="penrose-result-week">WEEK 1</span>
+       <div class="penrose-result-round"><strong>Placement Round</strong><span>Awaiting race result</span></div>
+       <div class="penrose-result-stats"><span>FINISH <b>—</b></span><span>POINTS <b>—</b></span></div>
+      </li>
      </ol>
-     <div class="penrose-progression-options">
-      <div><span>IF A GROUP STARTS WITH 15 TEAMS</span><strong>15 → 10 → 7 → 5</strong><small>Group Race 2 → Knockout → Semi-Final</small></div>
-      <div><span>IF A GROUP STARTS WITH 10 TEAMS</span><strong>10 → 8 → 6 → 5</strong><small>Group Race 2 → Knockout → Semi-Final</small></div>
-     </div>
-     <p class="penrose-format-note">The final progression depends on the confirmed number of teams per group. Placement has no eliminations; the Group A and Group B Finals are run independently.</p>
+     <p class="penrose-results-note">Placement has no eliminations. The group and progression will be updated once officially confirmed.</p>
     </div>
    </section>
 
@@ -717,7 +713,7 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <script src="app.js?v=20261017-4"></script>
+  <script src="app.js?v=20261017-5"></script>
  </body>
 </html>
 
