@@ -2,27 +2,27 @@
 // Edit the names and wins here if you want to change the built-in starting data.
 
 const DEFAULT_DRIVERS = [
-  {name:'otke44',wins:3,country:'barbados'},
-  {name:'DannyMacF1',wins:13,country:'wales'},
-  {name:'evthelegend46',wins:6,country:'ireland'},
-  {name:'Rhysvoaden1',wins:9,country:'britain'},
-  {name:'FraserG',wins:1,country:'britain'},
-  {name:'Parv09',wins:2},
-  {name:'Roca F1',wins:5,country:'scotland'},
-  {name:'zchxq',wins:5,country:'britain'},
-  {name:'PRENClipz',wins:1,country:'britain'},
-  {name:'JoshsSzn',wins:1,country:'britain'},
-  {name:'pekima',wins:2,country:'netherlands'},
-  {name:'[FSR] DuneNY',wins:1,country:'britain'},
-  {name:'FormulaKyle2311',wins:1,country:'britain'},
-  {name:'oliverbroadford',wins:1,country:'wales'},
-  {name:'TurboJG123',wins:14,country:'britain'},
-  {name:'RogueMarshal',wins:2,country:'britain'},
-  {name:'[AERT] Max Lorrai',wins:3,country:'netherlands'},
-  {name:'Alexgaitor',wins:1,country:'britain'},
-  {name:'Jouzam',wins:1,country:'britain'},
-  {name:'Stoobler',wins:1,country:'britain'},
-  {name:'chronic-teziq',wins:1,country:'ireland'}
+  {name:"otke44",wins:3,country:"barbados",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"DannyMacF1",wins:13,country:"wales",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"evthelegend46",wins:6,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Rhysvoaden1",wins:9,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"FraserG",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Parv09",wins:2,platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Roca F1",wins:5,country:"scotland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"zchxq",wins:5,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"PRENClipz",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"JoshsSzn",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"pekima",wins:2,country:"netherlands",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"[FSR] DuneNY",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"FormulaKyle2311",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"oliverbroadford",wins:1,country:"wales",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"TurboJG123",wins:14,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"RogueMarshal",wins:2,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"[AERT] Max Lorrai",wins:3,country:"netherlands",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Alexgaitor",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Jouzam",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"Stoobler",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""},
+  {name:"chronic-teziq",wins:1,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:""}
 ];
 
 // These are sample entries to demonstrate the layout. Replace them with real results in Admin mode.
