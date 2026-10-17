@@ -515,6 +515,32 @@
     </a>
    </div>
   </footer>
+  <!-- Driver profile overlay: uses nationality flag/initials, never an invented portrait. -->
+  <div class="driver-profile-modal" id="driverProfileModal" hidden>
+   <section class="driver-profile-card" role="dialog" aria-modal="true" aria-labelledby="profileName">
+    <button class="driver-profile-close" id="driverProfileClose" type="button" aria-label="Close driver profile">×</button>
+    <div class="driver-profile-topline">DANNYMACF1 CHAMPIONSHIP · DRIVER PROFILE</div>
+    <div class="driver-profile-identity">
+     <div class="driver-profile-flag" id="profileFlag" aria-hidden="true"></div>
+     <div class="driver-profile-heading">
+      <p id="profileCountry">Nationality not added</p>
+      <h2 id="profileName">Driver name</h2>
+     </div>
+    </div>
+    <div class="driver-profile-trophy">
+     <span class="driver-profile-trophy-kicker">CHAMPIONSHIP RECORD</span>
+     <strong id="profileChampionshipCount">0</strong>
+     <span id="profileChampionshipLabel">CHAMPIONSHIP WINS</span>
+    </div>
+    <div class="driver-profile-details">
+     <div class="driver-profile-detail"><span>GAMING PLATFORM</span><strong id="profilePlatform">Not added yet</strong></div>
+     <div class="driver-profile-detail"><span>FAVOURITE F1 TEAM</span><strong id="profileF1Team">Not added yet</strong></div>
+     <div class="driver-profile-detail"><span>FAVOURITE F1 DRIVER</span><strong id="profileF1Driver">Not added yet</strong></div>
+     <div class="driver-profile-detail"><span>FAVOURITE FOOTBALL TEAM</span><strong id="profileFootballTeam">Not added yet</strong></div>
+    </div>
+    <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
+   </section>
+  </div>
   <script src="app.js">
   </script>
  </body>
