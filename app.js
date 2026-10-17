@@ -382,6 +382,7 @@ function renderHostedSessionResults(event, sessionType) {
 
   const session = getHostedSession(event, sessionType) || {};
   const results = Array.isArray(session.results) ? session.results : [];
+  const isQualifyingSession = sessionType.key === "qualifying" || sessionType.key === "sprintQualifying";
   if (!results.length) {
     const empty = document.createElement("div");
     empty.className = "hosted-event-results-empty";
