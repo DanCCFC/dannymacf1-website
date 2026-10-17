@@ -4408,3 +4408,54 @@ body.profile-modal-open { overflow: hidden; }
     letter-spacing: .9px;
   }
 }
+
+
+/* Simplified wins stat: one short card with the count and label centred together. */
+.driver-profile-trophy {
+  width: 100%;
+  min-height: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 22px;
+}
+.driver-profile-trophy-count {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+.driver-profile-trophy-count strong {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(72px, 11vw, 94px);
+  line-height: .86;
+  letter-spacing: -1px;
+}
+.driver-profile-trophy-count span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1.1px;
+}
+@media (max-width: 480px) {
+  .driver-profile-trophy {
+    min-height: 116px;
+    padding: 14px 16px;
+  }
+  .driver-profile-trophy-count strong {
+    font-size: clamp(64px, 17vw, 80px);
+  }
+  .driver-profile-trophy-count span {
+    font-size: 9px;
+    letter-spacing: .9px;
+  }
+}
