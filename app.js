@@ -457,7 +457,30 @@ async function refreshHostedEvents() {
   try {
     const response = await fetch("./hosted-events.json?ts=" + Date.now(), {cache:"no-store"});
     if (!response.ok) throw new Error("Hosted events unavailable");
-    const data = await response.json();
+    const raw = await response.text();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      // Recover common manual-edit mistakes in this pretty-printed JSON file.
+      const lines = raw.split("\n");
+      for (let pass = 0; pass < 3; pass++) {
+        for (let i = 0; i < lines.length - 1; i++) {
+          if (/,\s*$/.test(lines[i]) && /^\s*[}\]]/.test(lines[i + 1])) {
+            lines[i] = lines[i].replace(/,\s*$/, "");
+          }
+        }
+        for (let i = 0; i < lines.length - 1; i++) {
+          const current = lines[i].trim();
+          const next = lines[i + 1].trim();
+          if (!current || !next || current.endsWith(",") || current.endsWith("{") || current.endsWith("[")) continue;
+          if (/^"[^"]+"\s*:/.test(next) || (next.startsWith("{") && current.endsWith("}"))) {
+            lines[i] = lines[i].replace(/\s*$/, "") + ",";
+          }
+        }
+      }
+      data = JSON.parse(lines.join("\n"));
+    }
     hostedRaceEvents = Array.isArray(data.events) ? data.events : [];
     renderHostedEvents(hostedRaceEvents);
   } catch {
