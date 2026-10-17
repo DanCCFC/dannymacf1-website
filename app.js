@@ -230,6 +230,252 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeDriverProfile();
 });
 
+
+/* Hosted race events archive and results modal. */
+const HOSTED_SESSION_TYPES = [
+  {key:"sprintQualifying", aliases:["sprint_qualifying","sprint-qualifying"], label:"Sprint Qualifying"},
+  {key:"sprint", aliases:[], label:"Sprint"},
+  {key:"qualifying", aliases:["quali"], label:"Qualifying"},
+  {key:"race", aliases:["grandPrix"], label:"Race"}
+];
+let hostedRaceEvents = [];
+let activeHostedEvent = null;
+
+function getHostedSession(event, sessionType) {
+  const sessions = event && event.sessions && typeof event.sessions === "object" ? event.sessions : {};
+  for (const key of [sessionType.key, ...sessionType.aliases]) {
+    if (Object.prototype.hasOwnProperty.call(sessions, key)) return sessions[key];
+  }
+  return null;
+}
+
+function renderHostedEvents(events) {
+  const grid = document.getElementById("hostedEventsGrid");
+  const count = document.getElementById("hostedEventsCount");
+  if (!grid || !count) return;
+  grid.replaceChildren();
+
+  if (!Array.isArray(events) || events.length === 0) {
+    count.textContent = "0 EVENTS";
+    const empty = document.createElement("div");
+    empty.className = "hosted-events-empty";
+    const heading = document.createElement("strong");
+    heading.textContent = "The archive is ready";
+    const detail = document.createElement("span");
+    detail.textContent = "Hosted events will appear here once their event details and results have been added.";
+    empty.append(heading, detail);
+    grid.appendChild(empty);
+    return;
+  }
+
+  count.textContent = events.length + (events.length === 1 ? " EVENT" : " EVENTS");
+  events.forEach((event, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "hosted-event-card";
+    button.addEventListener("click", () => openHostedEvent(event));
+
+    const top = document.createElement("div");
+    top.className = "hosted-event-card-top";
+    const date = document.createElement("span");
+    date.className = "hosted-event-date";
+    date.textContent = event.date || "Date not added";
+    const number = document.createElement("span");
+    number.className = "hosted-event-index";
+    number.textContent = String(index + 1).padStart(2, "0");
+    top.append(date, number);
+
+    const title = document.createElement("strong");
+    title.className = "hosted-event-title";
+    title.textContent = event.title || "Hosted race event";
+    const track = document.createElement("span");
+    track.className = "hosted-event-track";
+    track.textContent = event.track || "Circuit not added";
+
+    const pills = document.createElement("span");
+    pills.className = "hosted-event-session-pills";
+    const sessions = HOSTED_SESSION_TYPES.filter(type => getHostedSession(event, type));
+    sessions.forEach(type => {
+      const pill = document.createElement("span");
+      pill.textContent = type.label;
+      pills.appendChild(pill);
+    });
+    if (!sessions.length) {
+      const pill = document.createElement("span");
+      pill.textContent = "Results pending";
+      pills.appendChild(pill);
+    }
+
+    const footer = document.createElement("span");
+    footer.className = "hosted-event-card-footer";
+    footer.append(document.createTextNode("VIEW EVENT RESULTS"));
+    const arrow = document.createElement("span");
+    arrow.textContent = "↗";
+    arrow.setAttribute("aria-hidden", "true");
+    footer.appendChild(arrow);
+
+    button.append(top, title, track, pills, footer);
+    grid.appendChild(button);
+  });
+}
+
+function openHostedEvent(event) {
+  const modal = document.getElementById("hostedEventModal");
+  if (!modal) return;
+  activeHostedEvent = event;
+  document.getElementById("hostedEventModalTitle").textContent = event.title || "Hosted race event";
+  const meta = [event.track, event.date, event.game].filter(Boolean);
+  document.getElementById("hostedEventModalMeta").textContent = meta.join(" · ") || "Event details not added yet";
+  renderHostedEventTabs(event);
+  modal.hidden = false;
+  document.body.classList.add("profile-modal-open");
+  document.getElementById("hostedEventClose").focus();
+}
+
+function closeHostedEvent() {
+  const modal = document.getElementById("hostedEventModal");
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  document.body.classList.remove("profile-modal-open");
+  activeHostedEvent = null;
+}
+
+function renderHostedEventTabs(event, preferredKey) {
+  const tabs = document.getElementById("hostedEventTabs");
+  const content = document.getElementById("hostedEventResults");
+  if (!tabs || !content) return;
+  tabs.replaceChildren();
+  content.replaceChildren();
+
+  const available = HOSTED_SESSION_TYPES.filter(type => getHostedSession(event, type) !== null);
+  if (!available.length) {
+    const empty = document.createElement("div");
+    empty.className = "hosted-event-results-empty";
+    empty.textContent = "Qualifying and race results have not been added for this event yet.";
+    content.appendChild(empty);
+    return;
+  }
+
+  const active = available.find(type => type.key === preferredKey)
+    || available.find(type => type.key === "race")
+    || available.find(type => type.key === "qualifying")
+    || available[0];
+
+  available.forEach(type => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "hosted-event-tab" + (type.key === active.key ? " is-active" : "");
+    button.role = "tab";
+    button.setAttribute("aria-selected", type.key === active.key ? "true" : "false");
+    button.textContent = type.label;
+    button.addEventListener("click", () => renderHostedEventTabs(event, type.key));
+    tabs.appendChild(button);
+  });
+
+  renderHostedSessionResults(event, active);
+}
+
+function renderHostedSessionResults(event, sessionType) {
+  const container = document.getElementById("hostedEventResults");
+  if (!container) return;
+  container.replaceChildren();
+
+  const session = getHostedSession(event, sessionType) || {};
+  const results = Array.isArray(session.results) ? session.results : [];
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "hosted-event-results-empty";
+    empty.textContent = "No " + sessionType.label.toLowerCase() + " results have been added yet.";
+    container.appendChild(empty);
+    return;
+  }
+
+  const wrap = document.createElement("div");
+  wrap.className = "hosted-event-table-wrap";
+  const table = document.createElement("table");
+  table.className = "hosted-event-results-table";
+  const keys = [
+    {key:"position", aliases:["pos","place"], label:"POS.", show:true},
+    {key:"driver", aliases:["name","driverName"], label:"DRIVER", show:true},
+    {key:"team", aliases:["constructor"], label:"TEAM", show:results.some(r => r.team || r.constructor)},
+    {key:"time", aliases:["bestLap","fastestLap","timeOrGap"], label:"TIME / LAP", show:results.some(r => r.time || r.bestLap || r.fastestLap || r.timeOrGap)},
+    {key:"gap", aliases:["interval"], label:"GAP", show:results.some(r => r.gap || r.interval)},
+    {key:"points", aliases:["pts"], label:"PTS", show:results.some(r => r.points !== undefined && r.points !== null && r.points !== "")},
+    {key:"laps", aliases:["lapsCompleted"], label:"LAPS", show:results.some(r => r.laps !== undefined && r.laps !== null && r.laps !== "")},
+    {key:"status", aliases:[], label:"STATUS", show:results.some(r => r.status)}
+  ].filter(column => column.show);
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  keys.forEach(column => {
+    const th = document.createElement("th");
+    th.textContent = column.label;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  results.slice().sort((left, right) =>
+    Number(left.position ?? left.pos ?? left.place ?? 999) - Number(right.position ?? right.pos ?? right.place ?? 999)
+  ).forEach(result => {
+    const row = document.createElement("tr");
+    keys.forEach(column => {
+      const td = document.createElement("td");
+      let value = result[column.key];
+      if (value === undefined || value === null || value === "") {
+        for (const alias of column.aliases) {
+          if (result[alias] !== undefined && result[alias] !== null && result[alias] !== "") {
+            value = result[alias];
+            break;
+          }
+        }
+      }
+      td.textContent = value === undefined || value === null || value === "" ? "—" : String(value);
+      if (column.key === "position") td.className = "hosted-event-position";
+      if (column.key === "driver") td.className = "hosted-event-driver-cell";
+      tbody.appendChild ? null : null;
+      row.appendChild(td);
+    });
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  container.appendChild(wrap);
+
+  if (session.note) {
+    const note = document.createElement("p");
+    note.className = "hosted-event-session-note";
+    note.textContent = String(session.note);
+    container.appendChild(note);
+  }
+}
+
+async function refreshHostedEvents() {
+  const grid = document.getElementById("hostedEventsGrid");
+  if (!grid) return;
+  try {
+    const response = await fetch("./hosted-events.json?ts=" + Date.now(), {cache:"no-store"});
+    if (!response.ok) throw new Error("Hosted events unavailable");
+    const data = await response.json();
+    hostedRaceEvents = Array.isArray(data.events) ? data.events : [];
+    renderHostedEvents(hostedRaceEvents);
+  } catch {
+    renderHostedEvents([]);
+    const grid = document.getElementById("hostedEventsGrid");
+    const empty = grid && grid.querySelector(".hosted-events-empty");
+    if (empty) empty.lastChild.textContent = "The hosted-race archive could not be loaded. Please try again later.";
+  }
+}
+
+document.addEventListener("click", event => {
+  if (event.target.closest("#hostedEventClose") || event.target.id === "hostedEventModal") closeHostedEvent();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeHostedEvent();
+});
+refreshHostedEvents();
+
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("nav").classList.toggle("open"));
