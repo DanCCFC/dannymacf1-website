@@ -403,7 +403,7 @@ function renderHostedSessionResults(event, sessionType) {
     {key:"gap", aliases:["interval"], label:"GAP", show:!isQualifyingSession && results.some(r => r.gap || r.interval)},
     {key:"points", aliases:["pts"], label:"PTS", show:results.some(r => r.points !== undefined && r.points !== null && r.points !== "")},
     {key:"laps", aliases:["lapsCompleted"], label:"LAPS", show:results.some(r => r.laps !== undefined && r.laps !== null && r.laps !== "")},
-    {key:"status", aliases:[], label:"STATUS", show:results.some(r => r.status)}
+    {key:"status", aliases:[], label:"STATUS", show:!isQualifyingSession && results.some(r => r.status)}
   ].filter(column => column.show);
 
   const thead = document.createElement("thead");
