@@ -1,0 +1,68 @@
+{
+  "competition": "Penrose Cup",
+  "group": null,
+  "groupStatus": "To be confirmed after the Placement Round",
+  "updatedAt": null,
+  "rounds": [
+    {
+      "week": 1,
+      "name": "Placement Round",
+      "status": "up-next",
+      "statusLabel": "Awaiting race",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": "Placement only · no elimination"
+    },
+    {
+      "week": 2,
+      "name": "Group Race 1",
+      "status": "pending",
+      "statusLabel": "Awaiting placement",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": "Group to be confirmed after placement"
+    },
+    {
+      "week": 3,
+      "name": "Group Race 2",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 4,
+      "name": "Knockout",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 5,
+      "name": "Semi-Final",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 6,
+      "name": "Group Final",
+      "status": "conditional",
+      "statusLabel": "Subject to qualification",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    }
+  ]
+}
