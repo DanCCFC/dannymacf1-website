@@ -4223,3 +4223,46 @@ body.profile-modal-open { overflow: hidden; }
   .driver-profile-detail { padding: 12px 13px; }
   .driver-profile-trophy { padding: 16px; }
 }
+
+
+/* Driver racing number displayed to the right of the profile name */
+.driver-profile-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+.driver-profile-name-row h2 {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.driver-number-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  min-height: 54px;
+  padding: 7px 11px;
+  border: 1px solid rgba(159,202,255,.55);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #9fcaff, #5ca5fb);
+  color: #07152f;
+  font: 900 28px/.9 var(--display);
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 8px 22px rgba(76,153,247,.18);
+}
+.driver-number-badge[hidden] {
+  display: none !important;
+}
+@media (max-width: 480px) {
+  .driver-profile-name-row { gap: 8px; }
+  .driver-number-badge {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px 8px;
+    border-radius: 9px;
+    font-size: 23px;
+  }
+}
