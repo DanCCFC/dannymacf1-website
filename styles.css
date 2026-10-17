@@ -4003,11 +4003,11 @@ td:first-child
 
 #championship .driver-flag {
   display: inline-block;
-  width: 22px;
-  height: 15px;
-  flex: 0 0 22px;
-  object-fit: cover;
-  border-radius: 2px;
+  width: 36px;
+  height: 24px;
+  flex: 0 0 36px;
+  object-fit: contain;
+  border-radius: 3px;
   vertical-align: middle;
 }
 
@@ -4022,8 +4022,8 @@ td:first-child
   }
 
   #championship .driver-flag {
-    width: 19px;
-    height: 13px;
-    flex-basis: 19px;
+    width: 30px;
+    height: 20px;
+    flex-basis: 30px;
   }
 }
