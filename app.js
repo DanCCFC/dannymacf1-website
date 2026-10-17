@@ -286,6 +286,92 @@ document.querySelectorAll(".penrose-driver[data-driver]").forEach(button => {
   });
 });
 
+// Penrose Cup results: public snapshot is stored separately so each round can be updated without changing the layout.
+async function refreshPenroseResults() {
+  const list = document.getElementById("penroseResultsRounds");
+  const group = document.getElementById("penroseGroupStatus");
+  const summary = document.getElementById("penroseResultsSummary");
+  if (!list || !group || !summary) return;
+
+  try {
+    const response = await fetch("./penrose-results.json?ts=" + Date.now(), {cache: "no-store"});
+    if (!response.ok) throw new Error("Penrose results unavailable");
+    const data = await response.json();
+    group.textContent = data.group || data.groupStatus || "To be confirmed after placement";
+
+    const rounds = Array.isArray(data.rounds) ? data.rounds : [];
+    list.replaceChildren();
+    const recorded = rounds.filter(round =>
+      round.status === "complete" ||
+      round.finish !== null && round.finish !== undefined ||
+      round.points !== null && round.points !== undefined ||
+      Boolean(round.result)
+    ).length;
+
+    summary.textContent = recorded
+      ? recorded + " of " + rounds.length + " round" + (rounds.length === 1 ? "" : "s") + " with results recorded"
+      : "No race results recorded yet.";
+
+    rounds.forEach(round => {
+      const item = document.createElement("li");
+      const status = String(round.status || "pending").toLowerCase().replace(/[^a-z0-9-]/g, "");
+      item.className = "penrose-result-row penrose-result-" + status;
+
+      const week = document.createElement("span");
+      week.className = "penrose-result-week";
+      week.textContent = "WEEK " + String(round.week ?? "—");
+
+      const info = document.createElement("div");
+      info.className = "penrose-result-round";
+      const title = document.createElement("strong");
+      title.textContent = round.name || "Race round";
+      const state = document.createElement("span");
+      state.className = "penrose-result-state";
+      state.textContent = round.statusLabel || (status === "complete" ? "Result recorded" : "Awaiting update");
+      info.append(title, state);
+      if (round.result) {
+        const outcome = document.createElement("span");
+        outcome.className = "penrose-result-outcome";
+        outcome.textContent = String(round.result);
+        info.appendChild(outcome);
+      }
+      if (round.notes) {
+        const note = document.createElement("small");
+        note.className = "penrose-result-note";
+        note.textContent = String(round.notes);
+        info.appendChild(note);
+      }
+
+      const stats = document.createElement("div");
+      stats.className = "penrose-result-stats";
+      [
+        ["FINISH", round.finish === null || round.finish === undefined || round.finish === "" ? "—" : "P" + round.finish],
+        ["POINTS", round.points === null || round.points === undefined || round.points === "" ? "—" : String(round.points)]
+      ].forEach(([label, value]) => {
+        const metric = document.createElement("span");
+        metric.append(document.createTextNode(label + " "));
+        const number = document.createElement("b");
+        number.textContent = value;
+        metric.appendChild(number);
+        stats.appendChild(metric);
+      });
+
+      item.append(week, info, stats);
+      list.appendChild(item);
+    });
+
+    if (!rounds.length) {
+      const empty = document.createElement("li");
+      empty.className = "penrose-results-empty";
+      empty.textContent = "Race rounds will appear here when the schedule is confirmed.";
+      list.appendChild(empty);
+    }
+  } catch {
+    summary.textContent = "Results tracker temporarily unavailable.";
+  }
+}
+refreshPenroseResults();
+
 // Optional local demo admin: open admin.html. Changes are stored only in this browser.
 
 
