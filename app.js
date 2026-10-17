@@ -512,8 +512,45 @@ refreshHostedEvents();
 
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("year").textContent=new Date().getFullYear();
-document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("nav").classList.toggle("open"));
-document.querySelectorAll("#nav a").forEach(a=>a.addEventListener("click",()=>document.getElementById("nav").classList.remove("open")));
+
+const siteNav = document.getElementById("nav");
+const mobileNavToggle = document.getElementById("menuToggle");
+const f126Dropdown = document.getElementById("f126Dropdown");
+const f126Toggle = document.getElementById("f126Toggle");
+const f126Menu = document.getElementById("f126Menu");
+
+function closeF126Dropdown() {
+  if (!f126Dropdown || !f126Toggle || !f126Menu) return;
+  f126Dropdown.classList.remove("open");
+  f126Toggle.setAttribute("aria-expanded", "false");
+  f126Menu.hidden = true;
+}
+
+mobileNavToggle.addEventListener("click", () => {
+  siteNav.classList.toggle("open");
+  closeF126Dropdown();
+});
+
+f126Toggle.addEventListener("click", () => {
+  const isOpen = f126Toggle.getAttribute("aria-expanded") === "true";
+  f126Dropdown.classList.toggle("open", !isOpen);
+  f126Toggle.setAttribute("aria-expanded", String(!isOpen));
+  f126Menu.hidden = isOpen;
+});
+
+document.querySelectorAll("#nav a").forEach(a => a.addEventListener("click", () => {
+  siteNav.classList.remove("open");
+  closeF126Dropdown();
+}));
+
+document.addEventListener("click", event => {
+  if (f126Dropdown && !f126Dropdown.contains(event.target)) closeF126Dropdown();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeF126Dropdown();
+});
+
 renderLeaderboard();
 
 // Penrose Cup countdown. First race: 2 November 2026, 20:00 UK time (GMT).
