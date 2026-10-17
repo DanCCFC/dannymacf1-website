@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261017-9" rel="stylesheet"/>
+  <link href="styles.css?v=20261017-10" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -153,6 +153,87 @@
        Updated after each lobby stream
       </span>
      </div>
+    </div>
+   </section>
+
+   <!-- Penrose Cup event panel and five-driver roster. -->
+   <section class="section wrap penrose-section" id="penrose-cup">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow"><span class="eyebrow-line"></span> UPCOMING TEAM COMPETITION</div>
+      <h2>THE <span class="accent">PENROSE CUP.</span></h2>
+     </div>
+     <p class="section-intro">Six weeks of team competition on EA SPORTS F1 26. Week 1 is placement only; teams are then placed into Group A or Group B, with no eliminations during the placement round.</p>
+    </div>
+
+    <div class="penrose-countdown-panel">
+     <div class="penrose-countdown-copy">
+      <span class="penrose-kicker">FIRST RACE</span>
+      <h3>LIGHTS OUT<br/><span>SOON.</span></h3>
+      <p>Monday 2 November 2026 · 8:00 pm UK time</p>
+      <span class="penrose-countdown-status" id="penroseCountdownStatus">COUNTDOWN TO LIGHTS OUT</span>
+     </div>
+     <div class="penrose-countdown-clock" id="penroseCountdownClock" aria-label="Countdown to the first Penrose Cup race">
+      <div class="penrose-time-unit"><strong>--</strong><span>DAYS</span></div>
+      <div class="penrose-time-unit"><strong>--</strong><span>HRS</span></div>
+      <div class="penrose-time-unit"><strong>--</strong><span>MINS</span></div>
+      <div class="penrose-time-unit"><strong>--</strong><span>SECS</span></div>
+     </div>
+    </div>
+
+    <div class="penrose-squad-panel">
+     <div class="penrose-squad-heading">
+      <div>
+       <span class="penrose-kicker">OUR ROSTER</span>
+       <h3>THE TEAM.</h3>
+      </div>
+      <span class="penrose-roster-count">5 DRIVERS · 4 RACE EACH EVENT</span>
+     </div>
+     <p class="penrose-roster-note">Select a driver to open their profile. The competition format specifies four drivers per team at each event, from this five-driver roster.</p>
+     <div class="penrose-driver-grid">
+      <button type="button" class="penrose-driver" data-driver="DannyMacF1">
+       <span class="penrose-driver-number">01</span><span class="penrose-driver-name">DannyMacF1</span><span class="penrose-driver-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button type="button" class="penrose-driver" data-driver="evthelegend46">
+       <span class="penrose-driver-number">02</span><span class="penrose-driver-name">evthelegend46</span><span class="penrose-driver-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button type="button" class="penrose-driver" data-driver="Roca F1">
+       <span class="penrose-driver-number">03</span><span class="penrose-driver-name">Roca F1</span><span class="penrose-driver-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button type="button" class="penrose-driver" data-driver="chronic-teziq">
+       <span class="penrose-driver-number">04</span><span class="penrose-driver-name">chronic-teziq</span><span class="penrose-driver-arrow" aria-hidden="true">↗</span>
+      </button>
+      <button type="button" class="penrose-driver" data-driver="zchxq">
+       <span class="penrose-driver-number">05</span><span class="penrose-driver-name">zchxq</span><span class="penrose-driver-arrow" aria-hidden="true">↗</span>
+      </button>
+     </div>
+    </div>
+
+    <div class="penrose-format-panel">
+     <div class="penrose-squad-heading">
+      <div>
+       <span class="penrose-kicker">OFFICIAL COMPETITION FORMAT</span>
+       <h3>SIX WEEKS. TWO GROUPS. ONE FINAL.</h3>
+      </div>
+     </div>
+     <div class="penrose-groups">
+      <div class="penrose-group"><strong>GROUP A</strong><span>Higher Ability</span></div>
+      <div class="penrose-group"><strong>GROUP B</strong><span>Lower Ability</span></div>
+      <p>Placement determines the group. No team is eliminated in Week 1, and each group then runs its own competition under the same sporting regulations.</p>
+     </div>
+     <ol class="penrose-rounds">
+      <li><span>WEEK 1</span><strong>Placement Round</strong><small>Placement only · no elimination</small></li>
+      <li><span>WEEK 2</span><strong>Group Race 1</strong><small>No elimination</small></li>
+      <li><span>WEEK 3</span><strong>Group Race 2</strong><small>Progression depends on group size</small></li>
+      <li><span>WEEK 4</span><strong>Knockout</strong><small>Teams compete to progress</small></li>
+      <li><span>WEEK 5</span><strong>Semi-Final</strong><small>Five teams qualify for each Final</small></li>
+      <li class="penrose-final-round"><span>WEEK 6</span><strong>Group Final</strong><small>Five teams · 20 drivers · group champion crowned</small></li>
+     </ol>
+     <div class="penrose-progression-options">
+      <div><span>IF A GROUP STARTS WITH 15 TEAMS</span><strong>15 → 10 → 7 → 5</strong><small>Group Race 2 → Knockout → Semi-Final</small></div>
+      <div><span>IF A GROUP STARTS WITH 10 TEAMS</span><strong>10 → 8 → 6 → 5</strong><small>Group Race 2 → Knockout → Semi-Final</small></div>
+     </div>
+     <p class="penrose-format-note">The final progression depends on the confirmed number of teams per group. Placement has no eliminations; the Group A and Group B Finals are run independently.</p>
     </div>
    </section>
 
@@ -622,6 +703,11 @@
       <span id="profileChampionshipLabel">CHAMPIONSHIP WINS</span>
      </div>
     </div>
+    <div class="driver-profile-penrose" id="profilePenroseCup" hidden>
+     <span class="driver-profile-penrose-kicker">PENROSE CUP</span>
+     <strong>REGISTERED TEAM DRIVER</strong>
+     <span>Part of the DannyMacF1 Penrose Cup roster</span>
+    </div>
     <div class="driver-profile-details">
      <div class="driver-profile-detail"><span>GAMING PLATFORM</span><strong id="profilePlatform">Not added yet</strong></div>
      <div class="driver-profile-detail"><span>FAVOURITE F1 TEAM</span><strong id="profileF1Team">Not added yet</strong></div>
@@ -631,7 +717,7 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <script src="app.js?v=20261017-3"></script>
+  <script src="app.js?v=20261017-4"></script>
  </body>
 </html>
 
