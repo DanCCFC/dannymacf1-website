@@ -4272,3 +4272,53 @@ body.profile-modal-open { overflow: hidden; }
     font-size: 23px;
   }
 }
+
+
+/* Refined Championship wins stat: compact card, count centred within the card. */
+.driver-profile-trophy {
+  display: flex;
+  width: min(100%, 245px);
+  min-height: 152px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.driver-profile-trophy-count {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+.driver-profile-trophy-count strong {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(76px, 10vw, 104px);
+  line-height: .88;
+  letter-spacing: -1px;
+}
+.driver-profile-trophy-count span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+@media (max-width: 480px) {
+  .driver-profile-trophy {
+    width: min(100%, 220px);
+    min-height: 132px;
+    padding: 13px;
+  }
+  .driver-profile-trophy-count strong {
+    font-size: clamp(68px, 18vw, 88px);
+  }
+  .driver-profile-trophy-count span {
+    font-size: 9px;
+  }
+}
