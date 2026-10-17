@@ -4659,3 +4659,288 @@ body.profile-modal-open { overflow: hidden; }
   .milestone-copy { min-height: 38px; padding: 8px 10px; }
   .milestone-copy time { font-size: 11px; }
 }
+
+
+/* Penrose Cup competition feature */
+.penrose-section { scroll-margin-top: 100px; }
+.penrose-countdown-panel,
+.penrose-squad-panel,
+.penrose-format-panel {
+  overflow: hidden;
+  border: 1px solid rgba(125,184,255,.23);
+  border-radius: 17px;
+  background: linear-gradient(145deg, rgba(15,39,74,.96), rgba(7,21,47,.98) 75%);
+  box-shadow: 0 16px 42px rgba(0,0,0,.15);
+}
+.penrose-countdown-panel {
+  display: grid;
+  grid-template-columns: minmax(220px,.85fr) minmax(0,1.15fr);
+  align-items: center;
+  gap: 24px;
+  padding: clamp(22px,3vw,34px);
+  margin-bottom: 18px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(125,184,255,.17), transparent 46%),
+    linear-gradient(125deg, #102e57, #08162f 75%);
+}
+.penrose-kicker {
+  display: block;
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.7px;
+}
+.penrose-countdown-copy h3 {
+  margin: 10px 0 12px;
+  font: 900 clamp(34px,4.5vw,54px)/.86 var(--display);
+  letter-spacing: -.5px;
+}
+.penrose-countdown-copy h3 span { color: #7db8ff; }
+.penrose-countdown-copy p {
+  margin: 0 0 14px;
+  color: #c3d4ec;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.penrose-countdown-status {
+  color: #9fcaff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+.penrose-countdown-clock {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 8px;
+}
+.penrose-time-unit {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  min-height: 92px;
+  padding: 12px 4px;
+  border: 1px solid rgba(159,202,255,.2);
+  border-radius: 11px;
+  background: rgba(4,13,29,.45);
+}
+.penrose-time-unit strong {
+  color: #fff;
+  font: 900 clamp(27px,3.2vw,42px)/.9 var(--display);
+  font-variant-numeric: tabular-nums;
+}
+.penrose-time-unit span {
+  color: #9fcaff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.penrose-squad-panel { padding: clamp(20px,3vw,30px); margin-bottom: 18px; }
+.penrose-squad-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+.penrose-squad-heading h3 {
+  margin: 6px 0 0;
+  color: #fff;
+  font: 900 clamp(25px,3.6vw,36px)/1 var(--display);
+}
+.penrose-roster-count {
+  color: #a9d4ff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .9px;
+  text-align: right;
+}
+.penrose-roster-note {
+  margin: 0 0 17px;
+  max-width: 780px;
+  color: #99afcf;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.penrose-driver-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 10px;
+}
+.penrose-driver {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border: 1px solid rgba(125,184,255,.2);
+  border-radius: 10px;
+  background: rgba(255,255,255,.035);
+  color: #f4f8ff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .18s, background .18s, transform .18s;
+}
+.penrose-driver:hover {
+  border-color: rgba(125,184,255,.65);
+  background: rgba(125,184,255,.09);
+  transform: translateY(-2px);
+}
+.penrose-driver:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 3px;
+}
+.penrose-driver-number {
+  color: #7db8ff;
+  font: 900 17px/1 var(--display);
+}
+.penrose-driver-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+.penrose-driver-arrow { color: #8abef8; font-size: 14px; }
+.penrose-format-panel { padding: clamp(20px,3vw,30px); }
+.penrose-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 18px 0 17px;
+}
+.penrose-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px;
+  border: 1px solid rgba(125,184,255,.18);
+  border-radius: 10px;
+  background: rgba(125,184,255,.06);
+}
+.penrose-group strong {
+  color: #cbe2ff;
+  font: 900 22px/1 var(--display);
+}
+.penrose-group span { color: #9db5d5; font-size: 10px; }
+.penrose-groups p {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  color: #9db5d5;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.penrose-rounds {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.penrose-rounds li {
+  min-width: 0;
+  min-height: 102px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid rgba(125,184,255,.15);
+  border-radius: 10px;
+  background: rgba(255,255,255,.025);
+}
+.penrose-rounds li > span {
+  color: #8dbcf2;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
+}
+.penrose-rounds li strong { color: #fff; font-size: 12px; line-height: 1.3; }
+.penrose-rounds li small { color: #94aaca; font-size: 10px; line-height: 1.5; }
+.penrose-rounds .penrose-final-round {
+  border-color: rgba(125,184,255,.52);
+  background: linear-gradient(130deg,rgba(125,184,255,.13),rgba(125,184,255,.04));
+}
+.penrose-progression-options {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.penrose-progression-options > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 14px 16px;
+  border-left: 2px solid #7db8ff;
+  border-radius: 0 9px 9px 0;
+  background: rgba(125,184,255,.06);
+}
+.penrose-progression-options span {
+  color: #9db5d5;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  line-height: 1.5;
+}
+.penrose-progression-options strong {
+  color: #fff;
+  font: 900 22px/1 var(--display);
+}
+.penrose-progression-options small { color: #94aaca; font-size: 9px; line-height: 1.5; }
+.penrose-format-note {
+  margin: 14px 0 0;
+  color: #7f9bbf;
+  font-size: 10px;
+  line-height: 1.7;
+}
+/* Driver profile badge for Penrose Cup roster members */
+.driver-profile-penrose[hidden] { display: none !important; }
+.driver-profile-penrose {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 16px 0 2px;
+  padding: 15px 17px;
+  border: 1px solid rgba(125,184,255,.5);
+  border-radius: 12px;
+  background: linear-gradient(110deg,rgba(125,184,255,.14),rgba(125,184,255,.04));
+}
+.driver-profile-penrose-kicker {
+  color: #9fcaff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+.driver-profile-penrose strong { color: #fff; font: 900 19px/1 var(--display); }
+.driver-profile-penrose > span:last-child { color: #a5bbd8; font-size: 10px; line-height: 1.5; }
+@media (max-width: 900px) {
+  .penrose-driver-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .penrose-rounds { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 640px) {
+  .penrose-countdown-panel { grid-template-columns: 1fr; gap: 20px; padding: 20px 17px; }
+  .penrose-countdown-copy h3 { font-size: 42px; }
+  .penrose-countdown-clock { gap: 5px; }
+  .penrose-time-unit { min-height: 74px; padding: 10px 2px; }
+  .penrose-time-unit strong { font-size: clamp(24px,7vw,35px); }
+  .penrose-time-unit span { font-size: 7px; letter-spacing: .5px; }
+  .penrose-squad-panel,.penrose-format-panel { padding: 20px 16px; }
+  .penrose-squad-heading { align-items: flex-start; flex-direction: column; gap: 9px; }
+  .penrose-roster-count { text-align: left; }
+  .penrose-driver-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .penrose-driver { padding: 12px 9px; gap: 6px; }
+  .penrose-driver-name { font-size: 10px; }
+  .penrose-rounds { grid-template-columns: 1fr; }
+  .penrose-rounds li { min-height: 0; display: grid; grid-template-columns: 55px minmax(0,1fr); gap: 5px 10px; }
+  .penrose-rounds li > span { grid-row: 1 / span 2; align-self: center; }
+  .penrose-rounds li strong,.penrose-rounds li small { grid-column: 2; }
+  .penrose-groups { gap: 8px; }
+  .penrose-group { padding: 12px; }
+  .penrose-progression-options { grid-template-columns: 1fr; }
+}
