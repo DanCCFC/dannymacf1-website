@@ -8,7 +8,6 @@
       "game": "Formula 1",
       "sessions": {
         "qualifying": {
-          "note": "Qualifying times were not captured. Positions below are the starting grid shown on the race results screen.",
           "results": [
             {
               "position": 1,
@@ -97,7 +96,6 @@
           ]
         },
         "race": {
-          "note": "Race order, gaps, fastest laps and DNF statuses are transcribed from the supplied screenshots. The overall results screen shows Alexgaitor classified ninth; a second screen appears to show a conflicting status.",
           "results": [
             {
               "position": 1,
@@ -239,10 +237,10 @@
       "id": "singapore-grand-prix-2026",
       "title": "Singapore Grand Prix",
       "track": "Marina Bay Street Circuit",
-      "game": "Formula 1",
+      "date": "11 October 2026",
+      "game": "F1 25: 2026 Season Pack",
       "sessions": {
         "sprintQualifying": {
-          "note": "Sprint qualifying order transcribed from the supplied results screen. Per archive display rules, qualifying sessions show positions only; lap times and gaps are not displayed.",
           "results": [
             {
               "position": 1,
@@ -286,7 +284,7 @@
             },
             {
               "position": 9,
-              "driver": "legendary_farmer",
+              "driver": "legandary_farmer",
               "team": "Visa Cash App Racing Bulls"
             },
             {
@@ -328,12 +326,10 @@
               "position": 17,
               "driver": "Thawley1227",
               "team": "Audi Revolut F1 Team",
-              "status": "No time"
             }
           ]
         },
         "sprint": {
-          "note": "Sprint finishing order transcribed from the supplied winner/results screen.",
           "results": [
             {
               "position": 1,
@@ -403,7 +399,7 @@
             },
             {
               "position": 12,
-              "driver": "legendary_farmer",
+              "driver": "legandary_farmer",
               "team": "Visa Cash App Racing Bulls",
               "points": 0
             },
@@ -422,7 +418,6 @@
           ]
         },
         "race": {
-          "note": "Race points are taken from the R column in the supplied weekend standings. Positions 1–10 are matched to the standard points awarded for those finishing places; drivers with no race points are listed without an inferred finish position.",
           "results": [
             {
               "position": 1,
@@ -431,16 +426,16 @@
               "points": 25
             },
             {
-              "position": 3,
+              "position": 2,
               "driver": "JxshsSzn",
               "team": "Mercedes-AMG F1 Team",
-              "points": 15
+              "points": 18
             },
             {
-              "position": 2,
+              "position": 3,
               "driver": "CarmadKyle1",
               "team": "Aston Martin Aramco",
-              "points": 18
+              "points": 15
             },
             {
               "position": 4,
@@ -455,55 +450,62 @@
               "points": 10
             },
             {
-              "position": 10,
+              "position": 6,
               "driver": "zchxq",
               "team": "Visa Cash App Racing Bulls",
-              "points": 1
-            },
-            {
-              "position": 6,
-              "driver": "harlzzz09",
-              "team": "Alpine",
               "points": 8
             },
             {
-              "driver": "TurboJG123",
-              "team": "Scuderia Ferrari HP"
-            },
-            {
-              "driver": "otke44",
-              "team": "Scuderia Ferrari HP"
-            },
-            {
               "position": 7,
-              "driver": "TheStoobler",
-              "team": "Cadillac Formula 1 Team",
+              "driver": "harlzzz09",
+              "team": "Alpine",
               "points": 6
             },
             {
               "position": 8,
-              "driver": "WedgedCube48063",
-              "team": "McLaren",
+              "driver": "TurboJG123",
+              "team": "Scuderia Ferrari HP",
               "points": 4
             },
             {
-              "driver": "evthelegend46",
-              "team": "Oracle Red Bull Racing"
-            },
-            {
-              "driver": "ParvFN",
-              "team": "McLaren"
-            },
-            {
               "position": 9,
+              "driver": "otke44",
+              "team": "Scuderia Ferrari HP",
+              "points": 2
+            },
+            {
+              "position": 10,
+              "driver": "TheStoobler",
+              "team": "Cadillac Formula 1 Team",
+              "points": 1
+            },
+            {
+              "position": 11,
+              "driver": "WedgedCube48063",
+              "team": "McLaren",
+              "points": 0
+            },
+            {
+              "position": 12,
+              "driver": "evthelegend46",
+              "team": "Oracle Red Bull Racing",
+              "points": 0
+            },
+            {
+              "position": 13,
+              "driver": "ParvFN",
+              "team": "McLaren",
+              "points": 0
+            },
+            {
+              "position": 14,
               "driver": "Cannon1552",
               "team": "Cadillac Formula 1 Team",
-              "points": 2
+              "points": 0
             }
           ]
         },
         "qualifying": {
-          "note": "Race starting grid transcribed from the supplied Singapore Grand Prix grid screenshot. The lobby had reduced to 14 drivers after the sprint; qualifying times were not captured.",
           "results": [
             {
               "position": 1,
