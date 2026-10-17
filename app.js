@@ -27,7 +27,21 @@ const DEFAULT_DRIVERS = [
 
 // These are sample entries to demonstrate the layout. Replace them with real results in Admin mode.
 const STORAGE_KEY = "dannymacf1-championship-v1";
-function getDrivers(){try{const saved=localStorage.getItem(STORAGE_KEY);return saved?JSON.parse(saved):DEFAULT_DRIVERS}catch{return DEFAULT_DRIVERS}}
+function getDrivers(){
+  const byName = new Map(DEFAULT_DRIVERS.map(driver => [driver.name.trim().toLowerCase(), driver]));
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return DEFAULT_DRIVERS.map(driver => ({...driver}));
+    const entries = JSON.parse(saved);
+    if (!Array.isArray(entries)) return DEFAULT_DRIVERS.map(driver => ({...driver}));
+    return entries.map(driver => ({
+      ...(byName.get(String(driver.name || "").trim().toLowerCase()) || {}),
+      ...driver
+    }));
+  } catch {
+    return DEFAULT_DRIVERS.map(driver => ({...driver}));
+  }
+}
 // Build the visible leaderboard from the saved or default driver list.
 
 function renderLeaderboard(){
@@ -89,9 +103,12 @@ function renderLeaderboard(){
       driverContainer.appendChild(badge);
     }
 
-    const name = document.createElement("span");
-    name.className = "driver-name";
+    const name = document.createElement("button");
+    name.className = "driver-name driver-profile-trigger";
+    name.type = "button";
     name.textContent = driver.name;
+    name.setAttribute("aria-haspopup", "dialog");
+    name.addEventListener("click", () => openDriverProfile(driver));
     driverContainer.appendChild(name);
 
     driverCell.appendChild(driverContainer);
@@ -123,6 +140,80 @@ function renderLeaderboard(){
       });
   }
 }
+
+
+const PROFILE_FLAG_CODES = {
+  barbados: "bb",
+  britain: "gb",
+  wales: "gb-wls",
+  england: "gb-eng",
+  scotland: "gb-sct",
+  ireland: "ie",
+  netherlands: "nl"
+};
+
+function openDriverProfile(driver) {
+  const modal = document.getElementById("driverProfileModal");
+  if (!modal) return;
+
+  const country = driver.country || "";
+  const flagCode = PROFILE_FLAG_CODES[country];
+  const flag = document.getElementById("profileFlag");
+  flag.replaceChildren();
+  if (flagCode) {
+    const image = document.createElement("img");
+    image.src = `https://flagcdn.com/${flagCode}.svg`;
+    image.alt = country + " flag";
+    image.width = 48;
+    image.height = 32;
+    image.draggable = false;
+    flag.appendChild(image);
+  } else {
+    const initials = document.createElement("span");
+    initials.className = "profile-initials";
+    initials.textContent = String(driver.name || "?").trim().slice(0, 2).toUpperCase();
+    initials.setAttribute("aria-hidden", "true");
+    flag.appendChild(initials);
+  }
+
+  document.getElementById("profileName").textContent = driver.name || "Driver";
+  document.getElementById("profileCountry").textContent =
+    country ? country.charAt(0).toUpperCase() + country.slice(1) : "Nationality not added";
+  document.getElementById("profileChampionshipCount").textContent =
+    String(Math.max(0, Number(driver.wins) || 0));
+  document.getElementById("profileChampionshipLabel").textContent =
+    Number(driver.wins) === 1 ? "CHAMPIONSHIP WIN" : "CHAMPIONSHIP WINS";
+
+  const fields = [
+    ["profilePlatform", driver.platform],
+    ["profileF1Team", driver.favouriteF1Team],
+    ["profileF1Driver", driver.favouriteF1Driver],
+    ["profileFootballTeam", driver.favouriteFootballTeam]
+  ];
+  fields.forEach(([id, value]) => {
+    document.getElementById(id).textContent =
+      value && String(value).trim() ? String(value).trim() : "Not added yet";
+  });
+
+  modal.hidden = false;
+  document.body.classList.add("profile-modal-open");
+  document.getElementById("driverProfileClose").focus();
+}
+
+function closeDriverProfile() {
+  const modal = document.getElementById("driverProfileModal");
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  document.body.classList.remove("profile-modal-open");
+}
+
+document.addEventListener("click", event => {
+  if (event.target.closest("#driverProfileClose")) closeDriverProfile();
+  if (event.target.id === "driverProfileModal") closeDriverProfile();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeDriverProfile();
+});
 
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("year").textContent=new Date().getFullYear();
