@@ -11,15 +11,8 @@
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-  <!-- Load fresh CSS on each visit to avoid stale browser caches on GitHub Pages. -->
-  <script>
-   (function () {
-    var stylesheet = document.createElement("link");
-    stylesheet.rel = "stylesheet";
-    stylesheet.href = "styles.css?v=" + Date.now();
-    document.head.appendChild(stylesheet);
-   })();
-  </script>
+  <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
+  <link href="styles.css?v=20261017-2" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -549,14 +542,7 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <!-- Load fresh JavaScript on each visit so profile and leaderboard edits appear after deployment. -->
-  <script>
-   (function () {
-    var appScript = document.createElement("script");
-    appScript.src = "app.js?v=" + Date.now();
-    document.body.appendChild(appScript);
-   })();
-  </script>
+  <script src="app.js?v=20261017-2"></script>
  </body>
 </html>
 
