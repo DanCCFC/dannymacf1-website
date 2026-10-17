@@ -553,25 +553,41 @@ document.addEventListener("keydown", event => {
 
 renderLeaderboard();
 
-// Penrose Cup countdown. First race: 2 November 2026, 20:00 UK time (GMT).
+// Penrose Cup: six weekly event nights, starting 1 November 2026 at 20:00 UK time.
 function updatePenroseCountdown() {
-  const target = new Date("2026-11-02T20:00:00+00:00").getTime();
-  const remaining = target - Date.now();
+  const firstEvent = new Date("2026-11-01T20:00:00+00:00").getTime();
+  const weekMs = 7 * 24 * 60 * 60 * 1000;
+  const eventCount = 6;
+  const now = Date.now();
   const status = document.getElementById("penroseCountdownStatus");
   const clock = document.getElementById("penroseCountdownClock");
   if (!status || !clock) return;
 
-  if (remaining <= 0) {
-    status.textContent = "RACE NIGHT";
-    clock.textContent = "The first race is here";
-    return;
+  let eventNumber;
+  let target;
+
+  if (now < firstEvent) {
+    eventNumber = 1;
+    target = firstEvent;
+  } else {
+    // Once an event time is reached, move on to the next weekly event.
+    eventNumber = Math.floor((now - firstEvent) / weekMs) + 1;
+    if (eventNumber >= eventCount) {
+      status.textContent = "PENROSE CUP FINALE";
+      clock.textContent = "The countdown to all six event nights is complete";
+      return;
+    }
+    eventNumber += 1;
+    target = firstEvent + (eventNumber - 1) * weekMs;
   }
 
+  const remaining = Math.max(0, target - now);
   const days = Math.floor(remaining / 86400000);
   const hours = Math.floor((remaining % 86400000) / 3600000);
   const minutes = Math.floor((remaining % 3600000) / 60000);
   const seconds = Math.floor((remaining % 60000) / 1000);
-  status.textContent = "COUNTDOWN TO LIGHTS OUT";
+
+  status.textContent = "COUNTDOWN TO EVENT " + eventNumber + " OF " + eventCount;
   clock.replaceChildren();
   [
     [days, "DAYS"],
