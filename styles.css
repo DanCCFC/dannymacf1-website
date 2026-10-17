@@ -5678,3 +5678,44 @@ body.profile-modal-open { overflow: hidden; }
     padding: 10px 9px;
   }
 }
+
+
+/* TikTok moderator role badges in driver profiles */
+.driver-profile-role-badge[hidden] { display: none !important; }
+.driver-profile-role-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 7px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 6px 9px;
+  border: 1px solid rgba(125,184,255,.32);
+  border-radius: 5px;
+  background: rgba(125,184,255,.09);
+  color: #a9d4ff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.15px;
+  line-height: 1.2;
+}
+.driver-profile-role-badge::before {
+  content: "";
+  display: inline-block;
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7db8ff;
+  box-shadow: 0 0 8px rgba(125,184,255,.4);
+}
+.driver-profile-role-badge.is-head-moderator {
+  border-color: rgba(169,212,255,.68);
+  background: linear-gradient(110deg, rgba(125,184,255,.24), rgba(125,184,255,.10));
+  color: #d9eaff;
+}
+.driver-profile-role-badge.is-head-moderator::before {
+  background: #e6f2ff;
+  box-shadow: 0 0 9px rgba(169,212,255,.65);
+}
