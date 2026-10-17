@@ -69,9 +69,7 @@ function renderLeaderboard(){
     const driverContainer = document.createElement("div");
     driverContainer.className = "driver";
 
-    
     const flagCode = flagCodes[driver.country];
-    
     if (flagCode) {
       const flag = document.createElement("img");
       flag.className = "driver-flag";
@@ -89,21 +87,6 @@ function renderLeaderboard(){
       badge.textContent =
         driver.name.trim().slice(0, 1).toUpperCase() || "?";
       driverContainer.appendChild(badge);
-    }
-
-
-    const flagCode = flagCodes[driver.country];
-    if (flagCode) {
-      const flag = document.createElement("img");
-      flag.className = "driver-flag";
-      flag.src = `https://flagcdn.com/${flagCode}.svg`;
-      flag.alt = `${driver.country} flag`;
-      flag.title = `${driver.country}`;
-      flag.width = 22;
-      flag.height = 15;
-      flag.loading = "lazy";
-      flag.draggable = false;
-      driverContainer.appendChild(flag);
     }
 
     const name = document.createElement("span");
