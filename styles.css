@@ -4639,3 +4639,23 @@ body.profile-modal-open { overflow: hidden; }
   .milestone-latest .milestone-count { font-size: 17px; }
   .milestone-thanks { padding: 15px 17px 18px; }
 }
+
+
+/* Milestones: dates only, with no per-entry taglines or closing message. */
+.milestone-panel-head {
+  padding: 18px 28px;
+}
+.milestone-copy {
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 14px;
+}
+.milestone-copy time {
+  font-size: 13px;
+}
+.milestone-thanks { display: none; }
+@media (max-width: 640px) {
+  .milestone-panel-head { padding: 16px 17px; }
+  .milestone-copy { min-height: 38px; padding: 8px 10px; }
+  .milestone-copy time { font-size: 11px; }
+}
