@@ -309,10 +309,6 @@ function renderHostedEvents(events) {
     const footer = document.createElement("span");
     footer.className = "hosted-event-card-footer";
     footer.append(document.createTextNode("VIEW EVENT RESULTS"));
-    const arrow = document.createElement("span");
-    arrow.textContent = "↗";
-    arrow.setAttribute("aria-hidden", "true");
-    footer.appendChild(arrow);
 
     button.append(top, title, track, pills, footer);
     grid.appendChild(button);
