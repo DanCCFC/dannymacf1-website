@@ -4805,7 +4805,6 @@ body.profile-modal-open { overflow: hidden; }
   font-weight: 800;
   line-height: 1.4;
 }
-.penrose-driver-arrow { color: #8abef8; font-size: 14px; }
 .penrose-format-panel { padding: clamp(20px,3vw,30px); }
 .penrose-groups {
   display: grid;
@@ -5265,7 +5264,6 @@ body.profile-modal-open { overflow: hidden; }
   font-weight: 900;
   letter-spacing: .9px;
 }
-.hosted-event-card-footer span { font-size: 15px; }
 .hosted-events-empty {
   grid-column: 1 / -1;
   display: flex;
