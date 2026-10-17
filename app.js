@@ -152,6 +152,17 @@ const PROFILE_FLAG_CODES = {
   netherlands: "nl"
 };
 
+function getDriverProfileRole(name) {
+  const normalized = String(name || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (normalized === "evthelegend" || normalized === "evthelegend46") {
+    return "TIKTOK HEAD MODERATOR";
+  }
+  if (["turbojg123", "rocaf1", "alexgaitor"].includes(normalized)) {
+    return "TIKTOK MODERATOR";
+  }
+  return "";
+}
+
 function openDriverProfile(driver) {
   const modal = document.getElementById("driverProfileModal");
   if (!modal) return;
@@ -177,6 +188,15 @@ function openDriverProfile(driver) {
   }
 
   document.getElementById("profileName").textContent = driver.name || "Driver";
+
+  const roleBadge = document.getElementById("profileRoleBadge");
+  const driverRole = getDriverProfileRole(driver.name);
+  if (roleBadge) {
+    roleBadge.textContent = driverRole;
+    roleBadge.hidden = !driverRole;
+    roleBadge.classList.toggle("is-head-moderator", driverRole === "TIKTOK HEAD MODERATOR");
+  }
+
   const numberBadge = document.getElementById("profileDriverNumber");
   const driverNumber = String(driver.driverNumber ?? "").trim();
   if (numberBadge) {
