@@ -51,7 +51,7 @@
             },
             {
               "position": 9,
-              "driver": "PJJerry",
+              "driver": "PilJerry",
               "team": "Mercedes-AMG F1 Team"
             },
             {
@@ -148,32 +148,24 @@
               "position": 7,
               "driver": "X7M-Jouzam",
               "team": "Haas",
-              "bestLap": "1:21.397",
-              "gap": "+4.084",
               "points": 6
             },
             {
               "position": 8,
               "driver": "pekima",
               "team": "McLaren",
-              "bestLap": "1:22.362",
-              "gap": "+4.514",
               "points": 4
             },
             {
               "position": 9,
               "driver": "Alexgaitor",
               "team": "Haas",
-              "bestLap": "1:22.101",
-              "gap": "+9.637",
               "points": 2,
-              "status": "Classified"
             },
             {
               "position": 10,
               "driver": "PJJerry",
               "team": "Mercedes-AMG F1 Team",
-              "bestLap": "1:23.539",
               "status": "DNF",
               "points": 0
             },
@@ -181,7 +173,6 @@
               "position": 11,
               "driver": "legendary_farmer",
               "team": "Cadillac Formula 1 Team",
-              "bestLap": "1:22.404",
               "status": "DNF",
               "points": 0
             },
@@ -189,7 +180,6 @@
               "position": 12,
               "driver": "PRENClipz",
               "team": "Visa Cash App Racing Bulls",
-              "bestLap": "1:21.724",
               "status": "DNF",
               "points": 0
             },
@@ -197,7 +187,6 @@
               "position": 13,
               "driver": "Roca F1",
               "team": "Cadillac Formula 1 Team",
-              "bestLap": "1:21.907",
               "status": "DNF",
               "points": 0
             },
@@ -205,7 +194,6 @@
               "position": 14,
               "driver": "Monsternasher1",
               "team": "Scuderia Ferrari HP",
-              "bestLap": "1:23.479",
               "status": "DNF",
               "points": 0
             },
@@ -407,12 +395,35 @@
               "position": 13,
               "driver": "Thawley1227",
               "team": "Audi Revolut F1 Team",
+              "status": "DNF",
               "points": 0
             },
             {
               "position": 14,
               "driver": "Alexgaitor",
               "team": "Atlassian Williams F1 Team",
+              "status": "DNF",
+              "points": 0
+            }
+            {
+              "position": 15,
+              "driver": "TheStoobler",
+              "team": "Aston Martin Aramco",
+              "status": "DNF",
+              "points": 0
+            }
+            {
+              "position": 16,
+              "driver": "Miclask",
+              "team": "Mercedes-AMG F1 Team",
+              "status": "DNF",
+              "points": 0
+            }
+            {
+              "position": 17,
+              "driver": "KJ19x",
+              "team": "Haas",
+              "status": "DNF",
               "points": 0
             }
           ]
@@ -459,48 +470,56 @@
               "position": 7,
               "driver": "harlzzz09",
               "team": "Alpine",
+              "status": "DNF",
               "points": 6
             },
             {
               "position": 8,
               "driver": "TurboJG123",
               "team": "Scuderia Ferrari HP",
+              "status": "DNF",
               "points": 4
             },
             {
               "position": 9,
               "driver": "otke44",
               "team": "Scuderia Ferrari HP",
+              "status": "DNF",
               "points": 2
             },
             {
               "position": 10,
               "driver": "TheStoobler",
               "team": "Cadillac Formula 1 Team",
+              "status": "DNF",
               "points": 1
             },
             {
               "position": 11,
               "driver": "WedgedCube48063",
               "team": "McLaren",
+              "status": "DNF",
               "points": 0
             },
             {
               "position": 12,
               "driver": "evthelegend46",
               "team": "Oracle Red Bull Racing",
+              "status": "DNF",
               "points": 0
             },
             {
               "position": 13,
               "driver": "ParvFN",
               "team": "McLaren",
+              "status": "DNF",
               "points": 0
             },
             {
               "position": 14,
               "driver": "Cannon1552",
               "team": "Cadillac Formula 1 Team",
+              "status": "DNF",
               "points": 0
             }
           ]
