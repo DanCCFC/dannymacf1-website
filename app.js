@@ -1,28 +1,30 @@
 // Default leaderboard entries shown when this browser has no saved standings.
 // Edit the names and wins here if you want to change the built-in starting data.
+
 const DEFAULT_DRIVERS = [
-  {name:'otke44',wins:3},
-  {name:'DannyMacF1',wins:13},
-  {name:'evthelegend46',wins:6},
-  {name:'Rhysvoaden1',wins:9},
-  {name:'FraserG',wins:1},
+  {name:'otke44',wins:3,country:'barbados'},
+  {name:'DannyMacF1',wins:13,country:'wales'},
+  {name:'evthelegend46',wins:6,country:'ireland'},
+  {name:'Rhysvoaden1',wins:9,country:'britain'},
+  {name:'FraserG',wins:1,country:'britain'},
   {name:'Parv09',wins:2},
-  {name:'Roca F1',wins:5},
-  {name:'zchxq',wins:5},
-  {name:'PRENClipz',wins:1},
-  {name:'JoshsSzn',wins:1},
-  {name:'pekima',wins:2},
-  {name:'[FSR] DuneNY',wins:1},
-  {name:'FormulaKyle2311',wins:1},
-  {name:'oliverbroadford',wins:1},
-  {name:'TurboJG123',wins:14},
-  {name:'RogueMarshal',wins:2},
-  {name:'[AERT] Max Lorrai',wins:3},
-  {name:'Alexgaitor',wins:1},
-  {name:'Jouzam',wins:1},
-  {name:'Stoobler',wins:1},
-  {name:'chronic-teziq',wins:1}
+  {name:'Roca F1',wins:5,country:'scotland'},
+  {name:'zchxq',wins:5,country:'britain'},
+  {name:'PRENClipz',wins:1,country:'britain'},
+  {name:'JoshsSzn',wins:1,country:'britain'},
+  {name:'pekima',wins:2,country:'netherlands'},
+  {name:'[FSR] DuneNY',wins:1,country:'britain'},
+  {name:'FormulaKyle2311',wins:1,country:'britain'},
+  {name:'oliverbroadford',wins:1,country:'wales'},
+  {name:'TurboJG123',wins:14,country:'britain'},
+  {name:'RogueMarshal',wins:2,country:'britain'},
+  {name:'[AERT] Max Lorrai',wins:3,country:'netherlands'},
+  {name:'Alexgaitor',wins:1,country:'britain'},
+  {name:'Jouzam',wins:1,country:'britain'},
+  {name:'Stoobler',wins:1,country:'britain'},
+  {name:'chronic-teziq',wins:1,country:'ireland'}
 ];
+
 // These are sample entries to demonstrate the layout. Replace them with real results in Admin mode.
 const STORAGE_KEY = "dannymacf1-championship-v1";
 function getDrivers(){try{const saved=localStorage.getItem(STORAGE_KEY);return saved?JSON.parse(saved):DEFAULT_DRIVERS}catch{return DEFAULT_DRIVERS}}
