@@ -273,7 +273,7 @@ function renderHostedEvents(events) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "hosted-event-card";
-    button.addEventListener("click", () => openHostedEvent(event));
+    button.dataset.hostedEventIndex = String(index);
 
     const top = document.createElement("div");
     top.className = "hosted-event-card-top";
@@ -449,6 +449,21 @@ function renderHostedSessionResults(event, sessionType) {
   }
 }
 
+// Delegate event-card clicks from the archive container because cards are rendered asynchronously.
+function setupHostedEventCardClicks() {
+  const grid = document.getElementById("hostedEventsGrid");
+  if (!grid || grid.dataset.clickHandlerReady === "true") return;
+  grid.dataset.clickHandlerReady = "true";
+  grid.addEventListener("click", event => {
+    const card = event.target instanceof Element ? event.target.closest("button.hosted-event-card") : null;
+    if (!card || !grid.contains(card)) return;
+    event.preventDefault();
+    const index = Number(card.dataset.hostedEventIndex);
+    const selectedEvent = hostedRaceEvents[index];
+    if (selectedEvent) openHostedEvent(selectedEvent);
+  });
+}
+
 async function refreshHostedEvents() {
   const grid = document.getElementById("hostedEventsGrid");
   if (!grid) return;
@@ -495,6 +510,7 @@ document.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeHostedEvent();
 });
+setupHostedEventCardClicks();
 refreshHostedEvents();
 
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
