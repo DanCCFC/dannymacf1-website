@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261017-2" rel="stylesheet"/>
+  <link href="styles.css?v=20261017-3" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -525,7 +525,10 @@
      <div class="driver-profile-flag" id="profileFlag" aria-hidden="true"></div>
      <div class="driver-profile-heading">
       <p id="profileCountry">Nationality not added</p>
-      <h2 id="profileName">Driver name</h2>
+      <div class="driver-profile-name-row">
+       <h2 id="profileName">Driver name</h2>
+       <span class="driver-number-badge" id="profileDriverNumber" hidden></span>
+      </div>
      </div>
     </div>
     <div class="driver-profile-trophy">
@@ -542,7 +545,7 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <script src="app.js?v=20261017-2"></script>
+  <script src="app.js?v=20261017-3"></script>
  </body>
 </html>
 
