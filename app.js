@@ -275,6 +275,17 @@ function updatePenroseCountdown() {
 updatePenroseCountdown();
 setInterval(updatePenroseCountdown, 1000);
 
+// Open the shared driver profile from any Penrose Cup roster button.
+document.querySelectorAll(".penrose-driver[data-driver]").forEach(button => {
+  button.addEventListener("click", () => {
+    const requestedName = String(button.dataset.driver || "").trim().toLowerCase();
+    const driver = getDrivers().find(entry =>
+      String(entry.name || "").trim().toLowerCase() === requestedName
+    );
+    if (driver) openDriverProfile(driver);
+  });
+});
+
 // Optional local demo admin: open admin.html. Changes are stored only in this browser.
 
 
