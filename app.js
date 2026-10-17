@@ -193,6 +193,12 @@ function openDriverProfile(driver) {
   document.getElementById("profileChampionshipLabel").textContent =
     Number(driver.wins) === 1 ? "CHAMPIONSHIP WIN" : "CHAMPIONSHIP WINS";
 
+  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq"]);
+  const penroseCard = document.getElementById("profilePenroseCup");
+  if (penroseCard) {
+    penroseCard.hidden = !penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
+  }
+
   const fields = [
     ["profilePlatform", driver.platform],
     ["profileF1Team", driver.favouriteF1Team],
@@ -229,6 +235,46 @@ document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("nav").classList.toggle("open"));
 document.querySelectorAll("#nav a").forEach(a=>a.addEventListener("click",()=>document.getElementById("nav").classList.remove("open")));
 renderLeaderboard();
+
+// Penrose Cup countdown. First race: 2 November 2026, 20:00 UK time (GMT).
+function updatePenroseCountdown() {
+  const target = new Date("2026-11-02T20:00:00+00:00").getTime();
+  const remaining = target - Date.now();
+  const status = document.getElementById("penroseCountdownStatus");
+  const clock = document.getElementById("penroseCountdownClock");
+  if (!status || !clock) return;
+
+  if (remaining <= 0) {
+    status.textContent = "RACE NIGHT";
+    clock.textContent = "The first race is here";
+    return;
+  }
+
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+  status.textContent = "COUNTDOWN TO LIGHTS OUT";
+  clock.replaceChildren();
+  [
+    [days, "DAYS"],
+    [hours, "HRS"],
+    [minutes, "MINS"],
+    [seconds, "SECS"]
+  ].forEach(([value, label]) => {
+    const unit = document.createElement("div");
+    unit.className = "penrose-time-unit";
+    const number = document.createElement("strong");
+    number.textContent = String(value).padStart(2, "0");
+    const caption = document.createElement("span");
+    caption.textContent = label;
+    unit.append(number, caption);
+    clock.appendChild(unit);
+  });
+}
+updatePenroseCountdown();
+setInterval(updatePenroseCountdown, 1000);
+
 // Optional local demo admin: open admin.html. Changes are stored only in this browser.
 
 
