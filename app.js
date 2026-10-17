@@ -394,13 +394,11 @@ function renderHostedSessionResults(event, sessionType) {
   wrap.className = "hosted-event-table-wrap";
   const table = document.createElement("table");
   table.className = "hosted-event-results-table";
-  const isQualifyingSession = sessionType.key === "qualifying" || sessionType.key === "sprintQualifying";
   const keys = [
     {key:"position", aliases:["pos","place"], label:"POS.", show:true},
     {key:"driver", aliases:["name","driverName"], label:"DRIVER", show:true},
     {key:"team", aliases:["constructor"], label:"TEAM", show:results.some(r => r.team || r.constructor)},
-    {key:"time", aliases:["bestLap","fastestLap","timeOrGap"], label:"TIME / LAP", show:!isQualifyingSession && results.some(r => r.time || r.bestLap || r.fastestLap || r.timeOrGap)},
-    {key:"gap", aliases:["interval"], label:"GAP", show:!isQualifyingSession && results.some(r => r.gap || r.interval)},
+
     {key:"points", aliases:["pts"], label:"PTS", show:results.some(r => r.points !== undefined && r.points !== null && r.points !== "")},
     {key:"laps", aliases:["lapsCompleted"], label:"LAPS", show:results.some(r => r.laps !== undefined && r.laps !== null && r.laps !== "")},
     {key:"status", aliases:[], label:"STATUS", show:!isQualifyingSession && results.some(r => r.status)}
