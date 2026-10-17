@@ -3992,4 +3992,38 @@ td:first-child
     font-size: 7px;
     letter-spacing: 0;
   }
+
+/* Championship nationality flags */
+#championship .driver {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+#championship .driver-flag {
+  display: inline-block;
+  width: 22px;
+  height: 15px;
+  flex: 0 0 22px;
+  object-fit: cover;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+#championship .driver-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  #championship .driver {
+    gap: 5px;
+  }
+
+  #championship .driver-flag {
+    width: 19px;
+    height: 13px;
+    flex-basis: 19px;
+  }
 }
