@@ -434,7 +434,6 @@ function renderHostedSessionResults(event, sessionType) {
       td.textContent = value === undefined || value === null || value === "" ? "—" : String(value);
       if (column.key === "position") td.className = "hosted-event-position";
       if (column.key === "driver") td.className = "hosted-event-driver-cell";
-      tbody.appendChild ? null : null;
       row.appendChild(td);
     });
     tbody.appendChild(row);
