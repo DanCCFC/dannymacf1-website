@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261017-12" rel="stylesheet"/>
+  <link href="styles.css?v=20261017-13" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -33,6 +33,9 @@
    <nav id="nav">
     <a href="#championship">
      Leaderboard
+    </a>
+    <a href="#hosted-races">
+     Hosted Races
     </a>
     <a href="#proclubs">
      FC 27 Clubs
@@ -230,6 +233,29 @@
       </li>
      </ol>
      <p class="penrose-results-note">Placement has no eliminations. The group and progression will be updated once officially confirmed.</p>
+    </div>
+   </section>
+
+   <!-- Hosted F1 events archive. Event cards and results are loaded from hosted-events.json. -->
+   <section class="section wrap hosted-events-section" id="hosted-races">
+    <div class="section-head">
+     <div>
+      <div class="eyebrow"><span class="eyebrow-line"></span> FROM THE LOBBY ARCHIVE</div>
+      <h2>HOSTED <span class="accent">RACES.</span></h2>
+     </div>
+     <p class="section-intro">Look back through the race events hosted by DannyMacF1. Open an event to switch between qualifying, race and sprint-session results where applicable.</p>
+    </div>
+    <div class="hosted-events-panel">
+     <div class="hosted-events-panel-head">
+      <div>
+       <span class="hosted-events-kicker">EVENT ARCHIVE</span>
+       <h3>PAST EVENTS</h3>
+      </div>
+      <span class="hosted-events-count" id="hostedEventsCount">Loading events…</span>
+     </div>
+     <div class="hosted-events-grid" id="hostedEventsGrid" aria-live="polite">
+      <div class="hosted-events-empty">Loading hosted race events…</div>
+     </div>
     </div>
    </section>
 
@@ -678,6 +704,17 @@
     </a>
    </div>
   </footer>
+  <!-- Hosted race results modal. -->
+  <div class="hosted-event-modal" id="hostedEventModal" hidden>
+   <section class="hosted-event-dialog" role="dialog" aria-modal="true" aria-labelledby="hostedEventModalTitle">
+    <button class="hosted-event-close" id="hostedEventClose" type="button" aria-label="Close event results">×</button>
+    <div class="hosted-event-modal-kicker">DANNYMACF1 · HOSTED EVENT</div>
+    <h2 id="hostedEventModalTitle">Race event</h2>
+    <p class="hosted-event-modal-meta" id="hostedEventModalMeta"></p>
+    <div class="hosted-event-tabs" id="hostedEventTabs" role="tablist" aria-label="Event sessions"></div>
+    <div class="hosted-event-results" id="hostedEventResults" role="region" aria-live="polite"></div>
+   </section>
+  </div>
   <!-- Driver profile overlay: uses nationality flag/initials, never an invented portrait. -->
   <div class="driver-profile-modal" id="driverProfileModal" hidden>
    <section class="driver-profile-card" role="dialog" aria-modal="true" aria-labelledby="profileName">
@@ -713,7 +750,7 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <script src="app.js?v=20261017-6"></script>
+  <script src="app.js?v=20261017-7"></script>
  </body>
 </html>
 
