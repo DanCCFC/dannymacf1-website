@@ -29,20 +29,101 @@ const DEFAULT_DRIVERS = [
 const STORAGE_KEY = "dannymacf1-championship-v1";
 function getDrivers(){try{const saved=localStorage.getItem(STORAGE_KEY);return saved?JSON.parse(saved):DEFAULT_DRIVERS}catch{return DEFAULT_DRIVERS}}
 // Build the visible leaderboard from the saved or default driver list.
+
 function renderLeaderboard(){
-  const tbody=document.getElementById("leaderboardRows"); if(!tbody)return;
-  const drivers=getDrivers().slice().sort((a,b)=>Number(b.wins)-Number(a.wins));
-  tbody.innerHTML="";
-  if(!drivers.length){tbody.innerHTML='<tr><td colspan="3">No results yet — check back after the next championship.</td></tr>';return}
-  drivers.forEach((driver,index)=>{
-    const tr=document.createElement("tr");
-    const pos=index+1;
-    tr.innerHTML=`<td><span class="position-number">${String(pos).padStart(2,"0")}</span></td><td><div class="driver"><span class="driver-badge">${escapeHTML(driver.name.trim().slice(0,1).toUpperCase()||"?")}</span>${escapeHTML(driver.name)}</div></td><td><span class="wins">${Number(driver.wins)||0}<small>${Number(driver.wins)===1?"WIN":"WINS"}</small></span></td>`;
+  const tbody = document.getElementById("leaderboardRows");
+  if (!tbody) return;
+
+  const flagCodes = {
+    barbados: "bb",
+    britain: "gb",
+    wales: "gb-wls",
+    scotland: "gb-sct",
+    ireland: "ie",
+    netherlands: "nl"
+  };
+
+  const drivers = getDrivers()
+    .slice()
+    .sort((a, b) => Number(b.wins) - Number(a.wins));
+
+  tbody.replaceChildren();
+
+  if (!drivers.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="3">No results yet — check back after the next championship.</td></tr>';
+    return;
+  }
+
+  drivers.forEach((driver, index) => {
+    const tr = document.createElement("tr");
+    const pos = index + 1;
+
+    const positionCell = document.createElement("td");
+    const position = document.createElement("span");
+    position.className = "position-number";
+    position.textContent = String(pos).padStart(2, "0");
+    positionCell.appendChild(position);
+
+    const driverCell = document.createElement("td");
+    const driverContainer = document.createElement("div");
+    driverContainer.className = "driver";
+
+    const badge = document.createElement("span");
+    badge.className = "driver-badge";
+    badge.textContent =
+      driver.name.trim().slice(0, 1).toUpperCase() || "?";
+    driverContainer.appendChild(badge);
+
+    const flagCode = flagCodes[driver.country];
+    if (flagCode) {
+      const flag = document.createElement("img");
+      flag.className = "driver-flag";
+      flag.src = `https://flagcdn.com/${flagCode}.svg`;
+      flag.alt = `${driver.country} flag`;
+      flag.title = `${driver.country}`;
+      flag.width = 22;
+      flag.height = 15;
+      flag.loading = "lazy";
+      flag.draggable = false;
+      driverContainer.appendChild(flag);
+    }
+
+    const name = document.createElement("span");
+    name.className = "driver-name";
+    name.textContent = driver.name;
+    driverContainer.appendChild(name);
+
+    driverCell.appendChild(driverContainer);
+
+    const winsCell = document.createElement("td");
+    const wins = Number(driver.wins) || 0;
+    const winsElement = document.createElement("span");
+    winsElement.className = "wins";
+    winsElement.append(document.createTextNode(String(wins)));
+
+    const winsLabel = document.createElement("small");
+    winsLabel.textContent = wins === 1 ? "WIN" : "WINS";
+    winsElement.appendChild(winsLabel);
+    winsCell.appendChild(winsElement);
+
+    tr.append(positionCell, driverCell, winsCell);
     tbody.appendChild(tr);
   });
-  const updated=localStorage.getItem(STORAGE_KEY+"-updated");
-  if(updated)document.getElementById("lastUpdated").textContent="Updated "+new Date(updated).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+
+  const updated = localStorage.getItem(STORAGE_KEY + "-updated");
+  const lastUpdated = document.getElementById("lastUpdated");
+  if (updated && lastUpdated) {
+    lastUpdated.textContent =
+      "Updated " +
+      new Date(updated).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+  }
 }
+
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("nav").classList.toggle("open"));
