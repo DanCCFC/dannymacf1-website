@@ -511,7 +511,15 @@ async function refreshHostedEvents() {
       }
       data = JSON.parse(lines.join("\n"));
     }
-    hostedRaceEvents = Array.isArray(data.events) ? data.events : [];
+    // Parse the displayed UK-style dates explicitly, then keep event cards and their click indexes in chronological order.
+    const monthIndex = {january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11};
+    const eventDateValue = event => {
+      const match = String(event.date || "").trim().match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/);
+      if (!match || monthIndex[match[2].toLowerCase()] === undefined) return Number.MAX_SAFE_INTEGER;
+      return Date.UTC(Number(match[3]), monthIndex[match[2].toLowerCase()], Number(match[1]));
+    };
+    hostedRaceEvents = Array.isArray(data.events) ? data.events.slice() : [];
+    hostedRaceEvents.sort((a,b) => eventDateValue(a) - eventDateValue(b) || String(a.title || "").localeCompare(String(b.title || "")));
     renderHostedEvents(hostedRaceEvents);
   } catch {
     renderHostedEvents([]);
