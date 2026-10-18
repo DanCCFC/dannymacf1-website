@@ -411,14 +411,14 @@ function renderHostedSessionResults(event, sessionType) {
   wrap.className = "hosted-event-table-wrap";
   const table = document.createElement("table");
   table.className = "hosted-event-results-table";
+  const isRaceSession = sessionType.key === "race";
+  const isSprintSession = sessionType.key === "sprint";
   const keys = [
-    {key:"position", aliases:["pos","place"], label:"POS.", show:true},
-    {key:"driver", aliases:["name","driverName"], label:"DRIVER", show:true},
-    {key:"team", aliases:["constructor"], label:"TEAM", show:results.some(r => r.team || r.constructor)},
-
-    {key:"points", aliases:["pts"], label:"PTS", show:results.some(r => r.points !== undefined && r.points !== null && r.points !== "")},
-    {key:"laps", aliases:["lapsCompleted"], label:"LAPS", show:results.some(r => r.laps !== undefined && r.laps !== null && r.laps !== "")},
-    {key:"status", aliases:[], label:"STATUS", show:!isQualifyingSession && results.some(r => r.status)}
+    {key:"position", aliases:["pos","place"], label:"POSITION", show:true},
+    {key:"driver", aliases:["name","driverName"], label:"NAME", show:true},
+    {key:"team", aliases:["constructor"], label:"TEAM", show:true},
+    {key:"points", aliases:["pts"], label:"POINTS", show:!isQualifyingSession && (isRaceSession || isSprintSession)},
+    {key:"status", aliases:[], label:"STATUS", show:isRaceSession}
   ].filter(column => column.show);
 
   const thead = document.createElement("thead");
