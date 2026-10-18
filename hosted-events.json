@@ -588,6 +588,402 @@
           ]
         }
       }
+    },
+    {
+      "id": "japanese-grand-prix-2026-08-06",
+      "title": "Japanese Grand Prix",
+      "track": "Suzuka International Racing Course",
+      "date": "6 August 2026",
+      "game": "Formula 1",
+      "sessions": {
+        "qualifying": {
+          "note": "Qualifying order reconstructed from the grid positions on the supplied race results screen. Qualifying times are not displayed.",
+          "results": [
+            {
+              "position": 1,
+              "driver": "zchxq",
+              "team": "Racing Bulls"
+            },
+            {
+              "position": 2,
+              "driver": "Rhysvoaden",
+              "team": "McLaren"
+            },
+            {
+              "position": 3,
+              "driver": "THEONLYYEGC",
+              "team": "Alpine"
+            },
+            {
+              "position": 4,
+              "driver": "CarmadKyle1",
+              "team": "Haas"
+            },
+            {
+              "position": 5,
+              "driver": "DannyMacF1",
+              "team": "Red Bull Racing"
+            },
+            {
+              "position": 6,
+              "driver": "Liam7T",
+              "team": "Audi"
+            },
+            {
+              "position": 7,
+              "driver": "JxshsSzn",
+              "team": "Cadillac"
+            },
+            {
+              "position": 8,
+              "driver": "Roca F1",
+              "team": "Mercedes"
+            },
+            {
+              "position": 9,
+              "driver": "sam",
+              "team": "Racing Bulls"
+            },
+            {
+              "position": 10,
+              "driver": "evthelegend46",
+              "team": "Ferrari"
+            },
+            {
+              "position": 11,
+              "driver": "PilJerry",
+              "team": "Haas"
+            },
+            {
+              "position": 12,
+              "driver": "legendary_farmer",
+              "team": "Cadillac"
+            },
+            {
+              "position": 13,
+              "driver": "Ametez",
+              "team": "Audi"
+            },
+            {
+              "position": 14,
+              "driver": "[DMRL]Alexgaitor",
+              "team": "Williams"
+            },
+            {
+              "position": 15,
+              "driver": "KxntTomzie",
+              "team": "McLaren"
+            },
+            {
+              "position": 16,
+              "driver": "Olly",
+              "team": "Williams"
+            }
+          ]
+        },
+        "race": {
+          "results": [
+            {
+              "position": 1,
+              "driver": "zchxq",
+              "team": "Racing Bulls",
+              "points": 31,
+              "status": "Finished"
+            },
+            {
+              "position": 2,
+              "driver": "Rhysvoaden",
+              "team": "McLaren",
+              "points": 25,
+              "status": "Finished"
+            },
+            {
+              "position": 3,
+              "driver": "evthelegend46",
+              "team": "Ferrari",
+              "points": 21,
+              "status": "Finished"
+            },
+            {
+              "position": 4,
+              "driver": "DannyMacF1",
+              "team": "Red Bull Racing",
+              "points": 17,
+              "status": "Finished"
+            },
+            {
+              "position": 5,
+              "driver": "CarmadKyle1",
+              "team": "Haas",
+              "points": 15,
+              "status": "Finished"
+            },
+            {
+              "position": 6,
+              "driver": "Liam7T",
+              "team": "Audi",
+              "points": 14,
+              "status": "Finished"
+            },
+            {
+              "position": 7,
+              "driver": "legendary_farmer",
+              "team": "Cadillac",
+              "points": 13,
+              "status": "Finished"
+            },
+            {
+              "position": 8,
+              "driver": "Roca F1",
+              "team": "Mercedes",
+              "points": 12,
+              "status": "Finished"
+            },
+            {
+              "position": 9,
+              "driver": "sam",
+              "team": "Racing Bulls",
+              "points": 11,
+              "status": "Finished"
+            },
+            {
+              "position": 10,
+              "driver": "Olly",
+              "team": "Williams",
+              "points": 10,
+              "status": "Finished"
+            },
+            {
+              "position": 11,
+              "driver": "[DMRL]Alexgaitor",
+              "team": "Williams",
+              "points": 8,
+              "status": "Finished"
+            },
+            {
+              "position": 12,
+              "driver": "Ametez",
+              "team": "Audi",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 13,
+              "driver": "PilJerry",
+              "team": "Haas",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 14,
+              "driver": "JxshsSzn",
+              "team": "Cadillac",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 15,
+              "driver": "THEONLYYEGC",
+              "team": "Alpine",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 16,
+              "driver": "KxntTomzie",
+              "team": "McLaren",
+              "points": 0,
+              "status": "DNF"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "canadian-grand-prix-2026-08-20",
+      "title": "Canadian Grand Prix",
+      "track": "Circuit Gilles-Villeneuve",
+      "date": "20 August 2026",
+      "game": "Formula 1",
+      "sessions": {
+        "qualifying": {
+          "note": "Qualifying order reconstructed from the grid positions on the supplied race results screen. Qualifying times are not displayed.",
+          "results": [
+            {
+              "position": 1,
+              "driver": "RogueMarshal",
+              "team": "McLaren"
+            },
+            {
+              "position": 2,
+              "driver": "TMS_Tommy09",
+              "team": "Mercedes"
+            },
+            {
+              "position": 3,
+              "driver": "Roca F1",
+              "team": "Mercedes"
+            },
+            {
+              "position": 4,
+              "driver": "Rhysvoaden",
+              "team": "McLaren"
+            },
+            {
+              "position": 5,
+              "driver": "DannyMacF1",
+              "team": "Red Bull Racing"
+            },
+            {
+              "position": 6,
+              "driver": "wdonn",
+              "team": "Audi"
+            },
+            {
+              "position": 7,
+              "driver": "Olly",
+              "team": "Williams"
+            },
+            {
+              "position": 8,
+              "driver": "evthelegend46",
+              "team": "Ferrari"
+            },
+            {
+              "position": 9,
+              "driver": "SGS-DANZ",
+              "team": "Alpine"
+            },
+            {
+              "position": 10,
+              "driver": "[DMRL]Alexgaitor",
+              "team": "Williams"
+            },
+            {
+              "position": 11,
+              "driver": "PilJerry",
+              "team": "Haas"
+            },
+            {
+              "position": 12,
+              "driver": "SJV",
+              "team": "Racing Bulls"
+            },
+            {
+              "position": 13,
+              "driver": "pekima",
+              "team": "Cadillac"
+            },
+            {
+              "position": 14,
+              "driver": "JxshsSzn",
+              "team": "Cadillac"
+            }
+          ]
+        },
+        "race": {
+          "results": [
+            {
+              "position": 1,
+              "driver": "TMS_Tommy09",
+              "team": "Mercedes",
+              "points": 30,
+              "status": "Finished"
+            },
+            {
+              "position": 2,
+              "driver": "Roca F1",
+              "team": "Mercedes",
+              "points": 26,
+              "status": "Finished"
+            },
+            {
+              "position": 3,
+              "driver": "evthelegend46",
+              "team": "Ferrari",
+              "points": 21,
+              "status": "Finished"
+            },
+            {
+              "position": 4,
+              "driver": "DannyMacF1",
+              "team": "Red Bull Racing",
+              "points": 17,
+              "status": "Finished"
+            },
+            {
+              "position": 5,
+              "driver": "wdonn",
+              "team": "Audi",
+              "points": 15,
+              "status": "Finished"
+            },
+            {
+              "position": 6,
+              "driver": "Olly",
+              "team": "Williams",
+              "points": 14,
+              "status": "Finished"
+            },
+            {
+              "position": 7,
+              "driver": "[DMRL]Alexgaitor",
+              "team": "Williams",
+              "points": 13,
+              "status": "Finished"
+            },
+            {
+              "position": 8,
+              "driver": "SJV",
+              "team": "Racing Bulls",
+              "points": 12,
+              "status": "Finished"
+            },
+            {
+              "position": 9,
+              "driver": "PilJerry",
+              "team": "Haas",
+              "points": 11,
+              "status": "Finished"
+            },
+            {
+              "position": 10,
+              "driver": "RogueMarshal",
+              "team": "McLaren",
+              "points": 10,
+              "status": "Finished"
+            },
+            {
+              "position": 11,
+              "driver": "JxshsSzn",
+              "team": "Cadillac",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 12,
+              "driver": "Rhysvoaden",
+              "team": "McLaren",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 13,
+              "driver": "SGS-DANZ",
+              "team": "Alpine",
+              "points": 0,
+              "status": "DNF"
+            },
+            {
+              "position": 14,
+              "driver": "pekima",
+              "team": "Cadillac",
+              "points": 0,
+              "status": "DNF"
+            }
+          ]
+        }
+      }
     }
   ]
 }
