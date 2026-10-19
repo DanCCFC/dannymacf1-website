@@ -3,7 +3,7 @@
   "clubName": "TTDM United",
   "clubId": "155779",
   "platform": "common-gen5",
-  "updatedAt": "2026-10-19T09:47:34.630557+00:00",
+  "updatedAt": "2026-10-19T10:36:44.823520+00:00",
   "stats": {
     "wins": 7,
     "draws": 3,
@@ -178,35 +178,35 @@
   ],
   "matches": [
     {
-      "opponent": "Club 272244",
+      "opponent": "Telstar Bar",
       "goals": 1,
       "goalsAgainst": 0,
       "result": "WIN",
       "timestamp": 1791579435
     },
     {
-      "opponent": "Club 184946",
+      "opponent": "Creamiams Cream",
       "goals": 0,
       "goalsAgainst": 3,
       "result": "LOSS",
       "timestamp": 1791578354
     },
     {
-      "opponent": "Club 469704",
+      "opponent": "The Wronguns",
       "goals": 3,
       "goalsAgainst": 0,
       "result": "WIN",
       "timestamp": 1791576855
     },
     {
-      "opponent": "Club 112851",
+      "opponent": "Mersey Shore FC",
       "goals": 0,
       "goalsAgainst": 7,
       "result": "LOSS",
       "timestamp": 1790976634
     },
     {
-      "opponent": "Club 122881",
+      "opponent": "Debden FC",
       "goals": 1,
       "goalsAgainst": 1,
       "result": "DRAW",
