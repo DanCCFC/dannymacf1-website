@@ -1,6 +1,12 @@
 name: Update TTDM United Pro Clubs data
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/update_proclubs.py"
+      - ".github/workflows/update-proclubs.yml"
   schedule:
     - cron: "17 */3 * * *"
   workflow_dispatch:
