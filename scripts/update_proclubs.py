@@ -141,17 +141,31 @@ def main():
         ))
 
         opponent = first(
-            match, "opponentName", "opponentClubName",
-            default="Opponent"
+            match, "opponentName", "opponentClubName", "opponentClub",
+            default=""
         )
         if isinstance(clubs, dict):
             for other_id, other in clubs.items():
-                if other_id != CLUB_ID and isinstance(other, dict):
-                    opponent = first(
-                        other, "name", "clubName",
+                if other_id == CLUB_ID or not isinstance(other, dict):
+                    continue
+
+                # EA nests each club's metadata inside details on match objects.
+                # The display name is usually details.name, not on the match stats object.
+                details = other.get("details", {})
+                if not isinstance(details, dict):
+                    details = {}
+
+                opponent = first(
+                    details, "name", "clubName", "club_name",
+                    default=first(
+                        other, "name", "clubName", "club_name",
                         default=f"Club {other_id}"
                     )
-                    break
+                )
+                break
+
+        if not opponent:
+            opponent = "Opponent"
 
         timestamp = as_int(first(
             match, "timestamp", "matchDate",
