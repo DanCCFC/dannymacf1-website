@@ -5719,3 +5719,132 @@ body.profile-modal-open { overflow: hidden; }
   background: #e6f2ff;
   box-shadow: 0 0 9px rgba(169,212,255,.65);
 }
+
+
+/* Championship table expansion and country standings */
+.leaderboard-expand-wrap[hidden] {
+  display: none !important;
+}
+#championship .leaderboard-extra-row[hidden] {
+  display: none !important;
+}
+#championship .leaderboard-expand-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 24px 16px;
+  border-top: 1px solid rgba(125,184,255,.12);
+}
+#championship .leaderboard-expand-note {
+  color: #8fa9ca;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .35px;
+}
+#championship .leaderboard-expand-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 9px 14px;
+  border: 1px solid rgba(125,184,255,.35);
+  border-radius: 7px;
+  background: rgba(125,184,255,.08);
+  color: #cfe5ff;
+  font: 800 10px var(--font);
+  letter-spacing: .25px;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+#championship .leaderboard-expand-button:hover {
+  border-color: #7db8ff;
+  background: rgba(125,184,255,.16);
+  color: #fff;
+}
+#championship .leaderboard-expand-button:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 3px;
+}
+#championship .country-standings-panel {
+  margin-top: 22px;
+}
+#championship .country-standings-panel .panel-top h3 {
+  margin: 7px 0 0;
+  color: #fff;
+  font: 900 clamp(22px,3vw,29px)/1.05 var(--display);
+}
+#championship .country-table-wrap {
+  padding-top: 10px;
+}
+#championship .country-table thead th:nth-child(3),
+#championship .country-table tbody td:nth-child(3) {
+  text-align: center;
+  width: 100px;
+}
+#championship .country-table thead th:nth-child(4),
+#championship .country-table tbody td:nth-child(4) {
+  text-align: right;
+  width: 180px;
+}
+#championship .country-standings-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  font-weight: 700;
+}
+#championship .country-standings-name .driver-flag {
+  width: 30px;
+  height: 20px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  border-radius: 2px;
+}
+#championship .country-standings-name strong {
+  color: #f4f8ff;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+#championship .country-count-cell {
+  color: #b8cce6;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+#championship .country-wins-cell {
+  color: #fff;
+  font: 900 23px/.9 var(--display);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 640px) {
+  #championship .leaderboard-expand-wrap {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 12px 14px 15px;
+  }
+  #championship .leaderboard-expand-button {
+    width: 100%;
+  }
+  #championship .country-table thead th:nth-child(3),
+  #championship .country-table tbody td:nth-child(3) {
+    width: 58px;
+  }
+  #championship .country-table thead th:nth-child(4),
+  #championship .country-table tbody td:nth-child(4) {
+    width: 112px;
+  }
+  #championship .country-standings-name {
+    gap: 7px;
+    font-size: 11px;
+  }
+  #championship .country-standings-name .driver-flag {
+    width: 25px;
+    height: 17px;
+  }
+  #championship .country-standings-name strong {
+    font-size: 11px;
+  }
+  #championship .country-wins-cell {
+    font-size: 20px;
+  }
+}
