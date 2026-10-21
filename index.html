@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261021-03" rel="stylesheet"/>
+  <link href="styles.css?v=20261021-04" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -160,6 +160,13 @@
        <h3>Championship wins by country</h3>
       </div>
      </div>
+     <div class="country-standings-controls">
+      <span class="country-standings-view-label">RANK BY</span>
+      <div class="country-standings-view-toggle" role="group" aria-label="Choose country standings metric">
+       <button type="button" id="countryStandingsTotalToggle" class="is-active" aria-pressed="true">Total championships</button>
+       <button type="button" id="countryStandingsAverageToggle" aria-pressed="false">Average per driver</button>
+      </div>
+     </div>
      <div class="table-wrap country-table-wrap">
       <table class="country-table">
        <thead>
@@ -167,7 +174,7 @@
          <th>POS.</th>
          <th>COUNTRY</th>
          <th>DRIVERS</th>
-         <th>CHAMPIONSHIPS</th>
+         <th id="countryStandingsValueHeader">CHAMPIONSHIPS</th>
         </tr>
        </thead>
        <tbody id="countryStandingsRows"></tbody>
@@ -781,9 +788,13 @@
      </div>
     </div>
     <div class="driver-profile-trophy country-profile-trophy">
-     <div class="driver-profile-trophy-count country-profile-trophy-count">
+     <div class="driver-profile-trophy-count country-profile-metric">
       <strong id="countryProfileWinCount">0</strong>
-      <span id="countryProfileWinLabel">CHAMPIONSHIP WINS</span>
+      <span id="countryProfileWinLabel">TOTAL CHAMPIONSHIPS</span>
+     </div>
+     <div class="driver-profile-trophy-count country-profile-metric">
+      <strong id="countryProfileAverageCount">0.00</strong>
+      <span>AVERAGE CHAMPIONSHIPS PER DRIVER</span>
      </div>
     </div>
     <div class="country-profile-breakdown">
@@ -810,7 +821,7 @@
     </div>
    </section>
   </div>
-  <script src="app.js?v=20261021-02"></script>
+  <script src="app.js?v=20261021-03"></script>
  </body>
 </html>
 
