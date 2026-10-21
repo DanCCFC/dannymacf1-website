@@ -170,7 +170,9 @@ function renderLeaderboard(){
     const countryTotals = new Map();
     drivers.forEach(driver => {
       const rawCountry = String(driver.country || "").trim().toLowerCase();
-      const key = rawCountry || "unspecified";
+      // Drivers with no nationality supplied are excluded from the country table.
+      if (!rawCountry) return;
+      const key = rawCountry;
       const current = countryTotals.get(key) || {country:key, drivers:0, wins:0};
       current.drivers += 1;
       current.wins += Math.max(0, Number(driver.wins) || 0);
@@ -178,9 +180,11 @@ function renderLeaderboard(){
     });
 
     const standings = [...countryTotals.values()].sort((a,b) =>
-      b.wins - a.wins || b.drivers - a.drivers ||
-      String(countryLabels[a.country] || (a.country === "unspecified" ? "Not specified" : a.country)).localeCompare(
-        String(countryLabels[b.country] || (b.country === "unspecified" ? "Not specified" : b.country))
+      b.wins - a.wins ||
+      (b.wins / b.drivers) - (a.wins / a.drivers) ||
+      b.drivers - a.drivers ||
+      String(countryLabels[a.country] || a.country).localeCompare(
+        String(countryLabels[b.country] || b.country)
       )
     );
 
@@ -211,7 +215,7 @@ function renderLeaderboard(){
           countryContainer.appendChild(flag);
         }
         const label=document.createElement("strong");
-        label.textContent=countryLabels[entry.country] || (entry.country==="unspecified" ? "Not specified" : entry.country.charAt(0).toUpperCase()+entry.country.slice(1));
+        label.textContent=countryLabels[entry.country] || entry.country.charAt(0).toUpperCase()+entry.country.slice(1);
         countryContainer.appendChild(label);
         nameCell.appendChild(countryContainer);
 
