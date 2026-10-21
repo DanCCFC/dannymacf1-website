@@ -141,20 +141,17 @@
       <table>
        <thead>
         <tr>
-         <th>
-          POS.
-         </th>
-         <th>
-          DRIVER / USERNAME
-         </th>
-         <th>
-          CHAMPIONSHIPS
-         </th>
+         <th>POS.</th>
+         <th>DRIVER / USERNAME</th>
+         <th>CHAMPIONSHIPS</th>
         </tr>
        </thead>
-       <tbody id="leaderboardRows">
-       </tbody>
+       <tbody id="leaderboardRows"></tbody>
       </table>
+     </div>
+     <div class="leaderboard-expand-wrap" id="leaderboardExpandWrap" hidden>
+      <span class="leaderboard-expand-note" id="leaderboardExpandNote">Showing the top 10 drivers</span>
+      <button type="button" class="leaderboard-expand-button" id="leaderboardExpandToggle" aria-expanded="false">Show all drivers</button>
      </div>
      <div class="panel-bottom">
       <span>
@@ -165,6 +162,27 @@
       <span id="lastUpdated">
        Updated after each lobby stream
       </span>
+     </div>
+    </div>
+    <div class="leaderboard-panel country-standings-panel">
+     <div class="panel-top">
+      <div>
+       <span class="panel-kicker">NATIONS TABLE</span>
+       <h3>Championship wins by country</h3>
+      </div>
+     </div>
+     <div class="table-wrap country-table-wrap">
+      <table class="country-table">
+       <thead>
+        <tr>
+         <th>POS.</th>
+         <th>COUNTRY</th>
+         <th>DRIVERS</th>
+         <th>CHAMPIONSHIPS</th>
+        </tr>
+       </thead>
+       <tbody id="countryStandingsRows"></tbody>
+      </table>
      </div>
     </div>
    </section>
