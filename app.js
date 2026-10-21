@@ -171,7 +171,8 @@ function renderLeaderboard(){
       const rawCountry = String(driver.country || "").trim().toLowerCase();
       // Drivers with no nationality supplied are excluded from the country table.
       if (!rawCountry) return;
-      const key = rawCountry;
+      // British entries are grouped under England in the nation standings.
+      const key = rawCountry === "britain" ? "england" : rawCountry;
       const current = countryTotals.get(key) || {country:key, drivers:0, wins:0};
       current.drivers += 1;
       current.wins += Math.max(0, Number(driver.wins) || 0);
@@ -199,9 +200,13 @@ function renderLeaderboard(){
         posCell.appendChild(pos);
 
         const nameCell=document.createElement("td");
-        const countryContainer=document.createElement("div");
-        countryContainer.className="country-standings-name";
+        const displayCountryLabel=standingsCountryLabels[entry.country] || entry.country.charAt(0).toUpperCase()+entry.country.slice(1);
         const flagCode=standingsFlagCodes[entry.country];
+        const countryContainer=document.createElement("button");
+        countryContainer.type="button";
+        countryContainer.className="country-standings-name country-profile-trigger";
+        countryContainer.setAttribute("aria-haspopup","dialog");
+        countryContainer.setAttribute("aria-label","View "+displayCountryLabel+" country profile");
         if(flagCode){
           const flag=document.createElement("img");
           flag.className="driver-flag";
@@ -214,8 +219,16 @@ function renderLeaderboard(){
           countryContainer.appendChild(flag);
         }
         const label=document.createElement("strong");
-        label.textContent=standingsCountryLabels[entry.country] || entry.country.charAt(0).toUpperCase()+entry.country.slice(1);
+        label.textContent=displayCountryLabel;
         countryContainer.appendChild(label);
+        const registeredDrivers=drivers
+          .filter(driver => {
+            const rawCountry=String(driver.country || "").trim().toLowerCase();
+            return rawCountry && (rawCountry === "britain" ? "england" : rawCountry) === entry.country;
+          })
+          .slice()
+          .sort((a,b) => Number(b.wins)-Number(a.wins) || String(a.name || "").localeCompare(String(b.name || "")));
+        countryContainer.addEventListener("click",() => openCountryProfile(entry,registeredDrivers,displayCountryLabel,flagCode));
         nameCell.appendChild(countryContainer);
 
         const driversCell=document.createElement("td");
@@ -230,6 +243,146 @@ function renderLeaderboard(){
     }
   }
 
+}
+
+
+const COUNTRY_PROFILE_CHART_COLOURS = [
+  "#7db8ff", "#d9e9ff", "#4f8fe0", "#b5d2f4", "#315f9f",
+  "#eff5ff", "#679bd9", "#91b7e8", "#426eae", "#c2d9f6"
+];
+
+function openCountryProfile(entry, registeredDrivers, countryLabel, flagCode) {
+  const modal=document.getElementById("countryProfileModal");
+  if(!modal) return;
+
+  const flag=document.getElementById("countryProfileFlag");
+  flag.replaceChildren();
+  if(flagCode){
+    const image=document.createElement("img");
+    image.src=`https://flagcdn.com/${flagCode}.svg`;
+    image.alt=countryLabel+" flag";
+    image.width=48;
+    image.height=32;
+    image.draggable=false;
+    flag.appendChild(image);
+  }else{
+    const initials=document.createElement("span");
+    initials.className="profile-initials";
+    initials.textContent=countryLabel.trim().slice(0,2).toUpperCase();
+    initials.setAttribute("aria-hidden","true");
+    flag.appendChild(initials);
+  }
+
+  document.getElementById("countryProfileName").textContent=countryLabel;
+  document.getElementById("countryProfileMeta").textContent=
+    registeredDrivers.length+" REGISTERED DRIVER"+(registeredDrivers.length===1?"":"S");
+
+  const totalWins=Math.max(0,Number(entry.wins)||0);
+  document.getElementById("countryProfileWinCount").textContent=String(totalWins);
+  document.getElementById("countryProfileWinLabel").textContent=
+    totalWins===1?"CHAMPIONSHIP WIN":"CHAMPIONSHIP WINS";
+
+  const list=document.getElementById("countryProfileDriverList");
+  list.replaceChildren();
+  if(!registeredDrivers.length){
+    const empty=document.createElement("p");
+    empty.className="country-profile-empty";
+    empty.textContent="No registered drivers are listed for this country yet.";
+    list.appendChild(empty);
+  }else{
+    registeredDrivers.forEach(driver=>{
+      const wins=Math.max(0,Number(driver.wins)||0);
+      const row=document.createElement("div");
+      row.className="country-profile-driver-row";
+      const name=document.createElement("strong");
+      name.className="country-profile-driver-name";
+      name.textContent=driver.name||"Unknown driver";
+      const score=document.createElement("span");
+      score.className="country-profile-driver-score";
+      const count=document.createElement("strong");
+      count.textContent=String(wins);
+      const caption=document.createElement("small");
+      caption.textContent=wins===1?"WIN":"WINS";
+      score.append(count,caption);
+      row.append(name,score);
+      list.appendChild(row);
+    });
+  }
+
+  const pie=document.getElementById("countryProfilePie");
+  const legend=document.getElementById("countryProfileChartLegend");
+  const chartNote=document.getElementById("countryProfileChartNote");
+  pie.replaceChildren();
+  legend.replaceChildren();
+  const chartDrivers=registeredDrivers.map((driver,index)=>({
+    name:String(driver.name||"Unknown driver"),
+    wins:Math.max(0,Number(driver.wins)||0),
+    colour:COUNTRY_PROFILE_CHART_COLOURS[index%COUNTRY_PROFILE_CHART_COLOURS.length]
+  }));
+  const chartTotal=chartDrivers.reduce((sum,driver)=>sum+driver.wins,0);
+  pie.setAttribute("role","img");
+  pie.setAttribute("aria-label","Championship wins by driver for "+countryLabel);
+  if(chartTotal>0){
+    let current=0;
+    const positiveDrivers=chartDrivers.filter(driver=>driver.wins>0);
+    const segments=positiveDrivers.map((driver,index)=>{
+      const start=current;
+      const end=index===positiveDrivers.length-1?100:current+(driver.wins/chartTotal)*100;
+      current=end;
+      return `${driver.colour} ${start}% ${end}%`;
+    });
+    pie.style.background=`conic-gradient(${segments.join(",")})`;
+    chartNote.textContent="Each slice represents a driver's share of the country's championship wins.";
+  }else{
+    pie.style.background="conic-gradient(#355071 0% 100%)";
+    chartNote.textContent="No championship wins have been recorded for this country yet.";
+  }
+
+  chartDrivers.forEach(driver=>{
+    const item=document.createElement("div");
+    item.className="country-profile-legend-item";
+    const swatch=document.createElement("span");
+    swatch.className="country-profile-swatch";
+    swatch.style.background=driver.colour;
+    swatch.setAttribute("aria-hidden","true");
+    const copy=document.createElement("div");
+    copy.className="country-profile-legend-copy";
+    const name=document.createElement("strong");
+    name.textContent=driver.name;
+    const detail=document.createElement("span");
+    detail.textContent=driver.wins+" "+(driver.wins===1?"win":"wins");
+    copy.append(name,detail);
+    item.append(swatch,copy);
+    legend.appendChild(item);
+  });
+
+  const listView=document.getElementById("countryProfileListView");
+  const chartView=document.getElementById("countryProfileChartView");
+  const listButton=document.getElementById("countryProfileListToggle");
+  const chartButton=document.getElementById("countryProfileChartToggle");
+  const setView=view=>{
+    const isList=view==="list";
+    listView.hidden=!isList;
+    chartView.hidden=isList;
+    listButton.classList.toggle("is-active",isList);
+    chartButton.classList.toggle("is-active",!isList);
+    listButton.setAttribute("aria-pressed",String(isList));
+    chartButton.setAttribute("aria-pressed",String(!isList));
+  };
+  listButton.onclick=()=>setView("list");
+  chartButton.onclick=()=>setView("chart");
+  setView("list");
+
+  modal.hidden=false;
+  document.body.classList.add("profile-modal-open");
+  document.getElementById("countryProfileClose").focus();
+}
+
+function closeCountryProfile(){
+  const modal=document.getElementById("countryProfileModal");
+  if(!modal||modal.hidden) return;
+  modal.hidden=true;
+  document.body.classList.remove("profile-modal-open");
 }
 
 
@@ -339,6 +492,13 @@ document.addEventListener("click", event => {
 });
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeDriverProfile();
+});
+
+document.addEventListener("click",event=>{
+  if(event.target.closest("#countryProfileClose")||event.target.id==="countryProfileModal") closeCountryProfile();
+});
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape") closeCountryProfile();
 });
 
 
