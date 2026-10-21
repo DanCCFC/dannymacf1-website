@@ -5731,23 +5731,16 @@ body.profile-modal-open { overflow: hidden; }
 #championship .leaderboard-expand-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 13px 24px 16px;
-  border-top: 1px solid rgba(125,184,255,.12);
-}
-#championship .leaderboard-expand-note {
-  color: #8fa9ca;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .35px;
+  justify-content: center;
+  padding: 8px 12px 10px;
+  border-top: 0;
 }
 #championship .leaderboard-expand-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 9px 14px;
+  min-height: 34px;
+  padding: 7px 13px;
   border: 1px solid rgba(125,184,255,.35);
   border-radius: 7px;
   background: rgba(125,184,255,.08);
@@ -5818,12 +5811,10 @@ body.profile-modal-open { overflow: hidden; }
 }
 @media (max-width: 640px) {
   #championship .leaderboard-expand-wrap {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 12px 14px 15px;
+    padding: 8px 10px 10px;
   }
   #championship .leaderboard-expand-button {
-    width: 100%;
+    width: auto;
   }
   #championship .country-table thead th:nth-child(3),
   #championship .country-table tbody td:nth-child(3) {
