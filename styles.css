@@ -5848,6 +5848,7 @@ body.profile-modal-open { overflow: hidden; }
   border: 0;
   color: inherit;
   background: transparent;
+  font: inherit;
   text-align: left;
   cursor: pointer;
 }
