@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261017-18" rel="stylesheet"/>
+  <link href="styles.css?v=20261021-02" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -768,7 +768,49 @@
     <p class="driver-profile-note">Profile details will be added when the driver provides them.</p>
    </section>
   </div>
-  <script src="app.js?v=20261021-01"></script>
+  <!-- Country profile overlay: totals and driver breakdown for each nation. -->
+  <div class="country-profile-modal" id="countryProfileModal" hidden>
+   <section class="country-profile-card" role="dialog" aria-modal="true" aria-labelledby="countryProfileName">
+    <button class="driver-profile-close" id="countryProfileClose" type="button" aria-label="Close country profile">×</button>
+    <div class="driver-profile-topline">DANNYMACF1 CHAMPIONSHIP · COUNTRY PROFILE</div>
+    <div class="driver-profile-identity country-profile-identity">
+     <div class="driver-profile-flag" id="countryProfileFlag" aria-hidden="true"></div>
+     <div class="driver-profile-heading">
+      <p id="countryProfileMeta">REGISTERED DRIVERS</p>
+      <h2 id="countryProfileName">Country</h2>
+     </div>
+    </div>
+    <div class="driver-profile-trophy country-profile-trophy">
+     <div class="driver-profile-trophy-count country-profile-trophy-count">
+      <strong id="countryProfileWinCount">0</strong>
+      <span id="countryProfileWinLabel">CHAMPIONSHIP WINS</span>
+     </div>
+    </div>
+    <div class="country-profile-breakdown">
+     <div class="country-profile-breakdown-head">
+      <div>
+       <span class="country-profile-kicker">NATION BREAKDOWN</span>
+       <h3>DRIVER WINS</h3>
+      </div>
+      <div class="country-profile-view-toggle" role="group" aria-label="Choose driver breakdown view">
+       <button type="button" id="countryProfileListToggle" class="is-active" aria-pressed="true">List</button>
+       <button type="button" id="countryProfileChartToggle" aria-pressed="false">Pie chart</button>
+      </div>
+     </div>
+     <div id="countryProfileListView" class="country-profile-list-view">
+      <div id="countryProfileDriverList" class="country-profile-driver-list"></div>
+     </div>
+     <div id="countryProfileChartView" class="country-profile-chart-view" hidden>
+      <div class="country-profile-chart-layout">
+       <div id="countryProfilePie" class="country-profile-pie"></div>
+       <div id="countryProfileChartLegend" class="country-profile-chart-legend"></div>
+      </div>
+      <p id="countryProfileChartNote" class="country-profile-chart-note"></p>
+     </div>
+    </div>
+   </section>
+  </div>
+  <script src="app.js?v=20261021-02"></script>
  </body>
 </html>
 
