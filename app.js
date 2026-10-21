@@ -70,6 +70,11 @@ function renderLeaderboard(){
     netherlands: "Netherlands"
   };
 
+  // In nation standings, British drivers are represented as England.
+  // The main driver table keeps its original Britain label and flag.
+  const standingsFlagCodes = {...flagCodes, britain: "gb-eng"};
+  const standingsCountryLabels = {...countryLabels, britain: "England"};
+
   const drivers = getDrivers()
     .slice()
     .sort((a, b) => Number(b.wins) - Number(a.wins));
@@ -177,8 +182,8 @@ function renderLeaderboard(){
       b.wins - a.wins ||
       (b.wins / b.drivers) - (a.wins / a.drivers) ||
       b.drivers - a.drivers ||
-      String(countryLabels[a.country] || a.country).localeCompare(
-        String(countryLabels[b.country] || b.country)
+      String(standingsCountryLabels[a.country] || a.country).localeCompare(
+        String(standingsCountryLabels[b.country] || b.country)
       )
     );
 
@@ -196,7 +201,7 @@ function renderLeaderboard(){
         const nameCell=document.createElement("td");
         const countryContainer=document.createElement("div");
         countryContainer.className="country-standings-name";
-        const flagCode=flagCodes[entry.country];
+        const flagCode=standingsFlagCodes[entry.country];
         if(flagCode){
           const flag=document.createElement("img");
           flag.className="driver-flag";
@@ -209,7 +214,7 @@ function renderLeaderboard(){
           countryContainer.appendChild(flag);
         }
         const label=document.createElement("strong");
-        label.textContent=countryLabels[entry.country] || entry.country.charAt(0).toUpperCase()+entry.country.slice(1);
+        label.textContent=standingsCountryLabels[entry.country] || entry.country.charAt(0).toUpperCase()+entry.country.slice(1);
         countryContainer.appendChild(label);
         nameCell.appendChild(countryContainer);
 
