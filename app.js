@@ -48,13 +48,27 @@ function renderLeaderboard(){
   const tbody = document.getElementById("leaderboardRows");
   if (!tbody) return;
 
+  const countryRows = document.getElementById("countryStandingsRows");
+  const expandWrap = document.getElementById("leaderboardExpandWrap");
+  const expandButton = document.getElementById("leaderboardExpandToggle");
+  const expandNote = document.getElementById("leaderboardExpandNote");
   const flagCodes = {
     barbados: "bb",
     britain: "gb",
+    england: "gb-eng",
     wales: "gb-wls",
     scotland: "gb-sct",
     ireland: "ie",
     netherlands: "nl"
+  };
+  const countryLabels = {
+    barbados: "Barbados",
+    britain: "Britain",
+    england: "England",
+    wales: "Wales",
+    scotland: "Scotland",
+    ireland: "Ireland",
+    netherlands: "Netherlands"
   };
 
   const drivers = getDrivers()
@@ -62,71 +76,156 @@ function renderLeaderboard(){
     .sort((a, b) => Number(b.wins) - Number(a.wins));
 
   tbody.replaceChildren();
-
   if (!drivers.length) {
-    tbody.innerHTML =
-      '<tr><td colspan="3">No results yet — check back after the next championship.</td></tr>';
-    return;
+    tbody.innerHTML = '<tr><td colspan="3">No results yet — check back after the next championship.</td></tr>';
+  } else {
+    let expanded = false;
+    const updateExpandedRows = () => {
+      const extraRows = tbody.querySelectorAll(".leaderboard-extra-row");
+      extraRows.forEach(row => { row.hidden = !expanded; });
+      if (expandButton) {
+        expandButton.textContent = expanded ? "Show top 10 only" : "Show all drivers";
+        expandButton.setAttribute("aria-expanded", String(expanded));
+      }
+      if (expandNote) {
+        expandNote.textContent = expanded
+          ? "Showing all " + drivers.length + " drivers"
+          : "Showing the top " + Math.min(10, drivers.length) + " of " + drivers.length + " drivers";
+      }
+    };
+
+    drivers.forEach((driver, index) => {
+      const tr = document.createElement("tr");
+      const pos = index + 1;
+      if (index >= 10) {
+        tr.className = "leaderboard-extra-row";
+        tr.hidden = true;
+      }
+
+      const positionCell = document.createElement("td");
+      const position = document.createElement("span");
+      position.className = "position-number";
+      position.textContent = String(pos).padStart(2, "0");
+      positionCell.appendChild(position);
+
+      const driverCell = document.createElement("td");
+      const driverContainer = document.createElement("div");
+      driverContainer.className = "driver";
+
+      const country = String(driver.country || "").trim().toLowerCase();
+      const flagCode = flagCodes[country];
+      if (flagCode) {
+        const flag = document.createElement("img");
+        flag.className = "driver-flag";
+        flag.src = `https://flagcdn.com/${flagCode}.svg`;
+        flag.alt = `${countryLabels[country] || country} flag`;
+        flag.title = countryLabels[country] || country;
+        flag.width = 36;
+        flag.height = 24;
+        flag.loading = "lazy";
+        flag.draggable = false;
+        driverContainer.appendChild(flag);
+      } else {
+        const badge = document.createElement("span");
+        badge.className = "driver-badge";
+        badge.textContent = String(driver.name || "?").trim().slice(0, 1).toUpperCase() || "?";
+        driverContainer.appendChild(badge);
+      }
+
+      const name = document.createElement("button");
+      name.className = "driver-name driver-profile-trigger";
+      name.type = "button";
+      name.textContent = driver.name || "Unknown driver";
+      name.setAttribute("aria-haspopup", "dialog");
+      name.addEventListener("click", () => openDriverProfile(driver));
+      driverContainer.appendChild(name);
+      driverCell.appendChild(driverContainer);
+
+      const winsCell = document.createElement("td");
+      const wins = Math.max(0, Number(driver.wins) || 0);
+      const winsElement = document.createElement("span");
+      winsElement.className = "wins";
+      winsElement.append(document.createTextNode(String(wins)));
+      const winsLabel = document.createElement("small");
+      winsLabel.textContent = wins === 1 ? "WIN" : "WINS";
+      winsElement.appendChild(winsLabel);
+      winsCell.appendChild(winsElement);
+
+      tr.append(positionCell, driverCell, winsCell);
+      tbody.appendChild(tr);
+    });
+
+    if (expandWrap && expandButton) {
+      expandWrap.hidden = drivers.length <= 10;
+      expandButton.onclick = () => {
+        expanded = !expanded;
+        updateExpandedRows();
+      };
+      updateExpandedRows();
+    }
   }
 
-  drivers.forEach((driver, index) => {
-    const tr = document.createElement("tr");
-    const pos = index + 1;
+  if (countryRows) {
+    countryRows.replaceChildren();
+    const countryTotals = new Map();
+    drivers.forEach(driver => {
+      const rawCountry = String(driver.country || "").trim().toLowerCase();
+      const key = rawCountry || "unspecified";
+      const current = countryTotals.get(key) || {country:key, drivers:0, wins:0};
+      current.drivers += 1;
+      current.wins += Math.max(0, Number(driver.wins) || 0);
+      countryTotals.set(key, current);
+    });
 
-    const positionCell = document.createElement("td");
-    const position = document.createElement("span");
-    position.className = "position-number";
-    position.textContent = String(pos).padStart(2, "0");
-    positionCell.appendChild(position);
+    const standings = [...countryTotals.values()].sort((a,b) =>
+      b.wins - a.wins || b.drivers - a.drivers ||
+      String(countryLabels[a.country] || (a.country === "unspecified" ? "Not specified" : a.country)).localeCompare(
+        String(countryLabels[b.country] || (b.country === "unspecified" ? "Not specified" : b.country))
+      )
+    );
 
-    const driverCell = document.createElement("td");
-    const driverContainer = document.createElement("div");
-    driverContainer.className = "driver";
-
-    const flagCode = flagCodes[driver.country];
-    if (flagCode) {
-      const flag = document.createElement("img");
-      flag.className = "driver-flag";
-      flag.src = `https://flagcdn.com/${flagCode}.svg`;
-      flag.alt = `${driver.country} flag`;
-      flag.title = driver.country;
-      flag.width = 36;
-      flag.height = 24;
-      flag.loading = "lazy";
-      flag.draggable = false;
-      driverContainer.appendChild(flag);
+    if (!standings.length) {
+      countryRows.innerHTML = '<tr><td colspan="4">Country standings will appear once championship data is available.</td></tr>';
     } else {
-      const badge = document.createElement("span");
-      badge.className = "driver-badge";
-      badge.textContent =
-        driver.name.trim().slice(0, 1).toUpperCase() || "?";
-      driverContainer.appendChild(badge);
+      standings.forEach((entry,index) => {
+        const tr=document.createElement("tr");
+        const posCell=document.createElement("td");
+        const pos=document.createElement("span");
+        pos.className="position-number";
+        pos.textContent=String(index+1).padStart(2,"0");
+        posCell.appendChild(pos);
+
+        const nameCell=document.createElement("td");
+        const countryContainer=document.createElement("div");
+        countryContainer.className="country-standings-name";
+        const flagCode=flagCodes[entry.country];
+        if(flagCode){
+          const flag=document.createElement("img");
+          flag.className="driver-flag";
+          flag.src=`https://flagcdn.com/${flagCode}.svg`;
+          flag.alt="";
+          flag.width=36;
+          flag.height=24;
+          flag.loading="lazy";
+          flag.draggable=false;
+          countryContainer.appendChild(flag);
+        }
+        const label=document.createElement("strong");
+        label.textContent=countryLabels[entry.country] || (entry.country==="unspecified" ? "Not specified" : entry.country.charAt(0).toUpperCase()+entry.country.slice(1));
+        countryContainer.appendChild(label);
+        nameCell.appendChild(countryContainer);
+
+        const driversCell=document.createElement("td");
+        driversCell.className="country-count-cell";
+        driversCell.textContent=String(entry.drivers);
+        const winsCell=document.createElement("td");
+        winsCell.className="country-wins-cell";
+        winsCell.textContent=String(entry.wins);
+        tr.append(posCell,nameCell,driversCell,winsCell);
+        countryRows.appendChild(tr);
+      });
     }
-
-    const name = document.createElement("button");
-    name.className = "driver-name driver-profile-trigger";
-    name.type = "button";
-    name.textContent = driver.name;
-    name.setAttribute("aria-haspopup", "dialog");
-    name.addEventListener("click", () => openDriverProfile(driver));
-    driverContainer.appendChild(name);
-
-    driverCell.appendChild(driverContainer);
-
-    const winsCell = document.createElement("td");
-    const wins = Number(driver.wins) || 0;
-    const winsElement = document.createElement("span");
-    winsElement.className = "wins";
-    winsElement.append(document.createTextNode(String(wins)));
-
-    const winsLabel = document.createElement("small");
-    winsLabel.textContent = wins === 1 ? "WIN" : "WINS";
-    winsElement.appendChild(winsLabel);
-    winsCell.appendChild(winsElement);
-
-    tr.append(positionCell, driverCell, winsCell);
-    tbody.appendChild(tr);
-  });
+  }
 
   const updated = localStorage.getItem(STORAGE_KEY + "-updated");
   const lastUpdated = document.getElementById("lastUpdated");
