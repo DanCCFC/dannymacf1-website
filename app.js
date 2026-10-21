@@ -42,6 +42,9 @@ function getDrivers(){
     return DEFAULT_DRIVERS.map(driver => ({...driver}));
   }
 }
+// Current metric shown in the nations table.
+let countryStandingsMode = "total";
+
 // Build the visible leaderboard from the saved or default driver list.
 
 function renderLeaderboard(){
@@ -165,7 +168,9 @@ function renderLeaderboard(){
   }
 
   if (countryRows) {
-    countryRows.replaceChildren();
+    const totalToggle=document.getElementById("countryStandingsTotalToggle");
+    const averageToggle=document.getElementById("countryStandingsAverageToggle");
+    const valueHeader=document.getElementById("countryStandingsValueHeader");
     const countryTotals = new Map();
     drivers.forEach(driver => {
       const rawCountry = String(driver.country || "").trim().toLowerCase();
@@ -179,19 +184,44 @@ function renderLeaderboard(){
       countryTotals.set(key, current);
     });
 
-    const standings = [...countryTotals.values()].sort((a,b) =>
-      b.wins - a.wins ||
-      (b.wins / b.drivers) - (a.wins / a.drivers) ||
-      b.drivers - a.drivers ||
-      String(standingsCountryLabels[a.country] || a.country).localeCompare(
-        String(standingsCountryLabels[b.country] || b.country)
-      )
-    );
+    const standings = [...countryTotals.values()];
+    const renderCountryRows = () => {
+      countryRows.replaceChildren();
+      const sortedStandings=standings.slice().sort((a,b)=>{
+        if(countryStandingsMode==="average"){
+          const averageDifference=(b.wins/b.drivers)-(a.wins/a.drivers);
+          if(averageDifference!==0) return averageDifference;
+          return b.wins-a.wins ||
+            b.drivers-a.drivers ||
+            String(standingsCountryLabels[a.country] || a.country).localeCompare(
+              String(standingsCountryLabels[b.country] || b.country)
+            );
+        }
+        return b.wins-a.wins ||
+          (b.wins/b.drivers)-(a.wins/a.drivers) ||
+          b.drivers-a.drivers ||
+          String(standingsCountryLabels[a.country] || a.country).localeCompare(
+            String(standingsCountryLabels[b.country] || b.country)
+          );
+      });
 
-    if (!standings.length) {
-      countryRows.innerHTML = '<tr><td colspan="4">Country standings will appear once championship data is available.</td></tr>';
-    } else {
-      standings.forEach((entry,index) => {
+      if(valueHeader){
+        valueHeader.textContent=countryStandingsMode==="average"?"AVG. / DRIVER":"CHAMPIONSHIPS";
+      }
+      if(totalToggle&&averageToggle){
+        const showAverage=countryStandingsMode==="average";
+        totalToggle.classList.toggle("is-active",!showAverage);
+        averageToggle.classList.toggle("is-active",showAverage);
+        totalToggle.setAttribute("aria-pressed",String(!showAverage));
+        averageToggle.setAttribute("aria-pressed",String(showAverage));
+      }
+
+      if (!sortedStandings.length) {
+        countryRows.innerHTML = '<tr><td colspan="4">Country standings will appear once championship data is available.</td></tr>';
+        return;
+      }
+
+      sortedStandings.forEach((entry,index) => {
         const tr=document.createElement("tr");
         const posCell=document.createElement("td");
         const pos=document.createElement("span");
@@ -234,15 +264,30 @@ function renderLeaderboard(){
         const driversCell=document.createElement("td");
         driversCell.className="country-count-cell";
         driversCell.textContent=String(entry.drivers);
-        const winsCell=document.createElement("td");
-        winsCell.className="country-wins-cell";
-        winsCell.textContent=String(entry.wins);
-        tr.append(posCell,nameCell,driversCell,winsCell);
+        const valueCell=document.createElement("td");
+        valueCell.className=countryStandingsMode==="average"?"country-average-cell":"country-wins-cell";
+        valueCell.textContent=countryStandingsMode==="average"?(entry.wins/entry.drivers).toFixed(2):String(entry.wins);
+        tr.append(posCell,nameCell,driversCell,valueCell);
         countryRows.appendChild(tr);
       });
-    }
-  }
+    };
 
+    if(totalToggle&&!totalToggle.dataset.handlerReady){
+      totalToggle.dataset.handlerReady="true";
+      totalToggle.addEventListener("click",()=>{
+        countryStandingsMode="total";
+        renderCountryRows();
+      });
+    }
+    if(averageToggle&&!averageToggle.dataset.handlerReady){
+      averageToggle.dataset.handlerReady="true";
+      averageToggle.addEventListener("click",()=>{
+        countryStandingsMode="average";
+        renderCountryRows();
+      });
+    }
+    renderCountryRows();
+  }
 }
 
 
@@ -278,9 +323,11 @@ function openCountryProfile(entry, registeredDrivers, countryLabel, flagCode) {
     registeredDrivers.length+" REGISTERED DRIVER"+(registeredDrivers.length===1?"":"S");
 
   const totalWins=Math.max(0,Number(entry.wins)||0);
+  const averageWins=registeredDrivers.length?totalWins/registeredDrivers.length:0;
   document.getElementById("countryProfileWinCount").textContent=String(totalWins);
   document.getElementById("countryProfileWinLabel").textContent=
-    totalWins===1?"CHAMPIONSHIP WIN":"CHAMPIONSHIP WINS";
+    totalWins===1?"TOTAL CHAMPIONSHIP":"TOTAL CHAMPIONSHIPS";
+  document.getElementById("countryProfileAverageCount").textContent=averageWins.toFixed(2);
 
   const list=document.getElementById("countryProfileDriverList");
   list.replaceChildren();
