@@ -5839,3 +5839,255 @@ body.profile-modal-open { overflow: hidden; }
     font-size: 20px;
   }
 }
+
+
+/* Country profile cards: share the driver-card visual language. */
+#championship .country-profile-trigger {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+#championship .country-profile-trigger:hover strong { color: #9fcaff; }
+#championship .country-profile-trigger:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+.country-profile-modal[hidden] { display: none !important; }
+.country-profile-modal {
+  position: fixed;
+  z-index: 1001;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  overflow-y: auto;
+  background: rgba(2, 8, 20, .82);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+.country-profile-card {
+  position: relative;
+  width: min(100%, 620px);
+  max-height: calc(100dvh - 44px);
+  overflow-y: auto;
+  border: 1px solid rgba(125,184,255,.34);
+  border-radius: 20px;
+  padding: clamp(22px, 4vw, 34px);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(70,140,230,.17), transparent 48%),
+    linear-gradient(150deg, #10284b, #07152f 72%);
+  box-shadow: 0 28px 90px rgba(0,0,0,.48);
+}
+.country-profile-identity { margin-bottom: 20px; }
+.country-profile-identity h2 {
+  margin: 0;
+  color: #fff;
+  font: 900 clamp(30px, 6vw, 42px)/.98 var(--display);
+  overflow-wrap: anywhere;
+}
+.country-profile-trophy {
+  min-height: 122px;
+  padding: 19px 22px;
+}
+.country-profile-trophy-count {
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
+  gap: 7px;
+}
+.country-profile-trophy-count strong {
+  font-size: clamp(68px, 13vw, 94px);
+  line-height: .82;
+}
+.country-profile-trophy-count span {
+  font-size: 10px;
+  letter-spacing: 1.2px;
+}
+.country-profile-breakdown { margin-top: 24px; }
+.country-profile-breakdown-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 13px;
+}
+.country-profile-kicker {
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+.country-profile-breakdown-head h3 {
+  margin: 5px 0 0;
+  color: #fff;
+  font: 900 24px/.98 var(--display);
+}
+.country-profile-view-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 3px;
+  border: 1px solid rgba(159,202,255,.23);
+  border-radius: 9px;
+  background: rgba(3,12,28,.55);
+}
+.country-profile-view-toggle button {
+  min-height: 32px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #b8cce6;
+  background: transparent;
+  font: 800 11px var(--font);
+  cursor: pointer;
+}
+.country-profile-view-toggle button.is-active {
+  border-color: rgba(125,184,255,.35);
+  color: #fff;
+  background: rgba(125,184,255,.17);
+}
+.country-profile-view-toggle button:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 2px;
+}
+.country-profile-list-view[hidden],
+.country-profile-chart-view[hidden] { display: none !important; }
+.country-profile-driver-list {
+  display: grid;
+  gap: 7px;
+  max-height: 310px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+.country-profile-driver-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding: 10px 13px;
+  border: 1px solid rgba(125,184,255,.15);
+  border-radius: 9px;
+  background: rgba(255,255,255,.035);
+}
+.country-profile-driver-name {
+  min-width: 0;
+  color: #f4f8ff;
+  font-size: 13px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.country-profile-driver-score {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.country-profile-driver-score strong {
+  color: #fff;
+  font: 900 25px/.9 var(--display);
+  font-variant-numeric: tabular-nums;
+}
+.country-profile-driver-score small {
+  color: #9fcaff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+.country-profile-empty {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid rgba(125,184,255,.16);
+  border-radius: 9px;
+  color: #b8cce6;
+  font-size: 13px;
+}
+.country-profile-chart-layout {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
+  align-items: center;
+  gap: 22px;
+}
+.country-profile-pie {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 50%;
+  background: conic-gradient(#355071 0% 100%);
+  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+}
+.country-profile-chart-legend {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+.country-profile-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.country-profile-swatch {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,.22);
+}
+.country-profile-legend-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.country-profile-legend-copy strong {
+  color: #f4f8ff;
+  font-size: 11px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.country-profile-legend-copy span {
+  color: #9fcaff;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.country-profile-chart-note {
+  margin: 13px 0 0;
+  color: #9eb7d6;
+  font-size: 11px;
+  line-height: 1.5;
+}
+@media (max-width: 520px) {
+  .country-profile-modal { padding: 12px; }
+  .country-profile-card {
+    max-height: calc(100dvh - 24px);
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+  .country-profile-identity { gap: 12px; margin-top: 23px; }
+  .country-profile-breakdown-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .country-profile-view-toggle { align-self: flex-start; }
+  .country-profile-driver-row { padding: 9px 10px; }
+  .country-profile-driver-name { font-size: 12px; }
+  .country-profile-chart-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 18px;
+  }
+  .country-profile-pie { width: min(64vw, 210px); }
+  .country-profile-chart-legend {
+    width: 100%;
+    max-height: 200px;
+  }
+}
