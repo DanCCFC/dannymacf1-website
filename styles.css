@@ -6092,3 +6092,110 @@ body.profile-modal-open { overflow: hidden; }
     max-height: 200px;
   }
 }
+
+
+/* Toggle between total country wins and wins per registered driver. */
+#championship .country-standings-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 20px 4px;
+}
+#championship .country-standings-view-label {
+  color: #8ea9ca;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+#championship .country-standings-view-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(159,202,255,.23);
+  border-radius: 9px;
+  background: rgba(3,12,28,.55);
+}
+#championship .country-standings-view-toggle button {
+  min-height: 32px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #b8cce6;
+  background: transparent;
+  font: 800 11px var(--font);
+  cursor: pointer;
+}
+#championship .country-standings-view-toggle button.is-active {
+  border-color: rgba(125,184,255,.35);
+  color: #fff;
+  background: rgba(125,184,255,.17);
+}
+#championship .country-standings-view-toggle button:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 2px;
+}
+#championship .country-table thead th:nth-child(4) { min-width: 120px; }
+#championship .country-average-cell {
+  color: #fff;
+  font: 900 22px/.95 var(--display);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.country-profile-trophy {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  align-items: stretch;
+  gap: 12px;
+  min-height: 0;
+  padding: 14px;
+}
+.country-profile-trophy .country-profile-metric {
+  width: auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 9px;
+  padding: 18px 16px;
+  border: 1px solid rgba(125,184,255,.24);
+  border-radius: 10px;
+  background: rgba(125,184,255,.065);
+  text-align: left;
+}
+.country-profile-trophy .country-profile-metric strong {
+  font-size: clamp(48px, 10vw, 76px);
+  line-height: .86;
+  letter-spacing: -1px;
+}
+.country-profile-trophy .country-profile-metric span {
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+@media (max-width: 640px) {
+  #championship .country-standings-controls {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 12px 4px;
+    gap: 7px;
+  }
+  #championship .country-standings-view-toggle {
+    width: 100%;
+  }
+  #championship .country-standings-view-toggle button {
+    flex: 1 1 auto;
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+  #championship .country-average-cell { font-size: 19px; }
+  #championship .country-table thead th:nth-child(4) { min-width: 98px; }
+  .country-profile-trophy { gap: 8px; padding: 9px; }
+  .country-profile-trophy .country-profile-metric { padding: 14px 10px; }
+  .country-profile-trophy .country-profile-metric strong { font-size: clamp(42px, 10vw, 62px); }
+  .country-profile-trophy .country-profile-metric span { font-size: 8px; letter-spacing: .5px; }
+}
