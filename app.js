@@ -51,7 +51,6 @@ function renderLeaderboard(){
   const countryRows = document.getElementById("countryStandingsRows");
   const expandWrap = document.getElementById("leaderboardExpandWrap");
   const expandButton = document.getElementById("leaderboardExpandToggle");
-  const expandNote = document.getElementById("leaderboardExpandNote");
   const flagCodes = {
     barbados: "bb",
     britain: "gb",
@@ -86,11 +85,6 @@ function renderLeaderboard(){
       if (expandButton) {
         expandButton.textContent = expanded ? "Show top 10 only" : "Show all drivers";
         expandButton.setAttribute("aria-expanded", String(expanded));
-      }
-      if (expandNote) {
-        expandNote.textContent = expanded
-          ? "Showing all " + drivers.length + " drivers"
-          : "Showing the top " + Math.min(10, drivers.length) + " of " + drivers.length + " drivers";
       }
     };
 
@@ -231,17 +225,6 @@ function renderLeaderboard(){
     }
   }
 
-  const updated = localStorage.getItem(STORAGE_KEY + "-updated");
-  const lastUpdated = document.getElementById("lastUpdated");
-  if (updated && lastUpdated) {
-    lastUpdated.textContent =
-      "Updated " +
-      new Date(updated).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-      });
-  }
 }
 
 
