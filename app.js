@@ -1099,3 +1099,320 @@ async function refreshFollowerCount(){
   }
 }
 refreshFollowerCount();
+
+
+// DannyMacF1 tier list maker. Uses the current leaderboard driver data and exports a standalone PNG.
+(function initTierListMaker() {
+  const modal = document.getElementById("tierListModal");
+  const openButton = document.getElementById("openTierListMaker");
+  const closeButton = document.getElementById("closeTierListMaker");
+  const driverSelect = document.getElementById("tierListDriverSelect");
+  const tierSelect = document.getElementById("tierListTierSelect");
+  const titleInput = document.getElementById("tierListTitleInput");
+  const board = document.getElementById("tierListBoard");
+  const count = document.getElementById("tierListDriverCount");
+  const status = document.getElementById("tierListStatus");
+  const addButton = document.getElementById("addTierListDriver");
+  const clearButton = document.getElementById("clearTierList");
+  const exportButton = document.getElementById("exportTierListImage");
+  const tiers = ["S", "A", "B", "C", "D", "F"];
+  const tierLabels = {S:"S", A:"A", B:"B", C:"C", D:"D", F:"F"};
+  let placements = [];
+  let leaderboardDrivers = [];
+  let draggedDriverName = "";
+
+  if (!modal || !openButton || !driverSelect || !board) return;
+
+  function refreshDriverOptions() {
+    leaderboardDrivers = getDrivers()
+      .map(driver => ({...driver, name: String(driver.name || "").trim()}))
+      .filter(driver => driver.name)
+      .sort((a, b) => Number(b.wins) - Number(a.wins) || a.name.localeCompare(b.name));
+    const current = driverSelect.value;
+    driverSelect.replaceChildren();
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Select a driver…";
+    driverSelect.appendChild(placeholder);
+    leaderboardDrivers.forEach(driver => {
+      const option = document.createElement("option");
+      option.value = driver.name;
+      option.textContent = driver.name + " · " + (Number(driver.wins) || 0) + " " + ((Number(driver.wins) || 0) === 1 ? "win" : "wins");
+      driverSelect.appendChild(option);
+    });
+    if (current && leaderboardDrivers.some(driver => driver.name === current)) driverSelect.value = current;
+    updateDriverOptions();
+  }
+
+  function updateDriverOptions() {
+    const placedNames = new Set(placements.map(item => item.name.toLowerCase()));
+    Array.from(driverSelect.options).forEach(option => {
+      if (!option.value) return;
+      option.disabled = placedNames.has(option.value.toLowerCase());
+    });
+    if (driverSelect.selectedOptions[0]?.disabled) driverSelect.value = "";
+    addButton.disabled = !driverSelect.value;
+  }
+
+  function setStatus(message) {
+    status.textContent = message || "";
+  }
+
+  function renderBoard() {
+    board.replaceChildren();
+    tiers.forEach(tier => {
+      const row = document.createElement("section");
+      row.className = "tier-list-row tier-list-row-" + tier.toLowerCase();
+      row.dataset.tier = tier;
+      row.addEventListener("dragover", event => {
+        event.preventDefault();
+        row.classList.add("is-drop-target");
+      });
+      row.addEventListener("dragleave", event => {
+        if (!row.contains(event.relatedTarget)) row.classList.remove("is-drop-target");
+      });
+      row.addEventListener("drop", event => {
+        event.preventDefault();
+        row.classList.remove("is-drop-target");
+        const name = event.dataTransfer?.getData("text/plain") || draggedDriverName;
+        if (name) moveDriver(name, tier);
+      });
+
+      const label = document.createElement("div");
+      label.className = "tier-list-row-label";
+      label.textContent = tierLabels[tier];
+      label.setAttribute("aria-label", tier + " tier");
+
+      const items = document.createElement("div");
+      items.className = "tier-list-row-items";
+      items.dataset.tier = tier;
+      const tierPlacements = placements.filter(item => item.tier === tier);
+      if (!tierPlacements.length) {
+        const empty = document.createElement("span");
+        empty.className = "tier-list-empty";
+        empty.textContent = "Drop drivers here";
+        items.appendChild(empty);
+      }
+
+      tierPlacements.forEach(item => {
+        const chip = document.createElement("div");
+        chip.className = "tier-list-driver-chip";
+        chip.draggable = true;
+        chip.addEventListener("dragstart", event => {
+          draggedDriverName = item.name;
+          event.dataTransfer?.setData("text/plain", item.name);
+          if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+        });
+        chip.addEventListener("dragend", () => { draggedDriverName = ""; });
+
+        const name = document.createElement("span");
+        name.className = "tier-list-driver-chip-name";
+        name.textContent = item.name;
+
+        const move = document.createElement("select");
+        move.className = "tier-list-move-select";
+        move.setAttribute("aria-label", "Move " + item.name + " to another tier");
+        tiers.forEach(optionTier => {
+          const option = document.createElement("option");
+          option.value = optionTier;
+          option.textContent = optionTier;
+          option.selected = optionTier === item.tier;
+          move.appendChild(option);
+        });
+        move.addEventListener("change", () => moveDriver(item.name, move.value));
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "tier-list-remove-driver";
+        remove.textContent = "×";
+        remove.setAttribute("aria-label", "Remove " + item.name);
+        remove.addEventListener("click", () => {
+          placements = placements.filter(placement => placement.name !== item.name);
+          renderBoard();
+          updateDriverOptions();
+          setStatus(item.name + " removed from the tier list.");
+        });
+        chip.append(name, move, remove);
+        items.appendChild(chip);
+      });
+
+      row.append(label, items);
+      board.appendChild(row);
+    });
+    count.textContent = placements.length + " driver" + (placements.length === 1 ? "" : "s") + " added";
+  }
+
+  function moveDriver(name, tier) {
+    const placement = placements.find(item => item.name === name);
+    if (!placement || !tiers.includes(tier)) return;
+    placement.tier = tier;
+    renderBoard();
+    updateDriverOptions();
+    setStatus(name + " moved to " + tier + " tier.");
+  }
+
+  function openMaker() {
+    refreshDriverOptions();
+    modal.hidden = false;
+    document.body.classList.add("tier-list-open");
+    setStatus("");
+    titleInput.focus();
+  }
+
+  function closeMaker() {
+    modal.hidden = true;
+    document.body.classList.remove("tier-list-open");
+    openButton.focus();
+  }
+
+  openButton.addEventListener("click", openMaker);
+  closeButton.addEventListener("click", closeMaker);
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeMaker();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !modal.hidden) closeMaker();
+  });
+  driverSelect.addEventListener("change", updateDriverOptions);
+
+  addButton.addEventListener("click", () => {
+    const name = driverSelect.value;
+    if (!name || placements.some(item => item.name.toLowerCase() === name.toLowerCase())) return;
+    placements.push({name, tier: tiers.includes(tierSelect.value) ? tierSelect.value : "S"});
+    renderBoard();
+    updateDriverOptions();
+    driverSelect.value = "";
+    updateDriverOptions();
+    setStatus(name + " added to " + placements[placements.length - 1].tier + " tier.");
+  });
+
+  clearButton.addEventListener("click", () => {
+    placements = [];
+    renderBoard();
+    updateDriverOptions();
+    setStatus("Tier list cleared.");
+  });
+
+  function exportPng() {
+    const title = String(titleInput.value || "").trim() || "My F1 26 Driver Tier List";
+    const width = 1400;
+    const padding = 54;
+    const titleHeight = 150;
+    const rowHeight = 132;
+    const rowGap = 12;
+    const height = padding * 2 + titleHeight + tiers.length * rowHeight + (tiers.length - 1) * rowGap + 70;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      setStatus("Image export is not supported in this browser.");
+      return;
+    }
+
+    const background = ctx.createLinearGradient(0, 0, width, height);
+    background.addColorStop(0, "#07152f");
+    background.addColorStop(1, "#0d2145");
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.fillStyle = "#7db8ff";
+    ctx.fillRect(padding, padding, 8, 38);
+    ctx.fillStyle = "#a9cfff";
+    ctx.font = "800 20px Arial, sans-serif";
+    ctx.letterSpacing = "4px";
+    ctx.fillText("DANNYMACF1 · DRIVER RANKINGS", padding + 24, padding + 27);
+    ctx.letterSpacing = "0px";
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "900 48px Arial, sans-serif";
+    const maxTitleWidth = width - padding * 2;
+    let fittedTitle = title;
+    while (ctx.measureText(fittedTitle).width > maxTitleWidth && fittedTitle.length > 4) {
+      fittedTitle = fittedTitle.slice(0, -2) + "…";
+    }
+    ctx.fillText(fittedTitle, padding, padding + 95);
+
+    let y = padding + titleHeight;
+    const tierColours = {
+      S: ["#f4c84b", "#33280a"], A: ["#57c7a3", "#092c25"],
+      B: ["#5e9ee8", "#0a203c"], C: ["#a58be8", "#21143f"],
+      D: ["#e5a45c", "#3c220b"], F: ["#e87986", "#3e1019"]
+    };
+
+    tiers.forEach(tier => {
+      const [accent, dark] = tierColours[tier];
+      ctx.fillStyle = "rgba(255,255,255,0.045)";
+      ctx.fillRect(padding, y, width - padding * 2, rowHeight);
+      ctx.fillStyle = accent;
+      ctx.fillRect(padding, y, 112, rowHeight);
+      ctx.fillStyle = dark;
+      ctx.font = "900 58px Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(tier, padding + 56, y + rowHeight / 2);
+      ctx.textAlign = "left";
+      ctx.textBaseline = "alphabetic";
+
+      let x = padding + 138;
+      const maxX = width - padding - 20;
+      const names = placements.filter(item => item.tier === tier).map(item => item.name);
+      if (!names.length) {
+        ctx.fillStyle = "#8198b8";
+        ctx.font = "italic 23px Arial, sans-serif";
+        ctx.fillText("No drivers placed", x, y + rowHeight / 2 + 8);
+      } else {
+        names.forEach(name => {
+          ctx.font = "700 22px Arial, sans-serif";
+          const chipWidth = Math.min(ctx.measureText(name).width + 38, 360);
+          if (x + chipWidth > maxX) {
+            x = padding + 138;
+            y += 50;
+          }
+          ctx.fillStyle = dark;
+          ctx.fillRect(x, y + 20, chipWidth, 48);
+          ctx.strokeStyle = accent;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(x, y + 20, chipWidth, 48);
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "700 22px Arial, sans-serif";
+          let displayName = name;
+          while (ctx.measureText(displayName).width > chipWidth - 24 && displayName.length > 4) {
+            displayName = displayName.slice(0, -2) + "…";
+          }
+          ctx.fillText(displayName, x + 14, y + 51);
+          x += chipWidth + 12;
+        });
+      }
+      y = Math.max(y, padding + titleHeight + (tiers.indexOf(tier) + 1) * (rowHeight + rowGap) - rowGap) + rowGap;
+    });
+
+    ctx.fillStyle = "#8da5c5";
+    ctx.font = "600 17px Arial, sans-serif";
+    ctx.fillText("Made with DannyMacF1", padding, height - 28);
+
+    canvas.toBlob(blob => {
+      if (!blob) {
+        setStatus("Could not create the image. Please try again.");
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = (title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "dannymacf1-tier-list") + ".png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setStatus("Your tier list image has been exported.");
+    }, "image/png");
+  }
+
+  exportButton.addEventListener("click", exportPng);
+  titleInput.addEventListener("input", () => {
+    if (titleInput.value.length >= 80) setStatus("Titles can be up to 80 characters.");
+    else setStatus("");
+  });
+  renderBoard();
+  refreshDriverOptions();
+})();
