@@ -1429,3 +1429,199 @@ refreshFollowerCount();
   renderBoard();
   refreshDriverOptions();
 })();
+
+
+// Dream 5-A-Side: select exactly five current championship drivers within £100m.
+(function initDreamFive() {
+  const modal = document.getElementById("dreamFiveModal");
+  const openButton = document.getElementById("openDreamFive");
+  const closeButton = document.getElementById("closeDreamFive");
+  const driverSelect = document.getElementById("dreamFiveDriverSelect");
+  const priceDisplay = document.getElementById("dreamFiveDriverPrice");
+  const addButton = document.getElementById("addDreamFiveDriver");
+  const squadElement = document.getElementById("dreamFiveSquad");
+  const remainingElement = document.getElementById("dreamFiveRemaining");
+  const countElement = document.getElementById("dreamFiveSquadCount");
+  const fillElement = document.getElementById("dreamFiveBudgetFill");
+  const messageElement = document.getElementById("dreamFiveSquadMessage");
+  const statusElement = document.getElementById("dreamFiveStatus");
+  const clearButton = document.getElementById("clearDreamFive");
+  const budget = 100;
+  const basePrice = 5;
+  const pricePerWin = 1;
+  let drivers = [];
+  let squad = [];
+
+  if (!modal || !openButton || !driverSelect || !squadElement) return;
+
+  const priceFor = driver => basePrice + Math.max(0, Number(driver.wins) || 0) * pricePerWin;
+  const money = value => "£" + Number(value).toFixed(0) + "m";
+  const spend = () => squad.reduce((sum, driver) => sum + driver.price, 0);
+  const findDriver = name => drivers.find(driver => driver.name === name);
+
+  function setStatus(message) {
+    statusElement.textContent = message || "";
+  }
+
+  function refreshDrivers() {
+    drivers = getDrivers()
+      .map(driver => ({...driver, name: String(driver.name || "").trim()}))
+      .filter(driver => driver.name)
+      .map(driver => ({...driver, price: priceFor(driver)}))
+      .sort((a, b) => Number(b.wins) - Number(a.wins) || a.name.localeCompare(b.name));
+    renderOptions();
+  }
+
+  function renderOptions() {
+    const selectedName = driverSelect.value;
+    const selectedNames = new Set(squad.map(driver => driver.name.toLowerCase()));
+    driverSelect.replaceChildren();
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Select a driver…";
+    driverSelect.appendChild(placeholder);
+    drivers.forEach(driver => {
+      const option = document.createElement("option");
+      option.value = driver.name;
+      option.textContent = driver.name + " · " + money(driver.price) + " · " + (Number(driver.wins) || 0) + " " + ((Number(driver.wins) || 0) === 1 ? "win" : "wins");
+      option.disabled = selectedNames.has(driver.name.toLowerCase());
+      driverSelect.appendChild(option);
+    });
+    if (selectedName && drivers.some(driver => driver.name === selectedName) && !selectedNames.has(selectedName.toLowerCase())) {
+      driverSelect.value = selectedName;
+    }
+    updateSelectedPrice();
+  }
+
+  function updateSelectedPrice() {
+    const driver = findDriver(driverSelect.value);
+    priceDisplay.textContent = driver ? money(driver.price) : "—";
+    const hasRoom = squad.length < 5;
+    const fitsBudget = driver && spend() + driver.price <= budget;
+    addButton.disabled = !driver || !hasRoom || !fitsBudget;
+    if (driver && !fitsBudget) {
+      setStatus("That driver would take your squad over the £100m budget.");
+    } else if (driver && !hasRoom) {
+      setStatus("Your five-driver squad is full. Remove someone to make a change.");
+    } else if (driver) {
+      setStatus("");
+    }
+  }
+
+  function renderSquad() {
+    squadElement.replaceChildren();
+    if (!squad.length) {
+      const empty = document.createElement("div");
+      empty.className = "dream-five-empty";
+      empty.textContent = "Your squad is empty. Choose a driver above to get started.";
+      squadElement.appendChild(empty);
+    }
+    for (let i = 0; i < 5; i++) {
+      const driver = squad[i];
+      const slot = document.createElement("article");
+      slot.className = "dream-five-slot" + (driver ? " is-filled" : "");
+      const number = document.createElement("span");
+      number.className = "dream-five-slot-number";
+      number.textContent = String(i + 1).padStart(2, "0");
+      slot.appendChild(number);
+      if (driver) {
+        const details = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "dream-five-slot-name";
+        name.textContent = driver.name;
+        const price = document.createElement("div");
+        price.className = "dream-five-slot-price";
+        price.textContent = money(driver.price);
+        details.append(name, price);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "dream-five-remove";
+        remove.textContent = "REMOVE";
+        remove.setAttribute("aria-label", "Remove " + driver.name + " from squad");
+        remove.addEventListener("click", () => {
+          squad = squad.filter(item => item.name !== driver.name);
+          renderSquad();
+          renderOptions();
+          setStatus(driver.name + " removed from your squad.");
+        });
+        slot.append(details, remove);
+      } else {
+        const emptyName = document.createElement("div");
+        emptyName.className = "dream-five-slot-name";
+        emptyName.textContent = "Empty slot";
+        slot.appendChild(emptyName);
+      }
+      squadElement.appendChild(slot);
+    }
+
+    const total = spend();
+    remainingElement.textContent = money(budget - total);
+    countElement.textContent = squad.length + " / 5";
+    fillElement.style.width = Math.min(100, total / budget * 100) + "%";
+    messageElement.textContent = squad.length === 5
+      ? "Five drivers selected — dream team complete!"
+      : (5 - squad.length) + " spot" + (5 - squad.length === 1 ? "" : "s") + " left";
+    clearButton.disabled = squad.length === 0;
+    updateSelectedPrice();
+  }
+
+  function openGame() {
+    refreshDrivers();
+    renderSquad();
+    modal.hidden = false;
+    document.body.classList.add("dream-five-open");
+    setStatus("");
+    driverSelect.focus();
+  }
+
+  function closeGame() {
+    modal.hidden = true;
+    document.body.classList.remove("dream-five-open");
+    openButton.focus();
+  }
+
+  openButton.addEventListener("click", openGame);
+  closeButton.addEventListener("click", closeGame);
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeGame();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !modal.hidden) closeGame();
+  });
+  driverSelect.addEventListener("change", updateSelectedPrice);
+
+  addButton.addEventListener("click", () => {
+    const driver = findDriver(driverSelect.value);
+    if (!driver) return;
+    if (squad.some(item => item.name.toLowerCase() === driver.name.toLowerCase())) {
+      setStatus("That driver is already in your squad.");
+      return;
+    }
+    if (squad.length >= 5) {
+      setStatus("Your squad is full. Remove a driver before adding another.");
+      return;
+    }
+    if (spend() + driver.price > budget) {
+      setStatus("That driver would take your squad over the £100m budget.");
+      return;
+    }
+    squad.push({...driver});
+    renderSquad();
+    renderOptions();
+    driverSelect.value = "";
+    updateSelectedPrice();
+    setStatus(driver.name + " added for " + money(driver.price) + ".");
+  });
+
+  clearButton.addEventListener("click", () => {
+    squad = [];
+    renderSquad();
+    renderOptions();
+    driverSelect.value = "";
+    updateSelectedPrice();
+    setStatus("Your squad has been reset.");
+  });
+
+  renderSquad();
+  refreshDrivers();
+})();
