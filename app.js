@@ -1448,7 +1448,7 @@ refreshFollowerCount();
   const clearButton = document.getElementById("clearDreamFive");
   const budget = 100;
   const basePrice = 5;
-  const pricePerWin = 2;
+  const pricePerWin = 3;
   let drivers = [];
   let squad = [];
 
