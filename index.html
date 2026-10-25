@@ -152,9 +152,12 @@
      <div class="leaderboard-expand-wrap" id="leaderboardExpandWrap" hidden>
       <button type="button" class="leaderboard-expand-button" id="leaderboardExpandToggle" aria-expanded="false">Show all drivers</button>
      </div>
-      <div class="tier-list-launch-wrap">
-       <p>Build your own driver rankings and share them with the community.</p>
-       <button type="button" class="button button-primary tier-list-launch" id="openTierListMaker">CREATE A TIER LIST</button>
+      <div class="tier-list-launch-wrap championship-games-launch-wrap">
+       <p>Build your own driver rankings, or put together a five-driver dream team within a £100m budget.</p>
+       <div class="championship-game-launch-actions">
+        <button type="button" class="button button-primary tier-list-launch" id="openTierListMaker">CREATE A TIER LIST</button>
+        <button type="button" class="button button-ghost dream-five-launch" id="openDreamFive">PLAY DREAM 5-A-SIDE</button>
+       </div>
       </div>
     </div>
     <div class="leaderboard-panel country-standings-panel">
@@ -824,6 +827,36 @@
     </div>
    </section>
   </div>
+  <!-- Dream 5-A-Side: build a five-driver squad within a £100m budget. -->
+  <div class="dream-five-modal" id="dreamFiveModal" hidden>
+   <section class="dream-five-dialog" role="dialog" aria-modal="true" aria-labelledby="dreamFiveTitle">
+    <button type="button" class="dream-five-close" id="closeDreamFive" aria-label="Close Dream 5-A-Side">×</button>
+    <div class="dream-five-kicker">DANNYMACF1 · SQUAD BUILDER</div>
+    <h2 id="dreamFiveTitle">DREAM <span class="accent">5-A-SIDE.</span></h2>
+    <p class="dream-five-intro">Pick five drivers using their current championship wins to set their price. Can you build the strongest squad without going over budget?</p>
+    <div class="dream-five-budget-panel">
+     <div><span>TRANSFER BUDGET</span><strong>£100m</strong></div>
+     <div><span>REMAINING</span><strong id="dreamFiveRemaining">£100m</strong></div>
+     <div><span>SQUAD</span><strong id="dreamFiveSquadCount">0 / 5</strong></div>
+    </div>
+    <div class="dream-five-budget-track" aria-hidden="true"><span id="dreamFiveBudgetFill"></span></div>
+    <div class="dream-five-pick-controls">
+     <div class="dream-five-field">
+      <label for="dreamFiveDriverSelect">CHOOSE A DRIVER</label>
+      <select id="dreamFiveDriverSelect"><option value="">Select a driver…</option></select>
+     </div>
+     <div class="dream-five-selected-price"><span>DRIVER PRICE</span><strong id="dreamFiveDriverPrice">—</strong></div>
+     <button type="button" class="button button-primary dream-five-add" id="addDreamFiveDriver" disabled>ADD TO SQUAD</button>
+    </div>
+    <p class="dream-five-pricing-note">Pricing rule: £5m base price + £1m for every current championship win. Prices update with the leaderboard data.</p>
+    <div class="dream-five-squad-heading"><h3>YOUR FIVE</h3><span id="dreamFiveSquadMessage">Choose your first driver</span></div>
+    <div class="dream-five-squad" id="dreamFiveSquad" aria-live="polite"></div>
+    <div class="dream-five-footer">
+     <button type="button" class="button button-ghost" id="clearDreamFive">RESET SQUAD</button>
+     <p id="dreamFiveStatus" role="status"></p>
+    </div>
+   </section>
+  </div>
   <!-- Tier list maker: choose leaderboard drivers, place them into tiers, and export a PNG. -->
   <div class="tier-list-modal" id="tierListModal" hidden>
    <section class="tier-list-dialog" role="dialog" aria-modal="true" aria-labelledby="tierListDialogTitle">
@@ -857,7 +890,7 @@
     <p class="tier-list-status" id="tierListStatus" role="status"></p>
    </section>
   </div>
-  <script src="app.js?v=20261025-01"></script>
+  <script src="app.js?v=20261025-02"></script>
  </body>
 </html>
 
