@@ -6487,25 +6487,69 @@ body.tier-list-open { overflow: hidden; }
 }
 
 
-/* Keep tier-list controls consistent with the site's shared button system. */
+/* Match tier-list controls to the site's rounded button treatment and typography. */
 .tier-list-launch,
 .tier-list-add-button,
 .tier-list-action-buttons .button {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
   min-height: 47px;
   padding: 14px 19px;
-  font-family: var(--font);
-  font-size: 10px;
-  font-weight: 800;
+  border-radius: 7px;
+  font: 800 10px/1.2 var(--font) !important;
   letter-spacing: 1.2px;
-  transition: .2s;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .2s;
+}
+.tier-list-launch,
+.tier-list-add-button,
+.tier-list-action-buttons .button-primary {
+  border: 1px solid var(--lime);
+  background: var(--lime);
+  color: #07152f;
+}
+.tier-list-launch:hover,
+.tier-list-add-button:hover:not(:disabled),
+.tier-list-action-buttons .button-primary:hover {
+  border-color: #a5d0ff;
+  background: #a5d0ff;
+  color: #07152f;
+  transform: translateY(-2px);
+}
+.tier-list-action-buttons .button-ghost {
+  border: 1px solid #414753;
+  background: transparent;
+  color: var(--text);
+}
+.tier-list-action-buttons .button-ghost:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  transform: translateY(-2px);
 }
 .tier-list-close,
 .tier-list-remove-driver {
+  appearance: none;
+  -webkit-appearance: none;
   border: 1px solid #414753;
-  border-radius: 6px;
+  border-radius: 7px;
   color: var(--text);
   background: transparent;
+  font-family: var(--font);
+  cursor: pointer;
   transition: .2s;
+}
+.tier-list-close {
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1;
+}
+.tier-list-remove-driver {
+  width: 28px;
+  height: 28px;
+  font-size: 17px;
+  line-height: 1;
 }
 .tier-list-close:hover,
 .tier-list-remove-driver:hover {
@@ -6513,17 +6557,8 @@ body.tier-list-open { overflow: hidden; }
   color: var(--red);
   background: rgba(125,184,255,.08);
 }
-.tier-list-close {
-  font-family: var(--font);
-  font-weight: 600;
-}
-.tier-list-remove-driver {
-  width: 28px;
-  height: 28px;
-  font-family: var(--font);
-  font-size: 17px;
-}
 .tier-list-add-button:disabled {
   opacity: .45;
+  cursor: not-allowed;
   transform: none;
 }
