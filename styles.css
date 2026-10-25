@@ -6485,3 +6485,45 @@ body.tier-list-open { overflow: hidden; }
   .tier-list-action-buttons { justify-content: stretch; }
   .tier-list-action-buttons .button { flex: 1 1 auto; }
 }
+
+
+/* Keep tier-list controls consistent with the site's shared button system. */
+.tier-list-launch,
+.tier-list-add-button,
+.tier-list-action-buttons .button {
+  min-height: 47px;
+  padding: 14px 19px;
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  transition: .2s;
+}
+.tier-list-close,
+.tier-list-remove-driver {
+  border: 1px solid #414753;
+  border-radius: 6px;
+  color: var(--text);
+  background: transparent;
+  transition: .2s;
+}
+.tier-list-close:hover,
+.tier-list-remove-driver:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: rgba(125,184,255,.08);
+}
+.tier-list-close {
+  font-family: var(--font);
+  font-weight: 600;
+}
+.tier-list-remove-driver {
+  width: 28px;
+  height: 28px;
+  font-family: var(--font);
+  font-size: 17px;
+}
+.tier-list-add-button:disabled {
+  opacity: .45;
+  transform: none;
+}
