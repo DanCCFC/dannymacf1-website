@@ -6562,3 +6562,321 @@ body.tier-list-open { overflow: hidden; }
   cursor: not-allowed;
   transform: none;
 }
+
+
+/* Dream 5-A-Side squad builder */
+.championship-games-launch-wrap { align-items: center; }
+.championship-game-launch-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.championship-game-launch-actions .button {
+  min-height: 47px;
+  padding: 14px 19px;
+  border-radius: 7px;
+  font: 800 10px/1.2 var(--font);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.dream-five-launch {
+  border: 1px solid #414753;
+  color: var(--text);
+  background: transparent;
+  transition: .2s;
+}
+.dream-five-launch:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  transform: translateY(-2px);
+}
+.dream-five-modal[hidden] { display: none !important; }
+.dream-five-modal {
+  position: fixed;
+  z-index: 1210;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  overflow-y: auto;
+  background: rgba(2,8,20,.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body.dream-five-open { overflow: hidden; }
+.dream-five-dialog {
+  position: relative;
+  width: min(100%, 900px);
+  max-height: calc(100dvh - 36px);
+  overflow-y: auto;
+  padding: clamp(20px, 4vw, 38px);
+  border: 1px solid rgba(125,184,255,.34);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(70,140,230,.17), transparent 42%),
+    linear-gradient(150deg, #10284b, #07152f 72%);
+  box-shadow: 0 28px 90px rgba(0,0,0,.5);
+}
+.dream-five-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(159,202,255,.25);
+  border-radius: 7px;
+  color: #dbeaff;
+  background: transparent;
+  font: 600 25px/1 var(--font);
+  cursor: pointer;
+}
+.dream-five-kicker {
+  margin-bottom: 10px;
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+}
+.dream-five-dialog h2 {
+  margin: 0 48px 12px 0;
+  color: #fff;
+  font: 900 clamp(30px, 5vw, 46px)/1 var(--display);
+}
+.dream-five-intro {
+  max-width: 650px;
+  margin: 0 0 20px;
+  color: #aabbd6;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.dream-five-budget-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 9px;
+}
+.dream-five-budget-panel > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid rgba(125,184,255,.22);
+  border-radius: 8px;
+  background: rgba(125,184,255,.06);
+}
+.dream-five-budget-panel span,
+.dream-five-selected-price span {
+  color: #9fcaff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.dream-five-budget-panel strong {
+  color: #fff;
+  font: 900 clamp(22px, 4vw, 32px)/1 var(--display);
+  font-variant-numeric: tabular-nums;
+}
+.dream-five-budget-track {
+  height: 6px;
+  overflow: hidden;
+  margin: 12px 0 20px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+}
+.dream-five-budget-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--lime);
+  transition: width .2s ease;
+}
+.dream-five-pick-controls {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 115px auto;
+  align-items: end;
+  gap: 10px;
+}
+.dream-five-field { min-width: 0; }
+.dream-five-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
+}
+.dream-five-field select {
+  width: 100%;
+  min-height: 47px;
+  padding: 10px 12px;
+  border: 1px solid rgba(125,184,255,.28);
+  border-radius: 7px;
+  outline: none;
+  color: #f4f7ff;
+  background: #081a35;
+  font: 600 13px var(--font);
+}
+.dream-five-field select:focus {
+  border-color: #9fcaff;
+  box-shadow: 0 0 0 3px rgba(125,184,255,.12);
+}
+.dream-five-selected-price {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 47px;
+  justify-content: center;
+}
+.dream-five-selected-price strong {
+  color: #fff;
+  font: 900 25px/1 var(--display);
+}
+.dream-five-add {
+  min-height: 47px;
+  padding: 14px 17px;
+  border: 1px solid var(--lime);
+  border-radius: 7px;
+  background: var(--lime);
+  color: #07152f;
+  font: 800 10px/1.2 var(--font);
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: .2s;
+}
+.dream-five-add:hover:not(:disabled) { background: #a5d0ff; border-color: #a5d0ff; transform: translateY(-2px); }
+.dream-five-add:disabled { opacity: .45; cursor: not-allowed; }
+.dream-five-pricing-note {
+  margin: 12px 0 24px;
+  color: #91a9c9;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.dream-five-squad-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.dream-five-squad-heading h3 {
+  margin: 0;
+  color: #fff;
+  font: 800 24px/1 var(--display);
+}
+.dream-five-squad-heading span {
+  color: #91a9c9;
+  font-size: 10px;
+}
+.dream-five-squad {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 8px;
+}
+.dream-five-slot {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  min-height: 125px;
+  padding: 12px;
+  border: 1px solid rgba(159,202,255,.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,.035);
+}
+.dream-five-slot.is-filled {
+  border-color: rgba(125,184,255,.45);
+  background: rgba(125,184,255,.08);
+}
+.dream-five-slot-number {
+  color: #6f8caf;
+  font: 900 23px/1 var(--display);
+}
+.dream-five-slot-name {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.dream-five-slot-price {
+  color: #9fcaff;
+  font: 800 18px/1 var(--display);
+}
+.dream-five-remove {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  color: #aabbd6;
+  background: transparent;
+  font: 700 9px var(--font);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.dream-five-remove:hover { color: #fff; }
+.dream-five-empty {
+  grid-column: 1 / -1;
+  padding: 22px;
+  border: 1px dashed rgba(159,202,255,.22);
+  border-radius: 8px;
+  color: #8198b8;
+  text-align: center;
+  font-size: 11px;
+}
+.dream-five-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(125,184,255,.17);
+}
+.dream-five-footer .button {
+  min-height: 43px;
+  padding: 12px 16px;
+  border: 1px solid #414753;
+  border-radius: 7px;
+  color: var(--text);
+  background: transparent;
+  font: 800 10px/1.2 var(--font);
+  letter-spacing: 1.2px;
+  cursor: pointer;
+}
+.dream-five-footer .button:hover { border-color: var(--lime); color: var(--lime); }
+.dream-five-footer p {
+  margin: 0;
+  color: #9fcaff;
+  font-size: 11px;
+  text-align: right;
+}
+.dream-five-close:focus-visible,
+.dream-five-remove:focus-visible,
+.dream-five-footer button:focus-visible,
+.dream-five-add:focus-visible {
+  outline: 2px solid #9fcaff;
+  outline-offset: 3px;
+}
+@media (max-width: 680px) {
+  .championship-games-launch-wrap { align-items: stretch; }
+  .championship-game-launch-actions { display: grid; grid-template-columns: 1fr; }
+  .championship-game-launch-actions .button { width: 100%; }
+  .dream-five-modal { padding: 8px; place-items: start center; }
+  .dream-five-dialog { max-height: calc(100dvh - 16px); padding: 22px 13px 18px; border-radius: 13px; }
+  .dream-five-close { top: 10px; right: 10px; }
+  .dream-five-budget-panel { gap: 6px; }
+  .dream-five-budget-panel > div { padding: 11px 9px; }
+  .dream-five-budget-panel span { font-size: 7px; letter-spacing: .5px; }
+  .dream-five-budget-panel strong { font-size: 22px; }
+  .dream-five-pick-controls { grid-template-columns: minmax(0,1fr) 85px; }
+  .dream-five-add { grid-column: 1 / -1; width: 100%; }
+  .dream-five-squad { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .dream-five-slot { min-height: 105px; }
+  .dream-five-footer { align-items: stretch; flex-direction: column; }
+  .dream-five-footer p { text-align: left; }
+}
