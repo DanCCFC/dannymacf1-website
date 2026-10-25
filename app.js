@@ -1298,9 +1298,36 @@ refreshFollowerCount();
     const width = 1400;
     const padding = 54;
     const titleHeight = 150;
-    const rowHeight = 132;
     const rowGap = 12;
-    const height = padding * 2 + titleHeight + tiers.length * rowHeight + (tiers.length - 1) * rowGap + 70;
+    const labelWidth = 112;
+    const contentStart = padding + labelWidth + 26;
+    const contentWidth = width - padding - contentStart - 20;
+    const tierColours = {
+      S: ["#f4c84b", "#33280a"], A: ["#57c7a3", "#092c25"],
+      B: ["#5e9ee8", "#0a203c"], C: ["#a58be8", "#21143f"],
+      D: ["#e5a45c", "#3c220b"], F: ["#e87986", "#3e1019"]
+    };
+    const layouts = tiers.map(tier => {
+      const names = placements.filter(item => item.tier === tier).map(item => item.name);
+      const lines = [];
+      let line = [];
+      let lineWidth = 0;
+      names.forEach(name => {
+        ctxMeasureFont();
+        const measured = Math.min(measureContext.measureText(name).width + 38, 360);
+        if (line.length && lineWidth + measured + 12 > contentWidth) {
+          lines.push(line);
+          line = [];
+          lineWidth = 0;
+        }
+        line.push({name, width: measured});
+        lineWidth += measured + (line.length > 1 ? 12 : 0);
+      });
+      if (line.length) lines.push(line);
+      return {tier, names, lines, height: Math.max(108, 38 + Math.max(1, lines.length) * 50)};
+    });
+
+    const height = padding * 2 + titleHeight + layouts.reduce((sum, row) => sum + row.height, 0) + rowGap * (tiers.length - 1) + 58;
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
@@ -1308,6 +1335,10 @@ refreshFollowerCount();
     if (!ctx) {
       setStatus("Image export is not supported in this browser.");
       return;
+    }
+    const measureContext = ctx;
+    function ctxMeasureFont() {
+      measureContext.font = "700 22px Arial, sans-serif";
     }
 
     const background = ctx.createLinearGradient(0, 0, width, height);
@@ -1320,9 +1351,7 @@ refreshFollowerCount();
     ctx.fillRect(padding, padding, 8, 38);
     ctx.fillStyle = "#a9cfff";
     ctx.font = "800 20px Arial, sans-serif";
-    ctx.letterSpacing = "4px";
     ctx.fillText("DANNYMACF1 · DRIVER RANKINGS", padding + 24, padding + 27);
-    ctx.letterSpacing = "0px";
 
     ctx.fillStyle = "#ffffff";
     ctx.font = "900 48px Arial, sans-serif";
@@ -1334,57 +1363,47 @@ refreshFollowerCount();
     ctx.fillText(fittedTitle, padding, padding + 95);
 
     let y = padding + titleHeight;
-    const tierColours = {
-      S: ["#f4c84b", "#33280a"], A: ["#57c7a3", "#092c25"],
-      B: ["#5e9ee8", "#0a203c"], C: ["#a58be8", "#21143f"],
-      D: ["#e5a45c", "#3c220b"], F: ["#e87986", "#3e1019"]
-    };
-
-    tiers.forEach(tier => {
-      const [accent, dark] = tierColours[tier];
+    layouts.forEach(layout => {
+      const [accent, dark] = tierColours[layout.tier];
       ctx.fillStyle = "rgba(255,255,255,0.045)";
-      ctx.fillRect(padding, y, width - padding * 2, rowHeight);
+      ctx.fillRect(padding, y, width - padding * 2, layout.height);
       ctx.fillStyle = accent;
-      ctx.fillRect(padding, y, 112, rowHeight);
+      ctx.fillRect(padding, y, labelWidth, layout.height);
       ctx.fillStyle = dark;
       ctx.font = "900 58px Arial, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(tier, padding + 56, y + rowHeight / 2);
+      ctx.fillText(layout.tier, padding + labelWidth / 2, y + layout.height / 2);
       ctx.textAlign = "left";
       ctx.textBaseline = "alphabetic";
 
-      let x = padding + 138;
-      const maxX = width - padding - 20;
-      const names = placements.filter(item => item.tier === tier).map(item => item.name);
-      if (!names.length) {
+      if (!layout.names.length) {
         ctx.fillStyle = "#8198b8";
         ctx.font = "italic 23px Arial, sans-serif";
-        ctx.fillText("No drivers placed", x, y + rowHeight / 2 + 8);
+        ctx.fillText("No drivers placed", contentStart, y + layout.height / 2 + 8);
       } else {
-        names.forEach(name => {
-          ctx.font = "700 22px Arial, sans-serif";
-          const chipWidth = Math.min(ctx.measureText(name).width + 38, 360);
-          if (x + chipWidth > maxX) {
-            x = padding + 138;
-            y += 50;
-          }
-          ctx.fillStyle = dark;
-          ctx.fillRect(x, y + 20, chipWidth, 48);
-          ctx.strokeStyle = accent;
-          ctx.lineWidth = 1.5;
-          ctx.strokeRect(x, y + 20, chipWidth, 48);
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "700 22px Arial, sans-serif";
-          let displayName = name;
-          while (ctx.measureText(displayName).width > chipWidth - 24 && displayName.length > 4) {
-            displayName = displayName.slice(0, -2) + "…";
-          }
-          ctx.fillText(displayName, x + 14, y + 51);
-          x += chipWidth + 12;
+        layout.lines.forEach((line, lineIndex) => {
+          let x = contentStart;
+          const chipY = y + 16 + lineIndex * 50;
+          line.forEach(chip => {
+            const chipWidth = Math.min(chip.width, contentWidth);
+            ctx.fillStyle = dark;
+            ctx.fillRect(x, chipY, chipWidth, 36);
+            ctx.strokeStyle = accent;
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x, chipY, chipWidth, 36);
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "700 22px Arial, sans-serif";
+            let displayName = chip.name;
+            while (ctx.measureText(displayName).width > chipWidth - 24 && displayName.length > 4) {
+              displayName = displayName.slice(0, -2) + "…";
+            }
+            ctx.fillText(displayName, x + 12, chipY + 24);
+            x += chipWidth + 12;
+          });
         });
       }
-      y = Math.max(y, padding + titleHeight + (tiers.indexOf(tier) + 1) * (rowHeight + rowGap) - rowGap) + rowGap;
+      y += layout.height + rowGap;
     });
 
     ctx.fillStyle = "#8da5c5";
