@@ -1313,8 +1313,7 @@ refreshFollowerCount();
       let line = [];
       let lineWidth = 0;
       names.forEach(name => {
-        ctxMeasureFont();
-        const measured = Math.min(measureContext.measureText(name).width + 38, 360);
+        const measured = Math.min(name.length * 12.5 + 38, 360);
         if (line.length && lineWidth + measured + 12 > contentWidth) {
           lines.push(line);
           line = [];
@@ -1336,11 +1335,6 @@ refreshFollowerCount();
       setStatus("Image export is not supported in this browser.");
       return;
     }
-    const measureContext = ctx;
-    function ctxMeasureFont() {
-      measureContext.font = "700 22px Arial, sans-serif";
-    }
-
     const background = ctx.createLinearGradient(0, 0, width, height);
     background.addColorStop(0, "#07152f");
     background.addColorStop(1, "#0d2145");
