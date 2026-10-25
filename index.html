@@ -12,7 +12,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <!-- Version the stylesheet to refresh its cache without a flash of unstyled content. -->
-  <link href="styles.css?v=20261021-04" rel="stylesheet"/>
+  <link href="styles.css?v=20261025-01" rel="stylesheet"/>
  </head>
  <body>
   <div class="live-banner" hidden="" id="liveBanner">
@@ -152,6 +152,10 @@
      <div class="leaderboard-expand-wrap" id="leaderboardExpandWrap" hidden>
       <button type="button" class="leaderboard-expand-button" id="leaderboardExpandToggle" aria-expanded="false">Show all drivers</button>
      </div>
+      <div class="tier-list-launch-wrap">
+       <p>Build your own driver rankings and share them with the community.</p>
+       <button type="button" class="button button-primary tier-list-launch" id="openTierListMaker">CREATE A TIER LIST</button>
+      </div>
     </div>
     <div class="leaderboard-panel country-standings-panel">
      <div class="panel-top">
@@ -820,7 +824,40 @@
     </div>
    </section>
   </div>
-  <script src="app.js?v=20261021-03"></script>
+  <!-- Tier list maker: choose leaderboard drivers, place them into tiers, and export a PNG. -->
+  <div class="tier-list-modal" id="tierListModal" hidden>
+   <section class="tier-list-dialog" role="dialog" aria-modal="true" aria-labelledby="tierListDialogTitle">
+    <button type="button" class="tier-list-close" id="closeTierListMaker" aria-label="Close tier list maker">×</button>
+    <div class="tier-list-kicker">DANNYMACF1 · DRIVER RANKINGS</div>
+    <h2 id="tierListDialogTitle">CREATE YOUR <span class="accent">TIER LIST.</span></h2>
+    <label class="tier-list-title-label" for="tierListTitleInput">TIER LIST TITLE</label>
+    <input id="tierListTitleInput" class="tier-list-title-input" type="text" maxlength="80" value="My F1 26 Driver Tier List" placeholder="Give your tier list a title">
+    <div class="tier-list-add-controls">
+     <div class="tier-list-field">
+      <label for="tierListDriverSelect">CHOOSE A DRIVER</label>
+      <select id="tierListDriverSelect"><option value="">Select a driver…</option></select>
+     </div>
+     <div class="tier-list-field tier-list-tier-field">
+      <label for="tierListTierSelect">PLACE IN TIER</label>
+      <select id="tierListTierSelect">
+       <option value="S">S Tier</option><option value="A">A Tier</option><option value="B">B Tier</option><option value="C">C Tier</option><option value="D">D Tier</option><option value="F">F Tier</option>
+      </select>
+     </div>
+     <button type="button" class="button button-primary tier-list-add-button" id="addTierListDriver">ADD DRIVER</button>
+    </div>
+    <p class="tier-list-help">Add drivers from the leaderboard, then change a driver's tier or remove them at any time. Each driver can appear once.</p>
+    <div class="tier-list-board" id="tierListBoard" aria-live="polite"></div>
+    <div class="tier-list-actions">
+     <span class="tier-list-count" id="tierListDriverCount">0 drivers added</span>
+     <div class="tier-list-action-buttons">
+      <button type="button" class="button button-ghost" id="clearTierList">CLEAR LIST</button>
+      <button type="button" class="button button-primary" id="exportTierListImage">EXPORT AS IMAGE ↓</button>
+     </div>
+    </div>
+    <p class="tier-list-status" id="tierListStatus" role="status"></p>
+   </section>
+  </div>
+  <script src="app.js?v=20261025-01"></script>
  </body>
 </html>
 
