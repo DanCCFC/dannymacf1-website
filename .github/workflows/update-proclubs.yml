@@ -16,30 +16,60 @@ permissions:
 
 concurrency:
   group: ttdm-united-proclubs
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update-club-data:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
     steps:
       - name: Check out website
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
       - name: Fetch TTDM United data from EA
         env:
           FC_CLUB_NAME: TTDM United
           FC_PLATFORM: common-gen5
         run: python scripts/update_proclubs.py
+
       - name: Publish data snapshot if changed
         run: |
-          if ! git diff --quiet -- proclubs.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add proclubs.json
-            git commit -m "Update TTDM United Pro Clubs data"
-            git push
+          if git diff --quiet -- proclubs.json; then
+            echo "No changes to proclubs.json."
+            exit 0
           fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add proclubs.json
+          git commit -m "Update TTDM United Pro Clubs data"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                echo "Pro Clubs data published successfully."
+                exit 0
+              fi
+            else
+              echo "Rebase failed; cannot safely publish."
+              git rebase --abort || true
+              exit 1
+            fi
+
+            echo "Push rejected; retrying ($attempt/3)..."
+            sleep 2
+          done
+
+          echo "Failed to publish after 3 attempts."
+          exit 1
