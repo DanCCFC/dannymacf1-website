@@ -1286,6 +1286,92 @@ refreshFollowerCount();
     setStatus(name + " added to " + placements[placements.length - 1].tier + " tier.");
   });
 
+
+  function exportSquadPng() {
+    const width = 1200, height = 900;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) { setStatus("Image export is not supported in this browser."); return; }
+
+    const background = ctx.createLinearGradient(0, 0, width, height);
+    background.addColorStop(0, "#07152f");
+    background.addColorStop(1, "#10294b");
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.fillStyle = "#a9cfff";
+    ctx.fillRect(64, 64, 8, 42);
+    ctx.font = "800 22px Arial, sans-serif";
+    ctx.fillText("DANNYMACF1  /  DREAM TEAM BUILDER", 90, 92);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "900 58px Arial, sans-serif";
+    ctx.fillText("DREAM 5-A-SIDE", 64, 178);
+    ctx.fillStyle = "#a9cfff";
+    ctx.font = "700 24px Arial, sans-serif";
+    ctx.fillText("YOUR DREAM SQUAD", 64, 232);
+
+    const total = spend(), remaining = budget - total;
+    ctx.fillStyle = "rgba(255,255,255,0.07)";
+    ctx.fillRect(64, 270, width - 128, 112);
+    ctx.fillStyle = "#a9cfff";
+    ctx.font = "700 17px Arial, sans-serif";
+    ctx.fillText("TOTAL SPENT", 92, 309);
+    ctx.fillText("BUDGET REMAINING", 390, 309);
+    ctx.fillText("SQUAD", 750, 309);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "900 34px Arial, sans-serif";
+    ctx.fillText(money(total), 92, 352);
+    ctx.fillText(money(remaining), 390, 352);
+    ctx.fillText(squad.length + " / 5", 750, 352);
+
+    squad.forEach((driver, index) => {
+      const y = 414 + index * 78;
+      ctx.fillStyle = "rgba(255,255,255,0.06)";
+      ctx.fillRect(64, y, width - 128, 62);
+      ctx.fillStyle = "#a9cfff";
+      ctx.font = "800 20px Arial, sans-serif";
+      ctx.fillText(String(index + 1).padStart(2, "0"), 88, y + 38);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "800 24px Arial, sans-serif";
+      let displayName = driver.name;
+      while (ctx.measureText(displayName).width > 690 && displayName.length > 4) displayName = displayName.slice(0, -2) + "…";
+      ctx.fillText(displayName, 150, y + 38);
+      ctx.fillStyle = "#a9cfff";
+      ctx.textAlign = "right";
+      ctx.font = "800 23px Arial, sans-serif";
+      ctx.fillText(money(driver.price), width - 92, y + 38);
+      ctx.textAlign = "left";
+    });
+
+    if (!squad.length) {
+      ctx.fillStyle = "#a9cfff";
+      ctx.font = "600 24px Arial, sans-serif";
+      ctx.fillText("No drivers selected yet", 92, 465);
+    }
+    ctx.fillStyle = "#8da5c5";
+    ctx.font = "600 17px Arial, sans-serif";
+    ctx.fillText("£100m budget  ·  £5m base + £3m per championship win", 64, 846);
+    ctx.fillText("Made with DannyMacF1", 64, 872);
+
+    canvas.toBlob(blob => {
+      if (!blob) { setStatus("Could not create the image. Please try again."); return; }
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const slug = squad.length ? squad.map(driver => driver.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")).join("-").slice(0, 70) : "empty-squad";
+      link.href = url;
+      link.download = "dannymacf1-dream-5-a-side-" + slug + ".png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setStatus("Your Dream 5-A-Side image has been exported.");
+    }, "image/png");
+  }
+
+  if (exportButton) exportButton.addEventListener("click", exportSquadPng);
+
   clearButton.addEventListener("click", () => {
     placements = [];
     renderBoard();
@@ -1446,6 +1532,7 @@ refreshFollowerCount();
   const messageElement = document.getElementById("dreamFiveSquadMessage");
   const statusElement = document.getElementById("dreamFiveStatus");
   const clearButton = document.getElementById("clearDreamFive");
+  const exportButton = document.getElementById("exportDreamFive");
   const budget = 100;
   const basePrice = 5;
   const pricePerWin = 3;
