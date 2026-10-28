@@ -1,13 +1,10 @@
-// Default leaderboard entries shown when this browser has no saved standings.
-// Edit the names and wins here if you want to change the built-in starting data.
-
 const DEFAULT_DRIVERS = [
   {name:"otke44",wins:3,country:"barbados",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"DannyMacF1",wins:14,country:"wales",platform:"PC",favouriteF1Team:"Red Bull",favouriteF1Driver:"Max Verstappen",favouriteFootballTeam:"Cardiff City",driverNumber:"92"},
   {name:"evthelegend46",wins:6,country:"ireland",platform:"XBOX",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Manchester City",driverNumber:"19"},
   {name:"Rhysvoaden1",wins:9,country:"britain",platform:"XBOX",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"Manchester United",driverNumber:"67"},
   {name:"FraserG",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
-  {name:"Parv09",wins:2,platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"Manchester United",driverNumber:""},
+  {name:"Parv09",wins:2,platform:"britain",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Manchester United",driverNumber:"7"},
   {name:"Roca F1",wins:5,country:"scotland",platform:"XBOX",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Liverpool",driverNumber:""},
   {name:"zchxq",wins:9,country:"britain",platform:"PlayStation",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"PRENClipz",wins:1,country:"britain",platform:"XBOX",favouriteF1Team:"McLaren",favouriteF1Driver:"Lando Norris",favouriteFootballTeam:"Liverpool",driverNumber:""},
@@ -25,7 +22,6 @@ const DEFAULT_DRIVERS = [
   {name:"chronic-teziq",wins:3,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""}
 ];
 
-// These are sample entries to demonstrate the layout. Replace them with real results in Admin mode.
 const STORAGE_KEY = "dannymacf1-championship-v1";
 function getDrivers(){
   const byName = new Map(DEFAULT_DRIVERS.map(driver => [driver.name.trim().toLowerCase(), driver]));
