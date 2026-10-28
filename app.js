@@ -4,7 +4,7 @@ const DEFAULT_DRIVERS = [
   {name:"evthelegend46",wins:6,country:"ireland",platform:"XBOX",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Manchester City",driverNumber:"19"},
   {name:"Rhysvoaden1",wins:9,country:"britain",platform:"XBOX",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"Manchester United",driverNumber:"67"},
   {name:"FraserG",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
-  {name:"Parv09",wins:2,platform:"britain",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Manchester United",driverNumber:"7"},
+  {name:"Parv09",wins:2,country:"britain",platform:"PlayStation",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Manchester United",driverNumber:"7"},
   {name:"Roca F1",wins:5,country:"scotland",platform:"XBOX",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"Liverpool",driverNumber:""},
   {name:"zchxq",wins:9,country:"britain",platform:"PlayStation",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"PRENClipz",wins:1,country:"britain",platform:"XBOX",favouriteF1Team:"McLaren",favouriteF1Driver:"Lando Norris",favouriteFootballTeam:"Liverpool",driverNumber:""},
