@@ -1005,11 +1005,17 @@ async function refreshPenroseResults() {
           row.className = "penrose-driver-result";
           const name = document.createElement("strong");
           name.textContent = String(driver.name || "Driver");
-          const qualifying = document.createElement("span");
-          qualifying.textContent = "QUALI  P" + (driver.qualifying ?? "—");
-          const race = document.createElement("span");
-          race.textContent = "RACE  P" + (driver.finish ?? "—");
-          row.append(name, qualifying, race);
+          const makePosition = (label, position, kind) => {
+            const metric = document.createElement("span");
+            metric.className = "penrose-driver-position penrose-driver-position-" + kind;
+            const heading = document.createElement("small");
+            heading.textContent = label;
+            const value = document.createElement("b");
+            value.textContent = position === null || position === undefined || position === "" ? "—" : "P" + position;
+            metric.append(heading, value);
+            return metric;
+          };
+          row.append(name, makePosition("QUALIFYING", driver.qualifying, "quali"), makePosition("RACE", driver.finish, "race"));
           driverResults.appendChild(row);
         });
         info.appendChild(driverResults);
