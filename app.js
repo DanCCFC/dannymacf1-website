@@ -997,6 +997,24 @@ async function refreshPenroseResults() {
         info.appendChild(note);
       }
 
+      if (Array.isArray(round.drivers) && round.drivers.length) {
+        const driverResults = document.createElement("div");
+        driverResults.className = "penrose-driver-results";
+        round.drivers.forEach(driver => {
+          const row = document.createElement("div");
+          row.className = "penrose-driver-result";
+          const name = document.createElement("strong");
+          name.textContent = String(driver.name || "Driver");
+          const qualifying = document.createElement("span");
+          qualifying.textContent = "QUALI  P" + (driver.qualifying ?? "—");
+          const race = document.createElement("span");
+          race.textContent = "RACE  P" + (driver.finish ?? "—");
+          row.append(name, qualifying, race);
+          driverResults.appendChild(row);
+        });
+        info.appendChild(driverResults);
+      }
+
       const stats = document.createElement("div");
       stats.className = "penrose-result-stats";
       [
