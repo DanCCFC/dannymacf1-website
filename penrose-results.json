@@ -1,28 +1,50 @@
 {
   "competition": "Penrose Cup",
   "group": null,
-  "groupStatus": "To be confirmed after the Placement Round",
-  "updatedAt": null,
+  "groupStatus": "To be confirmed",
+  "updatedAt": "2026-11-01",
   "rounds": [
     {
       "week": 1,
       "name": "Placement Round",
-      "status": "up-next",
-      "statusLabel": "Awaiting race",
+      "status": "complete",
+      "statusLabel": "Race complete · group and points pending",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "Placement only · no elimination"
+      "notes": "Qualifying and race results recorded. Team group and points allocation are still to be confirmed.",
+      "drivers": [
+        {
+          "name": "chronic-teziq",
+          "qualifying": 4,
+          "finish": 6
+        },
+        {
+          "name": "Roca F1",
+          "qualifying": 9,
+          "finish": 10
+        },
+        {
+          "name": "evthelegend46",
+          "qualifying": 15,
+          "finish": 12
+        },
+        {
+          "name": "DannyMacF1",
+          "qualifying": 16,
+          "finish": 13
+        }
+      ]
     },
     {
       "week": 2,
       "name": "Group Race 1",
       "status": "pending",
-      "statusLabel": "Awaiting placement",
+      "statusLabel": "Awaiting group confirmation",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "Group to be confirmed after placement"
+      "notes": "Group to be confirmed"
     },
     {
       "week": 3,
