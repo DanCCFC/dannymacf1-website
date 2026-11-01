@@ -5042,6 +5042,17 @@ body.profile-modal-open { overflow: hidden; }
   font-size: 12px;
   line-height: 1.4;
 }
+.penrose-result-venue {
+  color: #b9d9ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .35px;
+}
+.penrose-result-date {
+  color: #819bbd;
+  font-size: 9px;
+  font-weight: 700;
+}
 .penrose-result-state {
   display: inline-block;
   padding: 4px 7px;
