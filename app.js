@@ -980,10 +980,18 @@ async function refreshPenroseResults() {
       info.className = "penrose-result-round";
       const title = document.createElement("strong");
       title.textContent = round.name || "Race round";
+      if (round.venue) {
+        const venue = document.createElement("small");
+        venue.className = "penrose-result-venue";
+        venue.textContent = "AT " + String(round.venue);
+        info.append(title, venue);
+      } else {
+        info.appendChild(title);
+      }
       const state = document.createElement("span");
       state.className = "penrose-result-state";
       state.textContent = round.statusLabel || (status === "complete" ? "Result recorded" : "Awaiting update");
-      info.append(title, state);
+      info.appendChild(state);
       if (round.result) {
         const outcome = document.createElement("span");
         outcome.className = "penrose-result-outcome";
