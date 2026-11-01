@@ -980,13 +980,18 @@ async function refreshPenroseResults() {
       info.className = "penrose-result-round";
       const title = document.createElement("strong");
       title.textContent = round.name || "Race round";
+      info.appendChild(title);
       if (round.venue) {
         const venue = document.createElement("small");
         venue.className = "penrose-result-venue";
-        venue.textContent = "AT " + String(round.venue);
-        info.append(title, venue);
-      } else {
-        info.appendChild(title);
+        venue.textContent = String(round.venue);
+        info.appendChild(venue);
+      }
+      if (round.date) {
+        const date = document.createElement("small");
+        date.className = "penrose-result-date";
+        date.textContent = String(round.date);
+        info.appendChild(date);
       }
       const state = document.createElement("span");
       state.className = "penrose-result-state";
