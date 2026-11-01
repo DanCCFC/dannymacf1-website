@@ -6,7 +6,7 @@
   "rounds": [
     {
       "week": 1,
-      "name": "Spanish Grand Prix",
+      "name": "Placement Round",
       "status": "complete",
       "statusLabel": "Race complete · group and points pending",
       "finish": null,
@@ -34,7 +34,8 @@
           "qualifying": 16,
           "finish": 13
         }
-      ]
+      ],
+      "venue": "Spanish Grand Prix"
     },
     {
       "week": 2,
