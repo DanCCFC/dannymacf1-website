@@ -6,13 +6,13 @@
   "rounds": [
     {
       "week": 1,
-      "name": "Placement Round",
+      "name": "Spanish Grand Prix",
       "status": "complete",
       "statusLabel": "Race complete · group and points pending",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "Qualifying and race results recorded. Team group and points allocation are still to be confirmed.",
+      "notes": "Penrose Cup placement round · group and points allocation to be confirmed.",
       "drivers": [
         {
           "name": "chronic-teziq",
