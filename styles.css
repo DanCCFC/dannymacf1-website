@@ -5035,9 +5035,9 @@ body.profile-modal-open { overflow: hidden; }
   border-right: 1px solid rgba(125,184,255,.18);
   border-radius: 10px 0 0 10px;
   background: linear-gradient(180deg, rgba(125,184,255,.12), rgba(125,184,255,.035));
-  color: #9bc8ff;
-  font: 900 11px/1 var(--display);
-  letter-spacing: 1px;
+  color: #b9d9ff;
+  font: 900 19px/1 var(--display);
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -5213,7 +5213,7 @@ body.profile-modal-open { overflow: hidden; }
   .penrose-result-week {
     margin: -12px 0 -12px -11px;
     padding: 10px 6px;
-    font-size: 10px;
+    font-size: 16px;
   }
   .penrose-result-round strong { font-size: 11px; }
   .penrose-result-stats {
