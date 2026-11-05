@@ -6968,13 +6968,13 @@ body.dream-five-open { overflow: hidden; }
 }
 
 
-/* Official partner owner badge */
+/* Official partner owner badge — Vitesse Racing League green */
 .driver-profile-role-badge.is-partner-owner {
-  border-color: rgba(232, 190, 92, .55);
-  background: linear-gradient(110deg, rgba(232, 190, 92, .18), rgba(232, 190, 92, .07));
-  color: #f3d58e;
+  border-color: rgba(74, 222, 128, .58);
+  background: linear-gradient(110deg, rgba(34, 197, 94, .20), rgba(34, 197, 94, .07));
+  color: #a7f3c0;
 }
 .driver-profile-role-badge.is-partner-owner::before {
-  background: #e8be5c;
-  box-shadow: 0 0 9px rgba(232, 190, 92, .55);
+  background: #4ade80;
+  box-shadow: 0 0 9px rgba(74, 222, 128, .58);
 }
