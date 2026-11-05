@@ -6966,3 +6966,15 @@ body.dream-five-open { overflow: hidden; }
   .dream-five-footer { align-items: stretch; flex-direction: column; }
   .dream-five-footer p { text-align: left; }
 }
+
+
+/* Official partner owner badge */
+.driver-profile-role-badge.is-partner-owner {
+  border-color: rgba(232, 190, 92, .55);
+  background: linear-gradient(110deg, rgba(232, 190, 92, .18), rgba(232, 190, 92, .07));
+  color: #f3d58e;
+}
+.driver-profile-role-badge.is-partner-owner::before {
+  background: #e8be5c;
+  box-shadow: 0 0 9px rgba(232, 190, 92, .55);
+}
