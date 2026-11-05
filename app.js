@@ -445,7 +445,7 @@ function getDriverProfileRole(name) {
   if (normalized === "evthelegend" || normalized === "evthelegend46") {
     return "TIKTOK HEAD MODERATOR";
   }
-  if (["turbojg123", "rocaf1", "alexgaitor"].includes(normalized)) {
+  if (["turbojg123", "rocaf1", "alexgaitor", "hazzk81"].includes(normalized)) {
     return "TIKTOK MODERATOR";
   }
   return "";
@@ -483,6 +483,12 @@ function openDriverProfile(driver) {
     roleBadge.textContent = driverRole;
     roleBadge.hidden = !driverRole;
     roleBadge.classList.toggle("is-head-moderator", driverRole === "TIKTOK HEAD MODERATOR");
+  }
+
+  const partnerBadge = document.getElementById("profilePartnerBadge");
+  const isVitesseOwner = String(driver.name || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "") === "hazzk81";
+  if (partnerBadge) {
+    partnerBadge.hidden = !isVitesseOwner;
   }
 
   const numberBadge = document.getElementById("profileDriverNumber");
