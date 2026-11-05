@@ -1034,21 +1034,7 @@ async function refreshPenroseResults() {
         info.appendChild(driverResults);
       }
 
-      const stats = document.createElement("div");
-      stats.className = "penrose-result-stats";
-      [
-        ["FINISH", round.finish === null || round.finish === undefined || round.finish === "" ? "—" : "P" + round.finish],
-        ["POINTS", round.points === null || round.points === undefined || round.points === "" ? "—" : String(round.points)]
-      ].forEach(([label, value]) => {
-        const metric = document.createElement("span");
-        metric.append(document.createTextNode(label + " "));
-        const number = document.createElement("b");
-        number.textContent = value;
-        metric.appendChild(number);
-        stats.appendChild(metric);
-      });
-
-      item.append(week, info, stats);
+      item.append(week, info);
       list.appendChild(item);
     });
 
