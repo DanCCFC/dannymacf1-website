@@ -1,18 +1,18 @@
 {
   "competition": "Penrose Cup",
-  "group": null,
-  "groupStatus": "To be confirmed",
-  "updatedAt": "2026-11-01",
+  "group": "Group A",
+  "groupStatus": "Group A confirmed",
+  "updatedAt": "2026-11-05",
   "rounds": [
     {
       "week": 1,
       "name": "Placement Round",
       "status": "complete",
-      "statusLabel": "Race complete · group and points pending",
+      "statusLabel": "Official results confirmed · Group A",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "Penrose Cup placement round · group and points allocation to be confirmed.",
+      "notes": "Official placement results confirmed following stewards' investigation. Group A allocation confirmed; points allocation pending.",
       "drivers": [
         {
           "name": "chronic-teziq",
@@ -27,12 +27,12 @@
         {
           "name": "evthelegend46",
           "qualifying": 15,
-          "finish": 12
+          "finish": 14
         },
         {
           "name": "DannyMacF1",
           "qualifying": 16,
-          "finish": 13
+          "finish": 12
         }
       ],
       "venue": "Spanish Grand Prix",
