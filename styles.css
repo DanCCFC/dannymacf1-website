@@ -5016,7 +5016,7 @@ body.profile-modal-open { overflow: hidden; }
 }
 .penrose-result-row {
   display: grid;
-  grid-template-columns: 46px minmax(0,1fr) 150px;
+  grid-template-columns: 46px minmax(0,1fr);
   align-items: center;
   gap: 16px;
   min-width: 0;
@@ -5206,22 +5206,22 @@ body.profile-modal-open { overflow: hidden; }
   .penrose-driver-result strong { font-size: 10px; }
   .penrose-driver-position { min-height: 39px; padding: 4px; }
   .penrose-result-row {
-    grid-template-columns: 38px minmax(0,1fr);
-    gap: 8px 10px;
-    padding: 12px 11px;
+    grid-template-columns: 42px minmax(0,1fr);
+    gap: 0 10px;
+    padding: 0 11px 0 0;
   }
   .penrose-result-week {
-    margin: -12px 0 -12px -11px;
+    align-self: stretch;
+    margin: 0 0 0 -11px;
     padding: 10px 6px;
     font-size: 16px;
   }
-  .penrose-result-round strong { font-size: 11px; }
-  .penrose-result-stats {
-    grid-column: 2;
-    grid-template-columns: repeat(2,minmax(0,74px));
-    margin-top: 3px;
+  .penrose-result-round {
+    align-self: stretch;
+    justify-content: center;
+    padding: 12px 0;
   }
-  .penrose-result-stats b { font-size: 20px; }
+  .penrose-result-round strong { font-size: 11px; }
   .penrose-results-note { padding: 0 16px 18px; }
 }
 
