@@ -18,21 +18,27 @@
           "name": "chronic-teziq",
           "qualifying": 4,
           "finish": 6
+          "points": 19
+
         },
         {
           "name": "Roca F1",
           "qualifying": 9,
           "finish": 10
-        },
-        {
-          "name": "evthelegend46",
-          "qualifying": 15,
-          "finish": 14
+          "points": 11
+
         },
         {
           "name": "DannyMacF1",
           "qualifying": 16,
           "finish": 12
+          "points": 9
+        },
+        {
+          "name": "evthelegend46",
+          "qualifying": 15,
+          "finish": 14
+          "points": 7
         }
       ],
       "venue": "Spanish Grand Prix",
@@ -67,12 +73,14 @@
           "points": 12
         },
         {
-          "name": "Wdonn",
+          "name": "wdonn",
           "qualifying": 14,
           "finish": 12,
           "points": 6
         }
-      ]
+      ],
+      "venue": "Mexican Grand Prix",
+      "date": "8th November 2026"
     },
     {
       "week": 3,
