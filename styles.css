@@ -6985,26 +6985,27 @@ body.dream-five-open { overflow: hidden; }
 }
 
 
-/* Total points scored by the team in each completed Penrose Cup race. */
+/* Prominent team points total, shown before the driver rows in each scored race. */
 .penrose-team-points-total {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 9px;
-  padding: 10px 12px;
-  border: 1px solid rgba(125,184,255,.24);
+  margin: 12px 0 10px;
+  padding: 13px 15px;
+  border: 1px solid rgba(125,184,255,.42);
+  border-left: 3px solid #7db8ff;
   border-radius: 8px;
-  background: rgba(125,184,255,.075);
+  background: linear-gradient(100deg, rgba(45,105,180,.24), rgba(125,184,255,.09));
 }
 .penrose-team-points-total span {
-  color: #9fcaff;
-  font-size: 9px;
+  color: #b7d7ff;
+  font-size: 10px;
   font-weight: 900;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 .penrose-team-points-total strong {
   color: #fff;
-  font: 900 21px/1 var(--display);
+  font: 900 24px/1 var(--display);
   font-variant-numeric: tabular-nums;
 }
