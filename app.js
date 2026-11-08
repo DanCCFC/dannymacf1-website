@@ -972,27 +972,31 @@ async function refreshPenroseResults() {
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "Official placement results confirmed following stewards' investigation. Group A allocation confirmed; points allocation pending.",
+      "notes": "evthelegend46 crossed the line in P12, but following a stewards' investigation was demoted to p14 following a 5 seconds time penalty, promoting DannyMacF1 from P13 to P12.",
       "drivers": [
         {
           "name": "chronic-teziq",
           "qualifying": 4,
-          "finish": 6
+          "finish": 6,
+          "points": 19
         },
         {
           "name": "Roca F1",
           "qualifying": 9,
-          "finish": 10
-        },
-        {
-          "name": "evthelegend46",
-          "qualifying": 15,
-          "finish": 14
+          "finish": 10,
+          "points": 11
         },
         {
           "name": "DannyMacF1",
           "qualifying": 16,
-          "finish": 12
+          "finish": 12,
+          "points": 9
+        },
+        {
+          "name": "evthelegend46",
+          "qualifying": 15,
+          "finish": 14,
+          "points": 7
         }
       ],
       "venue": "Spanish Grand Prix",
@@ -1006,7 +1010,7 @@ async function refreshPenroseResults() {
       "finish": null,
       "points": 54,
       "result": null,
-      "notes": "Group A race completed. Chronic-teziq delivered an outstanding drive from P15 to P4.",
+      "notes": "",
       "drivers": [
         {
           "name": "chronic-teziq",
@@ -1027,12 +1031,14 @@ async function refreshPenroseResults() {
           "points": 12
         },
         {
-          "name": "Wdonn",
+          "name": "wdonn",
           "qualifying": 14,
           "finish": 12,
           "points": 6
         }
-      ]
+      ],
+      "venue": "Mexican Grand Prix",
+      "date": "8th November 2026"
     },
     {
       "week": 3,
