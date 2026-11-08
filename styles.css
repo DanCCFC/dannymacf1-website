@@ -5121,6 +5121,9 @@ body.profile-modal-open { overflow: hidden; }
   border-radius: 8px;
   background: linear-gradient(110deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
 }
+.penrose-driver-result.has-points {
+  grid-template-columns: minmax(105px,1fr) repeat(3, minmax(58px, 72px));
+}
 .penrose-driver-result strong {
   color: #f4f8ff;
   font-size: 11px;
@@ -5156,6 +5159,8 @@ body.profile-modal-open { overflow: hidden; }
   background: rgba(91,211,151,.055);
 }
 .penrose-driver-position-race b { color: #a5f0ca; }
+.penrose-driver-position-points { border-color: rgba(125,184,255,.24); background: rgba(125,184,255,.07); }
+.penrose-driver-position-points b { color: #a9cfff; }
 .penrose-result-stats {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
