@@ -20,7 +20,8 @@ const DEFAULT_DRIVERS = [
   {name:"Jouzam",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"Stoobler",wins:1,country:"scotland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"chronic-teziq",wins:3,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
-  {name:"Hazzk81",wins:0,country:"britain",platform:"PlayStation",favouriteF1Team:"Audi",favouriteF1Driver:"Oscar Piastri",favouriteFootballTeam:"Horsham FC",driverNumber:"71"}
+  {name:"Hazzk81",wins:0,country:"britain",platform:"PlayStation",favouriteF1Team:"Audi",favouriteF1Driver:"Oscar Piastri",favouriteFootballTeam:"Horsham FC",driverNumber:"71"},
+  {name:"Wdonn",wins:0,country:"",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""}
 ];
 
 const STORAGE_KEY = "dannymacf1-championship-v1";
@@ -507,7 +508,7 @@ function openDriverProfile(driver) {
   document.getElementById("profileChampionshipLabel").textContent =
     Number(driver.wins) === 1 ? "CHAMPIONSHIP WIN" : "CHAMPIONSHIP WINS";
 
-  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq"]);
+  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq", "wdonn"]);
   const penroseCard = document.getElementById("profilePenroseCup");
   if (penroseCard) {
     penroseCard.hidden = !penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
@@ -1035,7 +1036,18 @@ async function refreshPenroseResults() {
             metric.append(heading, value);
             return metric;
           };
+          row.classList.toggle("has-points", driver.points !== null && driver.points !== undefined && driver.points !== "");
           row.append(name, makePosition("QUALIFYING", driver.qualifying, "quali"), makePosition("RACE", driver.finish, "race"));
+          if (driver.points !== null && driver.points !== undefined && driver.points !== "") {
+            const points = document.createElement("span");
+            points.className = "penrose-driver-position penrose-driver-position-points";
+            const heading = document.createElement("small");
+            heading.textContent = "POINTS";
+            const value = document.createElement("b");
+            value.textContent = String(driver.points);
+            points.append(heading, value);
+            row.appendChild(points);
+          }
           driverResults.appendChild(row);
         });
         info.appendChild(driverResults);
