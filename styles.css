@@ -7009,3 +7009,87 @@ body.dream-five-open { overflow: hidden; }
   font: 900 24px/1 var(--display);
   font-variant-numeric: tabular-nums;
 }
+
+
+/* Penrose Cup driver standings table */
+.penrose-standings-panel {
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(125,184,255,.2);
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgba(20,42,75,.78), rgba(10,24,46,.94));
+}
+.penrose-standings-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px clamp(16px,2.5vw,25px);
+  border-bottom: 1px solid rgba(125,184,255,.13);
+}
+.penrose-standings-heading h3 {
+  margin: 5px 0 0;
+  color: #fff;
+  font: 900 clamp(19px,2vw,25px)/1.05 var(--display);
+}
+.penrose-standings-caption {
+  color: #83baff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-align: right;
+}
+.penrose-standings-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.penrose-standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.penrose-standings-table th,
+.penrose-standings-table td {
+  padding: 13px clamp(12px,2vw,22px);
+  border-bottom: 1px solid rgba(125,184,255,.1);
+  white-space: nowrap;
+}
+.penrose-standings-table thead th {
+  color: #83baff;
+  background: rgba(125,184,255,.055);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.penrose-standings-table tbody td,
+.penrose-standings-table tbody th {
+  color: #dceaff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.penrose-standings-table tbody th {
+  color: #fff;
+  text-align: left;
+}
+.penrose-standings-table tbody tr:last-child td,
+.penrose-standings-table tbody tr:last-child th {
+  border-bottom: 0;
+}
+.penrose-standings-table .penrose-standings-position {
+  color: #91bff1;
+  font: 900 14px/1 var(--display);
+}
+.penrose-standings-table .penrose-standings-points {
+  color: #a5f0ca;
+  font: 900 17px/1 var(--display);
+}
+@media (max-width: 600px) {
+  .penrose-standings-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .penrose-standings-caption { text-align: left; }
+  .penrose-standings-table th,
+  .penrose-standings-table td { padding: 12px 11px; }
+}
