@@ -1101,6 +1101,46 @@ async function refreshPenroseResults() {
       ? recorded + " of " + rounds.length + " round" + (rounds.length === 1 ? "" : "s") + " with results recorded"
       : "No race results recorded yet.";
 
+    // Build the standings from the six-driver Penrose Cup roster and all completed round results.
+    const rosterNames = ["DannyMacF1", "evthelegend46", "Roca F1", "chronic-teziq", "zchxq", "Wdonn"];
+    const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, points: 0}]));
+    rounds.forEach(round => {
+      if (round.status !== "complete" || !Array.isArray(round.drivers)) return;
+      round.drivers.forEach(driver => {
+        const name = String(driver.name || "").trim();
+        if (!name) return;
+        const key = name.toLowerCase();
+        if (!standings.has(key)) standings.set(key, {name, races: 0, points: 0});
+        const entry = standings.get(key);
+        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") entry.races += 1;
+        if (driver.points !== null && driver.points !== undefined && driver.points !== "") {
+          entry.points += Number(driver.points) || 0;
+        }
+      });
+    });
+    const standingsBody = document.getElementById("penroseDriverStandings");
+    if (standingsBody) {
+      standingsBody.replaceChildren();
+      [...standings.values()]
+        .sort((a, b) => b.points - a.points || b.races - a.races || a.name.localeCompare(b.name))
+        .forEach((driver, index) => {
+          const row = document.createElement("tr");
+          const position = document.createElement("td");
+          position.className = "penrose-standings-position";
+          position.textContent = String(index + 1).padStart(2, "0");
+          const name = document.createElement("th");
+          name.scope = "row";
+          name.textContent = driver.name;
+          const races = document.createElement("td");
+          races.textContent = String(driver.races);
+          const points = document.createElement("td");
+          points.className = "penrose-standings-points";
+          points.textContent = String(driver.points);
+          row.append(position, name, races, points);
+          standingsBody.appendChild(row);
+        });
+    }
+
     rounds.forEach(round => {
       const item = document.createElement("li");
       const status = String(round.status || "pending").toLowerCase().replace(/[^a-z0-9-]/g, "");
