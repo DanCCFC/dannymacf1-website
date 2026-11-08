@@ -957,9 +957,135 @@ async function refreshPenroseResults() {
   if (!list || !group || !summary) return;
 
   try {
-    const response = await fetch("./penrose-results.json?ts=" + Date.now(), {cache: "no-store"});
-    if (!response.ok) throw new Error("Penrose results unavailable");
-    const data = await response.json();
+    // Keep a complete local snapshot so the results remain visible if the JSON request fails.
+    const fallbackData = {
+  "competition": "Penrose Cup",
+  "group": "Group A",
+  "groupStatus": "Group A confirmed",
+  "updatedAt": "2026-11-08",
+  "rounds": [
+    {
+      "week": 1,
+      "name": "Placement Round",
+      "status": "complete",
+      "statusLabel": "Official results confirmed · Group A",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": "Official placement results confirmed following stewards' investigation. Group A allocation confirmed; points allocation pending.",
+      "drivers": [
+        {
+          "name": "chronic-teziq",
+          "qualifying": 4,
+          "finish": 6
+        },
+        {
+          "name": "Roca F1",
+          "qualifying": 9,
+          "finish": 10
+        },
+        {
+          "name": "evthelegend46",
+          "qualifying": 15,
+          "finish": 14
+        },
+        {
+          "name": "DannyMacF1",
+          "qualifying": 16,
+          "finish": 12
+        }
+      ],
+      "venue": "Spanish Grand Prix",
+      "date": "1st November 2026"
+    },
+    {
+      "week": 2,
+      "name": "Group Race 1",
+      "status": "complete",
+      "statusLabel": "Official results recorded · Group A",
+      "finish": null,
+      "points": 54,
+      "result": null,
+      "notes": "Group A race completed. Chronic-teziq delivered an outstanding drive from P15 to P4.",
+      "drivers": [
+        {
+          "name": "chronic-teziq",
+          "qualifying": 15,
+          "finish": 4,
+          "points": 22
+        },
+        {
+          "name": "Roca F1",
+          "qualifying": 16,
+          "finish": 8,
+          "points": 14
+        },
+        {
+          "name": "DannyMacF1",
+          "qualifying": 8,
+          "finish": 9,
+          "points": 12
+        },
+        {
+          "name": "Wdonn",
+          "qualifying": 14,
+          "finish": 12,
+          "points": 6
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "name": "Group Race 2",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 4,
+      "name": "Knockout",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 5,
+      "name": "Semi-Final",
+      "status": "conditional",
+      "statusLabel": "Subject to progression",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    },
+    {
+      "week": 6,
+      "name": "Group Final",
+      "status": "conditional",
+      "statusLabel": "Subject to qualification",
+      "finish": null,
+      "points": null,
+      "result": null,
+      "notes": ""
+    }
+  ]
+};
+    let data = fallbackData;
+    try {
+      const response = await fetch("./penrose-results.json?ts=" + Date.now(), {cache: "no-store"});
+      if (response.ok) {
+        const remoteData = await response.json();
+        if (remoteData && Array.isArray(remoteData.rounds)) data = remoteData;
+      }
+    } catch (fetchError) {
+      console.warn("Using the built-in Penrose results snapshot because the results file could not be fetched.", fetchError);
+    }
     group.textContent = data.group || data.groupStatus || "To be confirmed after placement";
 
     const rounds = Array.isArray(data.rounds) ? data.rounds : [];
