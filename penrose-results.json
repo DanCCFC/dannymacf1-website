@@ -44,7 +44,7 @@
       "status": "complete",
       "statusLabel": "Official results recorded · Group A",
       "finish": null,
-      "points": null,
+      "points": 54,
       "result": null,
       "notes": "Group A race completed. Chronic-teziq delivered an outstanding drive from P15 to P4.",
       "drivers": [
@@ -115,4 +115,4 @@
       "notes": ""
     }
   ]
-}
+}\n
