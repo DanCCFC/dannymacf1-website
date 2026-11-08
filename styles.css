@@ -6983,3 +6983,28 @@ body.dream-five-open { overflow: hidden; }
   background: #4ade80;
   box-shadow: 0 0 9px rgba(74, 222, 128, .58);
 }
+
+
+/* Total points scored by the team in each completed Penrose Cup race. */
+.penrose-team-points-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 9px;
+  padding: 10px 12px;
+  border: 1px solid rgba(125,184,255,.24);
+  border-radius: 8px;
+  background: rgba(125,184,255,.075);
+}
+.penrose-team-points-total span {
+  color: #9fcaff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.penrose-team-points-total strong {
+  color: #fff;
+  font: 900 21px/1 var(--display);
+  font-variant-numeric: tabular-nums;
+}
