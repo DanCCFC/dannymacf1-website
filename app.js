@@ -1018,6 +1018,22 @@ async function refreshPenroseResults() {
         info.appendChild(note);
       }
 
+      const roundPoints = round.points !== null && round.points !== undefined
+        ? Number(round.points)
+        : Array.isArray(round.drivers) && round.drivers.some(driver => driver.points !== null && driver.points !== undefined)
+          ? round.drivers.reduce((total, driver) => total + (Number(driver.points) || 0), 0)
+          : null;
+      if (roundPoints !== null && Number.isFinite(roundPoints)) {
+        const total = document.createElement("div");
+        total.className = "penrose-team-points-total";
+        const label = document.createElement("span");
+        label.textContent = "TEAM POINTS";
+        const value = document.createElement("strong");
+        value.textContent = String(roundPoints) + " PTS";
+        total.append(label, value);
+        info.appendChild(total);
+      }
+
       if (Array.isArray(round.drivers) && round.drivers.length) {
         const driverResults = document.createElement("div");
         driverResults.className = "penrose-driver-results";
@@ -1051,22 +1067,6 @@ async function refreshPenroseResults() {
           driverResults.appendChild(row);
         });
         info.appendChild(driverResults);
-      }
-
-      const roundPoints = round.points !== null && round.points !== undefined
-        ? Number(round.points)
-        : Array.isArray(round.drivers) && round.drivers.some(driver => driver.points !== null && driver.points !== undefined)
-          ? round.drivers.reduce((total, driver) => total + (Number(driver.points) || 0), 0)
-          : null;
-      if (roundPoints !== null && Number.isFinite(roundPoints)) {
-        const total = document.createElement("div");
-        total.className = "penrose-team-points-total";
-        const label = document.createElement("span");
-        label.textContent = "TEAM POINTS";
-        const value = document.createElement("strong");
-        value.textContent = String(roundPoints) + " PTS";
-        total.append(label, value);
-        info.appendChild(total);
       }
 
       item.append(week, info);
