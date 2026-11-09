@@ -2022,7 +2022,7 @@ refreshFollowerCount();
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
       if (saved.date === gameDate && Array.isArray(saved.guesses)) {
-        guesses = saved.guesses.filter(item => typeof item === "string").slice(0,8);
+        guesses = saved.guesses.filter(item => typeof item === "string").slice(0,5);
         complete = Boolean(saved.complete);
         won = Boolean(saved.won);
       } else {
@@ -2061,7 +2061,7 @@ refreshFollowerCount();
       });
       grid.appendChild(row);
     });
-    attemptsLabel.textContent = complete ? (won ? "SOLVED" : "CHALLENGE COMPLETE") : (8-guesses.length)+" GUESSES LEFT";
+    attemptsLabel.textContent = complete ? (won ? "SOLVED" : "CHALLENGE COMPLETE") : (5-guesses.length)+" GUESSES LEFT";
   }
   function renderResult() {
     result.hidden = !complete;
@@ -2096,7 +2096,7 @@ refreshFollowerCount();
     if (guesses.some(name=>normalise(name)===normalise(match.name))) { setStatus("You have already guessed that driver."); return; }
     guesses.push(match.name);
     won=normalise(match.name)===normalise(currentAnswer.name);
-    complete=won || guesses.length>=8;
+    complete=won || guesses.length>=5;
     saveState();
     renderGrid();
     renderResult();
@@ -2105,7 +2105,7 @@ refreshFollowerCount();
     input.disabled=complete;
     submit.disabled=complete;
     if (won) setStatus("Correct. You found today's driver.");
-    else if (complete) setStatus("That's eight guesses. The answer is revealed below.");
+    else if (complete) setStatus("That's five guesses. The answer is revealed below.");
     else setStatus("Not quite. The green clues match today's driver; the other clues do not.");
     updateStreak();
   }
