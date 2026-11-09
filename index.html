@@ -161,6 +161,7 @@
        <div class="championship-game-launch-actions">
         <button type="button" class="button button-primary tier-list-launch" id="openTierListMaker">CREATE A TIER LIST</button>
         <button type="button" class="button button-ghost dream-five-launch" id="openDreamFive">PLAY DREAM 5-A-SIDE</button>
+        <button type="button" class="button button-ghost driver-daily-launch" id="openDriverDaily">PLAY DRIVER DAILY</button>
        </div>
       </div>
     </div>
@@ -917,7 +918,32 @@
     <p class="tier-list-status" id="tierListStatus" role="status"></p>
    </section>
   </div>
-  <script src="app.js?v=20261026-04"></script>
+  <!-- Daily driver guessing game. -->
+  <div class="driver-daily-modal" id="driverDailyModal" hidden>
+   <section class="driver-daily-dialog" role="dialog" aria-modal="true" aria-labelledby="driverDailyTitle">
+    <button type="button" class="driver-daily-close" id="closeDriverDaily" aria-label="Close Driver Daily">×</button>
+    <div class="driver-daily-kicker">DANNYMACF1 · DAILY CHALLENGE</div>
+    <h2 id="driverDailyTitle">DRIVER <span class="accent">DAILY.</span></h2>
+    <p class="driver-daily-intro">Guess the championship driver from three clues. You have eight attempts to find today's answer.</p>
+    <div class="driver-daily-meta"><span id="driverDailyDate"></span><span id="driverDailyAttempts">8 GUESSES LEFT</span></div>
+    <div class="driver-daily-grid-wrap">
+     <div class="driver-daily-grid-head"><span>DRIVER</span><span>NATIONALITY</span><span>CHAMPIONSHIP WINS</span><span>GAMING PLATFORM</span></div>
+     <div id="driverDailyGrid" class="driver-daily-grid" aria-live="polite"></div>
+    </div>
+    <div class="driver-daily-controls">
+     <label for="driverDailyInput">YOUR GUESS</label>
+     <div class="driver-daily-input-row">
+      <input id="driverDailyInput" type="text" autocomplete="off" placeholder="Enter a driver username" maxlength="60">
+      <button type="button" class="button button-primary" id="driverDailySubmit">GUESS</button>
+     </div>
+     <div id="driverDailySuggestions" class="driver-daily-suggestions" hidden></div>
+    </div>
+    <p id="driverDailyStatus" class="driver-daily-status" role="status">Start typing a driver name or username.</p>
+    <div id="driverDailyResult" class="driver-daily-result" hidden></div>
+    <div class="driver-daily-footer"><button type="button" class="button button-ghost" id="driverDailyShare">SHARE RESULT</button><span id="driverDailyStreak"></span></div>
+   </section>
+  </div>
+  <script src="app.js?v=20261109-01"></script>
  </body>
 </html>
 
