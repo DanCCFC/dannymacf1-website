@@ -2048,7 +2048,7 @@ refreshFollowerCount();
       const cells = [
         {label:"Driver",value:driver.name,match:normalise(driver.name)===normalise(currentAnswer.name)},
         {label:"Nationality",value:values.nationality,match:normalise(values.nationality)===normalise(answerValues.nationality)},
-        {label:"Championship wins",value:values.wins===answerValues.wins?values.wins:(Number(values.wins)<Number(answerValues.wins)?"Higher ↑":"Lower ↓"),match:values.wins===answerValues.wins,detail:values.wins+" wins"},
+        {label:"Championship wins",value:values.wins===answerValues.wins?values.wins:(values.wins+" · "+(Number(values.wins)<Number(answerValues.wins)?"Higher ↑":"Lower ↓")),match:values.wins===answerValues.wins,detail:values.wins+" wins"},
         {label:"Gaming platform",value:values.platform,match:normalise(values.platform)===normalise(answerValues.platform)}
       ];
       cells.forEach((cell,cellIndex) => {
