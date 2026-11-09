@@ -1950,3 +1950,226 @@ refreshFollowerCount();
   renderSquad();
   refreshDrivers();
 })();
+
+
+// Driver Daily: a date-seeded guessing game using the live championship driver list.
+(function initDriverDaily() {
+  const modal = document.getElementById("driverDailyModal");
+  const openButton = document.getElementById("openDriverDaily");
+  const closeButton = document.getElementById("closeDriverDaily");
+  const input = document.getElementById("driverDailyInput");
+  const submit = document.getElementById("driverDailySubmit");
+  const grid = document.getElementById("driverDailyGrid");
+  const status = document.getElementById("driverDailyStatus");
+  const suggestions = document.getElementById("driverDailySuggestions");
+  const result = document.getElementById("driverDailyResult");
+  const attemptsLabel = document.getElementById("driverDailyAttempts");
+  const dateLabel = document.getElementById("driverDailyDate");
+  const shareButton = document.getElementById("driverDailyShare");
+  const streakLabel = document.getElementById("driverDailyStreak");
+  if (!modal || !openButton || !closeButton || !input || !submit || !grid) return;
+
+  const storageKey = "dannymacf1-driver-daily-v1";
+  const todayKey = () => {
+    const now = new Date();
+    return now.getUTCFullYear() + "-" + String(now.getUTCMonth()+1).padStart(2,"0") + "-" + String(now.getUTCDate()).padStart(2,"0");
+  };
+  const countryNames = {
+    barbados:"Barbados", britain:"England", england:"England", wales:"Wales",
+    scotland:"Scotland", ireland:"Ireland", netherlands:"Netherlands"
+  };
+  const clean = value => String(value ?? "").trim();
+  const normalise = value => clean(value).toLowerCase();
+  const availableDrivers = () => getDrivers().map(driver => ({
+    ...driver,
+    name: clean(driver.name),
+    country: clean(driver.country),
+    platform: clean(driver.platform),
+    wins: Math.max(0, Number(driver.wins) || 0)
+  })).filter(driver => driver.name && driver.country && driver.platform);
+  const driverKey = driver => [normalise(driver.name), normalise(driver.country), driver.wins, normalise(driver.platform)].join("|");
+  const hash = value => {
+    let h = 2166136261;
+    for (let i=0;i<value.length;i++) { h ^= value.charCodeAt(i); h = Math.imul(h,16777619); }
+    return h >>> 0;
+  };
+  const puzzlePool = () => {
+    const drivers = availableDrivers().sort((a,b)=>a.name.localeCompare(b.name));
+    if (!drivers.length) return [];
+    const seed = hash(todayKey() + "|dannymacf1-driver-daily-v1|" + drivers.map(driverKey).join(";"));
+    return drivers;
+  };
+  const answerForToday = () => {
+    const pool = puzzlePool();
+    if (!pool.length) return null;
+    return pool[hash(todayKey() + "|daily-answer|" + pool.map(driverKey).join(";")) % pool.length];
+  };
+  const clueValues = driver => ({
+    nationality: countryNames[normalise(driver.country)] || driver.country,
+    wins: String(driver.wins),
+    platform: driver.platform
+  });
+  const flagCode = country => ({
+    barbados:"bb", britain:"gb-eng", england:"gb-eng", wales:"gb-wls",
+    scotland:"gb-sct", ireland:"ie", netherlands:"nl"
+  })[normalise(country)] || "";
+  let guesses = [];
+  let complete = false;
+  let won = false;
+  let currentAnswer = null;
+  let gameDate = "";
+
+  function readState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      if (saved.date === gameDate && Array.isArray(saved.guesses)) {
+        guesses = saved.guesses.filter(item => typeof item === "string").slice(0,8);
+        complete = Boolean(saved.complete);
+        won = Boolean(saved.won);
+      } else {
+        guesses = []; complete = false; won = false;
+      }
+    } catch { guesses = []; complete = false; won = false; }
+  }
+  function saveState() {
+    try { localStorage.setItem(storageKey, JSON.stringify({date:gameDate,guesses,complete,won})); } catch {}
+  }
+  function setStatus(message) { status.textContent = message || ""; }
+  function getGuessedDrivers() {
+    const all = getDrivers();
+    return guesses.map(name => all.find(driver => normalise(driver.name) === normalise(name))).filter(Boolean);
+  }
+  function renderGrid() {
+    grid.replaceChildren();
+    getGuessedDrivers().forEach((driver,index) => {
+      const values = clueValues(driver);
+      const answerValues = clueValues(currentAnswer);
+      const row = document.createElement("div");
+      row.className = "driver-daily-row";
+      const cells = [
+        {label:"Driver",value:driver.name,match:normalise(driver.name)===normalise(currentAnswer.name)},
+        {label:"Nationality",value:values.nationality,match:normalise(values.nationality)===normalise(answerValues.nationality)},
+        {label:"Championship wins",value:values.wins,match:values.wins===answerValues.wins},
+        {label:"Gaming platform",value:values.platform,match:normalise(values.platform)===normalise(answerValues.platform)}
+      ];
+      cells.forEach((cell,cellIndex) => {
+        const tile=document.createElement("div");
+        tile.className="driver-daily-cell "+(cell.match?"is-correct":"is-wrong");
+        tile.style.setProperty("--tile-delay",(index*4+cellIndex)*65+"ms");
+        tile.textContent=cell.value;
+        tile.setAttribute("aria-label",cell.label+": "+cell.value+(cell.match?", correct":", not a match"));
+        row.appendChild(tile);
+      });
+      grid.appendChild(row);
+    });
+    attemptsLabel.textContent = complete ? (won ? "SOLVED" : "CHALLENGE COMPLETE") : (8-guesses.length)+" GUESSES LEFT";
+  }
+  function renderResult() {
+    result.hidden = !complete;
+    if (!complete) return;
+    const summary = won
+      ? "You found "+currentAnswer.name+" in "+guesses.length+" "+(guesses.length===1?"guess":"guesses")+"."
+      : "Today's driver was "+currentAnswer.name+".";
+    result.textContent = summary+" Come back tomorrow for a new challenge.";
+    shareButton.disabled = false;
+  }
+  function updateSuggestions() {
+    const query=normalise(input.value);
+    suggestions.replaceChildren();
+    if (!query || complete) { suggestions.hidden=true; return; }
+    const already=new Set(guesses.map(normalise));
+    const matches=availableDrivers().filter(driver => !already.has(normalise(driver.name)) && normalise(driver.name).includes(query)).slice(0,6);
+    if (!matches.length) { suggestions.hidden=true; return; }
+    matches.forEach(driver => {
+      const button=document.createElement("button");
+      button.type="button";
+      button.textContent=driver.name;
+      button.addEventListener("click",()=>{input.value=driver.name;suggestions.hidden=true;input.focus();});
+      suggestions.appendChild(button);
+    });
+    suggestions.hidden=false;
+  }
+  function submitGuess() {
+    if (complete) return;
+    const value=clean(input.value);
+    if (!value) { setStatus("Enter a driver username to make a guess."); return; }
+    const match=availableDrivers().find(driver=>normalise(driver.name)===normalise(value));
+    if (!match) { setStatus("That driver is not in the current standings, or is missing clue data."); return; }
+    if (guesses.some(name=>normalise(name)===normalise(match.name))) { setStatus("You have already guessed that driver."); return; }
+    guesses.push(match.name);
+    won=normalise(match.name)===normalise(currentAnswer.name);
+    complete=won || guesses.length>=8;
+    saveState();
+    renderGrid();
+    renderResult();
+    input.value="";
+    suggestions.hidden=true;
+    input.disabled=complete;
+    submit.disabled=complete;
+    if (won) setStatus("Correct. You found today's driver.");
+    else if (complete) setStatus("That's eight guesses. The answer is revealed below.");
+    else setStatus("Not quite. The green clues match today's driver; the other clues do not.");
+    updateStreak();
+  }
+  function updateStreak() {
+    try {
+      const stats=JSON.parse(localStorage.getItem(storageKey+"-stats")||"{}");
+      const previous=stats.lastPlayed===gameDate ? stats : {streak:stats.lastPlayed===yesterdayKey()?Number(stats.streak)||0:0};
+      if (complete && stats.lastCompleted!==gameDate) {
+        previous.streak=won?(Number(previous.streak)||0)+1:0;
+        previous.lastCompleted=gameDate;
+      }
+      previous.lastPlayed=gameDate;
+      localStorage.setItem(storageKey+"-stats",JSON.stringify(previous));
+      streakLabel.textContent="CURRENT STREAK: "+(Number(previous.streak)||0);
+    } catch { streakLabel.textContent=""; }
+  }
+  function yesterdayKey() {
+    const date=new Date(gameDate+"T00:00:00Z");date.setUTCDate(date.getUTCDate()-1);
+    return date.toISOString().slice(0,10);
+  }
+  function startGame() {
+    gameDate=todayKey();
+    currentAnswer=answerForToday();
+    dateLabel.textContent=gameDate;
+    if (!currentAnswer) {
+      setStatus("There are not yet enough complete driver profiles to create today's puzzle.");
+      input.disabled=true;submit.disabled=true;return;
+    }
+    readState();
+    renderGrid();
+    renderResult();
+    input.disabled=complete;
+    submit.disabled=complete;
+    updateStreak();
+    if (complete) setStatus(won?"You have already solved today's challenge.":"Today's challenge is complete.");
+    else setStatus("Make a guess to reveal the clue matches.");
+  }
+  function openGame() {
+    startGame();modal.hidden=false;document.body.classList.add("driver-daily-open");
+    if (!input.disabled) input.focus();
+  }
+  function closeGame() { modal.hidden=true;document.body.classList.remove("driver-daily-open");openButton.focus(); }
+  openButton.addEventListener("click",openGame);
+  closeButton.addEventListener("click",closeGame);
+  modal.addEventListener("click",event=>{if(event.target===modal)closeGame();});
+  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!modal.hidden)closeGame();});
+  input.addEventListener("input",updateSuggestions);
+  input.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();submitGuess();}if(event.key==="Escape")suggestions.hidden=true;});
+  submit.addEventListener("click",submitGuess);
+  shareButton.addEventListener("click",async()=>{
+    const rows=getGuessedDrivers().map(driver=>clueValues(driver));
+    const cells=rows.map(values=>[
+      "🟦 "+values.nationality,
+      "🟦 "+values.wins+" wins",
+      "🟦 "+values.platform
+    ].join(" ")).join("\n");
+    const text="DannyMacF1 Driver Daily "+gameDate+"\n"+(won?"Solved in "+guesses.length+"/8":"Completed "+guesses.length+"/8")+"\n"+cells;
+    try {
+      if (navigator.share) await navigator.share({text});
+      else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text);setStatus("Result copied to clipboard."); }
+      else setStatus("Sharing is not available in this browser.");
+    } catch (error) { if (error?.name!=="AbortError") setStatus("Could not share the result."); }
+  });
+  // Keep the launch button available while the game state is not yet initialised.
+})();
