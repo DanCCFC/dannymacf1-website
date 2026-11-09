@@ -1965,7 +1965,6 @@ refreshFollowerCount();
   const result = document.getElementById("driverDailyResult");
   const attemptsLabel = document.getElementById("driverDailyAttempts");
   const dateLabel = document.getElementById("driverDailyDate");
-  const shareButton = document.getElementById("driverDailyShare");
   const streakLabel = document.getElementById("driverDailyStreak");
   if (!modal || !openButton || !closeButton || !input || !submit || !grid) return;
 
@@ -2049,7 +2048,7 @@ refreshFollowerCount();
       const cells = [
         {label:"Driver",value:driver.name,match:normalise(driver.name)===normalise(currentAnswer.name)},
         {label:"Nationality",value:values.nationality,match:normalise(values.nationality)===normalise(answerValues.nationality)},
-        {label:"Championship wins",value:values.wins,match:values.wins===answerValues.wins},
+        {label:"Championship wins",value:values.wins===answerValues.wins?values.wins:(Number(values.wins)<Number(answerValues.wins)?"Higher ↑":"Lower ↓"),match:values.wins===answerValues.wins,detail:values.wins+" wins"},
         {label:"Gaming platform",value:values.platform,match:normalise(values.platform)===normalise(answerValues.platform)}
       ];
       cells.forEach((cell,cellIndex) => {
@@ -2057,7 +2056,7 @@ refreshFollowerCount();
         tile.className="driver-daily-cell "+(cell.match?"is-correct":"is-wrong");
         tile.style.setProperty("--tile-delay",(index*4+cellIndex)*65+"ms");
         tile.textContent=cell.value;
-        tile.setAttribute("aria-label",cell.label+": "+cell.value+(cell.match?", correct":", not a match"));
+        tile.setAttribute("aria-label",cell.label+": "+(cell.detail||cell.value)+(cell.match?", correct":cell.label==="Championship wins"?", "+cell.value.toLowerCase()+" than the answer":", not a match"));
         row.appendChild(tile);
       });
       grid.appendChild(row);
@@ -2071,7 +2070,6 @@ refreshFollowerCount();
       ? "You found "+currentAnswer.name+" in "+guesses.length+" "+(guesses.length===1?"guess":"guesses")+"."
       : "Today's driver was "+currentAnswer.name+".";
     result.textContent = summary+" Come back tomorrow for a new challenge.";
-    shareButton.disabled = false;
   }
   function updateSuggestions() {
     const query=normalise(input.value);
@@ -2157,19 +2155,6 @@ refreshFollowerCount();
   input.addEventListener("input",updateSuggestions);
   input.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();submitGuess();}if(event.key==="Escape")suggestions.hidden=true;});
   submit.addEventListener("click",submitGuess);
-  shareButton.addEventListener("click",async()=>{
-    const rows=getGuessedDrivers().map(driver=>clueValues(driver));
-    const cells=rows.map(values=>[
-      "🟦 "+values.nationality,
-      "🟦 "+values.wins+" wins",
-      "🟦 "+values.platform
-    ].join(" ")).join("\n");
-    const text="DannyMacF1 Driver Daily "+gameDate+"\n"+(won?"Solved in "+guesses.length+"/8":"Completed "+guesses.length+"/8")+"\n"+cells;
-    try {
-      if (navigator.share) await navigator.share({text});
-      else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text);setStatus("Result copied to clipboard."); }
-      else setStatus("Sharing is not available in this browser.");
-    } catch (error) { if (error?.name!=="AbortError") setStatus("Could not share the result."); }
-  });
+
   // Keep the launch button available while the game state is not yet initialised.
 })();
