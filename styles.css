@@ -7191,3 +7191,30 @@ body.driver-daily-open{overflow:hidden}
 @media(max-width:640px){
   .driver-daily-input-row #driverDailySubmit{width:100%}
 }
+
+
+/* Driver Daily: keep the full clue grid visible on narrow screens */
+@media(max-width:640px){
+  .driver-daily-grid-wrap{width:100%;overflow-x:hidden}
+  .driver-daily-grid-head,.driver-daily-row{
+    width:100%;
+    min-width:0;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:4px;
+  }
+  .driver-daily-grid-head{
+    font-size:clamp(6px,1.8vw,8px);
+    line-height:1.2;
+    letter-spacing:0;
+    overflow-wrap:anywhere;
+  }
+  .driver-daily-cell{
+    min-width:0;
+    min-height:42px;
+    padding:6px 3px;
+    font-size:clamp(8px,2.5vw,10px);
+    line-height:1.2;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+}
