@@ -1985,7 +1985,7 @@ refreshFollowerCount();
     country: clean(driver.country),
     platform: clean(driver.platform),
     wins: Math.max(0, Number(driver.wins) || 0)
-  })).filter(driver => driver.name && driver.country && driver.platform);
+  })).filter(driver => driver.name);
   const driverKey = driver => [normalise(driver.name), normalise(driver.country), driver.wins, normalise(driver.platform)].join("|");
   const hash = value => {
     let h = 2166136261;
@@ -2004,9 +2004,9 @@ refreshFollowerCount();
     return pool[hash(todayKey() + "|daily-answer|" + pool.map(driverKey).join(";")) % pool.length];
   };
   const clueValues = driver => ({
-    nationality: countryNames[normalise(driver.country)] || driver.country,
+    nationality: countryNames[normalise(driver.country)] || driver.country || "Not listed",
     wins: String(driver.wins),
-    platform: driver.platform
+    platform: driver.platform || "Not listed"
   });
   const flagCode = country => ({
     barbados:"bb", britain:"gb-eng", england:"gb-eng", wales:"gb-wls",
@@ -2092,7 +2092,7 @@ refreshFollowerCount();
     const value=clean(input.value);
     if (!value) { setStatus("Enter a driver username to make a guess."); return; }
     const match=availableDrivers().find(driver=>normalise(driver.name)===normalise(value));
-    if (!match) { setStatus("That driver is not in the current standings, or is missing clue data."); return; }
+    if (!match) { setStatus("That driver is not in the current standings."); return; }
     if (guesses.some(name=>normalise(name)===normalise(match.name))) { setStatus("You have already guessed that driver."); return; }
     guesses.push(match.name);
     won=normalise(match.name)===normalise(currentAnswer.name);
