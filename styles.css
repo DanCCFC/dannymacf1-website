@@ -7218,3 +7218,124 @@ body.driver-daily-open{overflow:hidden}
     word-break:break-word;
   }
 }
+
+
+/* Penrose Cup mobile fit: keep race metrics and standings inside the viewport. */
+@media (max-width: 640px) {
+  .penrose-results-panel,
+  .penrose-standings-panel {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .penrose-driver-results {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .penrose-driver-result {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0,1fr) repeat(3,minmax(0,54px));
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .penrose-driver-result > strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .penrose-driver-position {
+    min-width: 0;
+    min-height: 37px;
+    padding: 4px 2px;
+  }
+
+  .penrose-driver-position small {
+    font-size: 6px;
+    letter-spacing: .35px;
+  }
+
+  .penrose-driver-position b {
+    font-size: 14px;
+  }
+
+  .penrose-team-points-total {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 11px;
+  }
+
+  .penrose-team-points-total strong {
+    font-size: 20px;
+  }
+
+  .penrose-standings-table-wrap {
+    overflow: visible;
+  }
+
+  .penrose-standings-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .penrose-standings-table th,
+  .penrose-standings-table td {
+    box-sizing: border-box;
+    padding: 11px 6px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .penrose-standings-table thead th {
+    font-size: 8px;
+    letter-spacing: .45px;
+  }
+
+  .penrose-standings-table thead th:first-child,
+  .penrose-standings-table tbody .penrose-standings-position {
+    width: 13%;
+  }
+
+  .penrose-standings-table thead th:nth-child(2) {
+    width: 47%;
+  }
+
+  .penrose-standings-table thead th:nth-child(3) {
+    width: 17%;
+  }
+
+  .penrose-standings-table thead th:nth-child(4) {
+    width: 23%;
+  }
+
+  .penrose-standings-table tbody td,
+  .penrose-standings-table tbody th {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .penrose-standings-table .penrose-standings-points {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .penrose-driver-result {
+    grid-template-columns: minmax(0,1fr) repeat(3,minmax(0,48px));
+    gap: 4px;
+    padding: 5px;
+  }
+
+  .penrose-driver-position b {
+    font-size: 12px;
+  }
+
+  .penrose-standings-table th,
+  .penrose-standings-table td {
+    padding-inline: 4px;
+  }
+}
