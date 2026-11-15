@@ -7507,3 +7507,98 @@ body.driver-daily-open{overflow:hidden}
     grid-template-columns: 29px minmax(0,1fr) 37px 43px;
   }
 }
+
+
+/* Final mobile standings correction: retain a real table layout with usable column widths. */
+@media (max-width: 640px) {
+  .penrose-standings-table-wrap {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table {
+    display: table !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead {
+    display: table-header-group !important;
+    width: auto !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody {
+    display: table-row-group !important;
+    width: auto !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tr {
+    display: table-row !important;
+    width: auto !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table th,
+  .penrose-standings-panel .penrose-standings-table td {
+    display: table-cell !important;
+    box-sizing: border-box !important;
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 11px 5px !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    vertical-align: middle !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th:first-child {
+    width: 42px !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(2) {
+    width: auto !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(3) {
+    width: 52px !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(4) {
+    width: 58px !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody .penrose-standings-position {
+    width: 42px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody th {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody td:not(.penrose-standings-position) {
+    text-align: center !important;
+    font-size: 10px !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table .penrose-standings-points {
+    font-size: 14px !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+    letter-spacing: .35px !important;
+    text-align: left !important;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(3),
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(4) {
+    text-align: center !important;
+  }
+}
