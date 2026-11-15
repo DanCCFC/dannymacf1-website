@@ -7339,3 +7339,171 @@ body.driver-daily-open{overflow:hidden}
     padding-inline: 4px;
   }
 }
+
+
+/* Mobile Penrose layout: stack driver names above three equal metric tiles. */
+@media (max-width: 640px) {
+  .penrose-results-panel {
+    overflow: hidden;
+  }
+
+  .penrose-results-list {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  .penrose-result-row {
+    min-width: 0;
+    grid-template-columns: 34px minmax(0,1fr);
+    gap: 0 8px;
+    padding-right: 8px;
+  }
+
+  .penrose-result-week {
+    margin-left: -9px;
+    font-size: 14px;
+  }
+
+  .penrose-result-round {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .penrose-driver-results {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+  }
+
+  /* More specific than the desktop .has-points grid definition. */
+  .penrose-driver-result.has-points,
+  .penrose-driver-result:not(.has-points) {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .penrose-driver-result > strong {
+    grid-column: 1 / -1;
+    min-width: 0;
+    padding: 1px 1px 3px;
+    font-size: 11px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .penrose-driver-result .penrose-driver-position {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 43px;
+    padding: 5px 2px;
+  }
+
+  .penrose-driver-result .penrose-driver-position small {
+    font-size: 7px;
+    letter-spacing: .45px;
+  }
+
+  .penrose-driver-result .penrose-driver-position b {
+    font-size: 16px;
+  }
+
+  .penrose-team-points-total {
+    margin: 9px 0;
+    padding: 10px;
+  }
+
+  .penrose-team-points-total span {
+    font-size: 9px;
+  }
+
+  /* Use a fixed four-column grid rather than a wide intrinsic HTML table. */
+  .penrose-standings-table-wrap {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .penrose-standings-panel .penrose-standings-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead,
+  .penrose-standings-panel .penrose-standings-table tbody {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tr {
+    display: grid;
+    grid-template-columns: 34px minmax(0,1fr) 43px 48px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .penrose-standings-panel .penrose-standings-table th,
+  .penrose-standings-panel .penrose-standings-table td {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 11px 4px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .penrose-standings-panel .penrose-standings-table thead th {
+    font-size: 8px;
+    line-height: 1.15;
+    letter-spacing: .35px;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody th {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tbody td {
+    font-size: 10px;
+    justify-content: center;
+  }
+
+  .penrose-standings-panel .penrose-standings-table .penrose-standings-position {
+    font-size: 13px;
+  }
+
+  .penrose-standings-panel .penrose-standings-table .penrose-standings-points {
+    font-size: 14px;
+  }
+
+  .penrose-standings-heading {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .penrose-result-row {
+    grid-template-columns: 30px minmax(0,1fr);
+    gap: 0 7px;
+  }
+
+  .penrose-driver-result.has-points,
+  .penrose-driver-result:not(.has-points) {
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .penrose-standings-panel .penrose-standings-table tr {
+    grid-template-columns: 29px minmax(0,1fr) 37px 43px;
+  }
+}
