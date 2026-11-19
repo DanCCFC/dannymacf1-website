@@ -1129,7 +1129,7 @@ async function refreshPenroseResults() {
       },
       {
         "position": 2,
-        "name": "Crash band&#x69;******",
+        "name": "Crash bandi******",
         "r1": 80,
         "r2": 77,
         "penalty": null,
