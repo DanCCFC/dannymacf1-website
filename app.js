@@ -1201,7 +1201,7 @@ async function refreshPenroseResults() {
       },
       {
         "position": 10,
-        "name": "TTDM United",
+        "name": "TTDM Racing",
         "r1": 54,
         "r2": 48,
         "penalty": null,
