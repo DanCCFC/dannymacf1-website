@@ -1430,7 +1430,7 @@ async function refreshPenroseResults() {
       item.append(week, info);
       list.appendChild(item);
 
-      // Insert the final Group A standings immediately after Group Race 2.
+      // Insert the Group A standings as native website-themed team cards after Group Race 2.
       if (Number(round.week) === 3 && data.groupStandings) {
         const standings = data.groupStandings;
         const panel = document.createElement("li");
@@ -1438,94 +1438,84 @@ async function refreshPenroseResults() {
         const card = document.createElement("section");
         card.className = "penrose-group-standings";
         card.setAttribute("aria-label", standings.title || "Group standings");
+
         const heading = document.createElement("div");
         heading.className = "penrose-group-standings-heading";
+        const headingCopy = document.createElement("div");
+        const kicker = document.createElement("span");
+        kicker.className = "penrose-group-kicker";
+        kicker.textContent = "PENROSE CUP · GROUP A";
         const headingTitle = document.createElement("h3");
-        headingTitle.textContent = standings.title || "Group standings";
-        const finalBadges = document.createElement("div");
-        finalBadges.className = "penrose-group-final-badges";
-        [standings.roundStatus, standings.round2Status].filter(Boolean).forEach(label => {
+        headingTitle.textContent = "GROUP STANDINGS";
+        headingCopy.append(kicker, headingTitle);
+        const qualificationBadge = document.createElement("span");
+        qualificationBadge.className = "penrose-group-qualification-badge";
+        qualificationBadge.textContent = "TOP " + String(standings.qualificationLine || 10) + " QUALIFY";
+        heading.append(headingCopy, qualificationBadge);
+
+        const statusRow = document.createElement("div");
+        statusRow.className = "penrose-group-status-row";
+        [standings.roundStatus, standings.round2Status].filter(Boolean).forEach((label, index) => {
           const badge = document.createElement("span");
-          badge.textContent = label;
-          finalBadges.appendChild(badge);
+          badge.className = "penrose-group-final-badge";
+          badge.textContent = "R" + (index + 1) + " · FINAL";
+          statusRow.appendChild(badge);
         });
-        heading.append(headingTitle, finalBadges);
-        const resolved = document.createElement("div");
-        resolved.className = "penrose-group-resolved";
-        resolved.textContent = "GROUP A ROUND 1 AND ROUND 2 — FINAL · ALL STEWARDING TICKETS AND APPEALS RESOLVED";
-        const eliminated = document.createElement("div");
-        eliminated.className = "penrose-group-eliminated-banner";
-        eliminated.textContent = "GROUP A — " + String(standings.eliminatedCount || 0) + " TEAMS ELIMINATED · ELIMINATIONS CONFIRMED";
-        const tableWrap = document.createElement("div");
-        tableWrap.className = "penrose-group-table-wrap";
-        const table = document.createElement("table");
-        table.className = "penrose-group-table";
-        const thead = document.createElement("thead");
-        const headerRow = document.createElement("tr");
-        ["POS","TEAM","R1","R2","PP","TOTAL"].forEach(label => {
-          const th = document.createElement("th");
-          th.scope = "col";
-          th.textContent = label;
-          headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-        const tbody = document.createElement("tbody");
-        const makeSectionRow = label => {
-          const tr = document.createElement("tr");
-          tr.className = "penrose-group-table-section";
-          const td = document.createElement("td");
-          td.colSpan = 6;
-          td.textContent = label;
-          tr.appendChild(td);
-          return tr;
+        const summary = document.createElement("p");
+        summary.className = "penrose-group-summary";
+        summary.textContent = "Both group rounds are final. The top " + String(standings.qualificationLine || 10) + " teams progress to the knockout; " + String(standings.eliminatedCount || 0) + " teams are eliminated.";
+
+        const listTeams = document.createElement("div");
+        listTeams.className = "penrose-group-team-list";
+        const appendSection = label => {
+          const section = document.createElement("div");
+          section.className = "penrose-group-section-label";
+          section.textContent = label;
+          listTeams.appendChild(section);
         };
         (standings.teams || []).forEach((team, index) => {
-          if (index === 0) tbody.appendChild(makeSectionRow("QUALIFIED — TOP " + String(standings.qualificationLine || 10)));
-          if (index === Number(standings.qualificationLine || 10)) {
-            const line = document.createElement("tr");
-            line.className = "penrose-group-qualification-line";
-            const td = document.createElement("td");
-            td.colSpan = 6;
-            td.textContent = "CONFIRMED QUALIFICATION LINE — TOP " + String(standings.qualificationLine || 10) + " QUALIFIED · BOTTOM " + String(standings.eliminatedCount || 0) + " ELIMINATED";
-            line.appendChild(td);
-            tbody.appendChild(line);
-            tbody.appendChild(makeSectionRow("ELIMINATED — " + String(standings.eliminatedCount || 0) + " TEAMS"));
-          }
-          const tr = document.createElement("tr");
-          tr.className = "penrose-group-team-row " + (team.status === "qualified" ? "is-qualified" : "is-eliminated") + (team.highlight ? " is-our-team" : "");
-          const pos = document.createElement("td");
-          pos.className = "penrose-group-position";
-          pos.textContent = String(team.position) + (team.movement === "up" ? " ↑" : team.movement === "down" ? " ↓" : "");
-          const name = document.createElement("th");
-          name.scope = "row";
-          const teamName = document.createElement("span");
+          if (index === 0) appendSection("QUALIFIED FOR THE KNOCKOUT");
+          if (index === Number(standings.qualificationLine || 10)) appendSection("ELIMINATED");
+          const teamCard = document.createElement("article");
+          teamCard.className = "penrose-group-team-card" +
+            (team.status === "qualified" ? " is-qualified" : " is-eliminated") +
+            (team.highlight ? " is-our-team" : "");
+          const identity = document.createElement("div");
+          identity.className = "penrose-group-team-identity";
+          const position = document.createElement("span");
+          position.className = "penrose-group-team-position";
+          position.textContent = String(team.position).padStart(2, "0");
+          const nameWrap = document.createElement("div");
+          nameWrap.className = "penrose-group-team-name-wrap";
+          const teamName = document.createElement(team.name === "Vitesse Racing League" ? "a" : "strong");
+          teamName.className = "penrose-group-team-name";
           teamName.textContent = team.name;
-          name.appendChild(teamName);
-          if (team.highlight) {
-            const tag = document.createElement("small");
-            tag.textContent = "OUR TEAM · QUALIFIED";
-            name.appendChild(tag);
-          } else {
-            const tag = document.createElement("small");
-            tag.textContent = team.status === "qualified" ? "QUALIFIED" : "ELIMINATED";
-            name.appendChild(tag);
+          if (team.name === "Vitesse Racing League") {
+            teamName.href = "#partners";
+            teamName.setAttribute("aria-label", "Vitesse Racing League — view official partners");
           }
-          const cells = [pos,name];
-          ["r1","r2","penalty","total"].forEach(key => {
-            const td = document.createElement("td");
-            const value = team[key];
-            td.textContent = key === "penalty" ? (value === null || value === undefined ? "—" : String(value)) : String(value ?? "—");
-            if (key === "penalty" && Number(value) < 0) td.className = "has-penalty";
-            if (key === "total") td.className = "penrose-group-total";
-            cells.push(td);
+          const status = document.createElement("small");
+          status.className = "penrose-group-team-status";
+          status.textContent = team.highlight ? "OUR TEAM · KNOCKOUT QUALIFIED" : team.status === "qualified" ? "QUALIFIED" : "ELIMINATED";
+          nameWrap.append(teamName, status);
+          identity.append(position, nameWrap);
+
+          const metrics = document.createElement("div");
+          metrics.className = "penrose-group-team-metrics";
+          [["R1",team.r1],["R2",team.r2],["PP",team.penalty],["TOTAL",team.total]].forEach(([label,value]) => {
+            const metric = document.createElement("div");
+            metric.className = "penrose-group-team-metric" + (label === "TOTAL" ? " is-total" : "") + (label === "PP" && Number(value) < 0 ? " has-penalty" : "");
+            const metricLabel = document.createElement("span");
+            metricLabel.textContent = label;
+            const metricValue = document.createElement("strong");
+            metricValue.textContent = label === "PP" ? (value === null || value === undefined ? "—" : String(value)) : String(value ?? "—");
+            metric.append(metricLabel, metricValue);
+            metrics.appendChild(metric);
           });
-          cells.forEach(cell => tr.appendChild(cell));
-          tbody.appendChild(tr);
+          teamCard.append(identity, metrics);
+          listTeams.appendChild(teamCard);
         });
-        table.appendChild(tbody);
-        tableWrap.appendChild(table);
-        card.append(heading, resolved, eliminated, tableWrap);
+        card.append(heading, statusRow, summary, listTeams);
         panel.appendChild(card);
         list.appendChild(panel);
       }
