@@ -962,7 +962,7 @@ async function refreshPenroseResults() {
   "competition": "Penrose Cup",
   "group": "Group A",
   "groupStatus": "Group A confirmed",
-  "updatedAt": "2026-11-15",
+  "updatedAt": "2026-11-19",
   "rounds": [
     {
       "week": 1,
@@ -1046,17 +1046,17 @@ async function refreshPenroseResults() {
       "status": "complete",
       "statusLabel": "Official results recorded · Group A",
       "finish": null,
-      "points": 54,
+      "points": 46,
       "result": null,
-      "notes": "Group A Race 2 completed. Roca F1 secured P2.",
+      "notes": "Group A Race 2 results updated following the revised classification.",
       "venue": "Brazilian Grand Prix",
       "date": "15th November 2026",
       "drivers": [
         {
           "name": "Roca F1",
           "qualifying": 11,
-          "finish": 2,
-          "points": 28
+          "finish": 4,
+          "points": 22
         },
         {
           "name": "DannyMacF1",
@@ -1067,14 +1067,14 @@ async function refreshPenroseResults() {
         {
           "name": "chronic-teziq",
           "qualifying": 1,
-          "finish": 11,
-          "points": 8
+          "finish": 13,
+          "points": 4
         },
         {
           "name": "wdonn",
           "qualifying": 13,
-          "finish": 13,
-          "points": 4
+          "finish": 12,
+          "points": 6
         }
       ]
     },
