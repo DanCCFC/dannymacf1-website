@@ -1081,12 +1081,12 @@ async function refreshPenroseResults() {
     {
       "week": 4,
       "name": "Knockout",
-      "status": "conditional",
-      "statusLabel": "Subject to progression",
+      "status": "upcoming",
+      "statusLabel": "Qualified · Knockout confirmed",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": ""
+      "notes": "TTDM United finished 10th in Group A and qualified for the Week 4 Knockout."
     },
     {
       "week": 5,
@@ -1108,7 +1108,165 @@ async function refreshPenroseResults() {
       "result": null,
       "notes": ""
     }
-  ]
+  ],
+  "groupStandings": {
+    "title": "Group A — Group Stage Standings",
+    "group": "Group A",
+    "roundStatus": "GREEN — ROUND 1 FINAL",
+    "round2Status": "GREEN — ROUND 2 FINAL",
+    "roundsFinal": true,
+    "qualificationLine": 10,
+    "eliminatedCount": 6,
+    "teams": [
+      {
+        "position": 1,
+        "name": "Nordlys Racing",
+        "r1": 85,
+        "r2": 111,
+        "penalty": null,
+        "total": 196,
+        "status": "qualified"
+      },
+      {
+        "position": 2,
+        "name": "Crash BandiCunts",
+        "r1": 80,
+        "r2": 77,
+        "penalty": null,
+        "total": 157,
+        "status": "qualified"
+      },
+      {
+        "position": 3,
+        "name": "APEX WORLD SERIES",
+        "r1": 86,
+        "r2": 68,
+        "penalty": null,
+        "total": 154,
+        "status": "qualified"
+      },
+      {
+        "position": 4,
+        "name": "The Bad Boys",
+        "r1": 35,
+        "r2": 95,
+        "penalty": null,
+        "total": 130,
+        "status": "qualified"
+      },
+      {
+        "position": 5,
+        "name": "PTX Racing Series",
+        "r1": 75,
+        "r2": 46,
+        "penalty": null,
+        "total": 121,
+        "status": "qualified"
+      },
+      {
+        "position": 6,
+        "name": "Shake Dat Haas",
+        "r1": 48,
+        "r2": 65,
+        "penalty": null,
+        "total": 113,
+        "status": "qualified"
+      },
+      {
+        "position": 7,
+        "name": "Supreme Racing",
+        "r1": 69,
+        "r2": 42,
+        "penalty": null,
+        "total": 111,
+        "status": "qualified"
+      },
+      {
+        "position": 8,
+        "name": "Vitesse Racing League",
+        "r1": 12,
+        "r2": 102,
+        "penalty": -4,
+        "total": 110,
+        "status": "qualified"
+      },
+      {
+        "position": 9,
+        "name": "Dykons Racing Team",
+        "r1": 73,
+        "r2": 32,
+        "penalty": null,
+        "total": 105,
+        "status": "qualified"
+      },
+      {
+        "position": 10,
+        "name": "TTDM United",
+        "r1": 54,
+        "r2": 48,
+        "penalty": null,
+        "total": 102,
+        "status": "qualified",
+        "highlight": true
+      },
+      {
+        "position": 11,
+        "name": "Vamoria E-Sports",
+        "r1": 65,
+        "r2": 34,
+        "penalty": null,
+        "total": 99,
+        "status": "eliminated"
+      },
+      {
+        "position": 12,
+        "name": "Realistic Racing League",
+        "r1": 43,
+        "r2": 37,
+        "penalty": null,
+        "total": 80,
+        "status": "eliminated"
+      },
+      {
+        "position": 13,
+        "name": "Dubby Sim Racing Team",
+        "movement": "up",
+        "r1": 18,
+        "r2": 41,
+        "penalty": null,
+        "total": 59,
+        "status": "eliminated"
+      },
+      {
+        "position": 14,
+        "name": "Quantum Racing League",
+        "movement": "down",
+        "r1": 42,
+        "r2": 30,
+        "penalty": -15,
+        "total": 57,
+        "status": "eliminated"
+      },
+      {
+        "position": 15,
+        "name": "Zypher eSports Team",
+        "r1": 20,
+        "r2": 46,
+        "penalty": -19,
+        "total": 47,
+        "status": "eliminated"
+      },
+      {
+        "position": 16,
+        "name": "SFR F1 league",
+        "r1": 0,
+        "r2": 16,
+        "penalty": -16,
+        "total": 0,
+        "status": "eliminated"
+      }
+    ]
+  }
 };
     let data = fallbackData;
     try {
@@ -1271,6 +1429,106 @@ async function refreshPenroseResults() {
 
       item.append(week, info);
       list.appendChild(item);
+
+      // Insert the final Group A standings immediately after Group Race 2.
+      if (Number(round.week) === 3 && data.groupStandings) {
+        const standings = data.groupStandings;
+        const panel = document.createElement("li");
+        panel.className = "penrose-group-standings-item";
+        const card = document.createElement("section");
+        card.className = "penrose-group-standings";
+        card.setAttribute("aria-label", standings.title || "Group standings");
+        const heading = document.createElement("div");
+        heading.className = "penrose-group-standings-heading";
+        const headingTitle = document.createElement("h3");
+        headingTitle.textContent = standings.title || "Group standings";
+        const finalBadges = document.createElement("div");
+        finalBadges.className = "penrose-group-final-badges";
+        [standings.roundStatus, standings.round2Status].filter(Boolean).forEach(label => {
+          const badge = document.createElement("span");
+          badge.textContent = label;
+          finalBadges.appendChild(badge);
+        });
+        heading.append(headingTitle, finalBadges);
+        const resolved = document.createElement("div");
+        resolved.className = "penrose-group-resolved";
+        resolved.textContent = "GROUP A ROUND 1 AND ROUND 2 — FINAL · ALL STEWARDING TICKETS AND APPEALS RESOLVED";
+        const eliminated = document.createElement("div");
+        eliminated.className = "penrose-group-eliminated-banner";
+        eliminated.textContent = "GROUP A — " + String(standings.eliminatedCount || 0) + " TEAMS ELIMINATED · ELIMINATIONS CONFIRMED";
+        const tableWrap = document.createElement("div");
+        tableWrap.className = "penrose-group-table-wrap";
+        const table = document.createElement("table");
+        table.className = "penrose-group-table";
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        ["POS","TEAM","R1","R2","PP","TOTAL"].forEach(label => {
+          const th = document.createElement("th");
+          th.scope = "col";
+          th.textContent = label;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+        const tbody = document.createElement("tbody");
+        const makeSectionRow = label => {
+          const tr = document.createElement("tr");
+          tr.className = "penrose-group-table-section";
+          const td = document.createElement("td");
+          td.colSpan = 6;
+          td.textContent = label;
+          tr.appendChild(td);
+          return tr;
+        };
+        (standings.teams || []).forEach((team, index) => {
+          if (index === 0) tbody.appendChild(makeSectionRow("QUALIFIED — TOP " + String(standings.qualificationLine || 10)));
+          if (index === Number(standings.qualificationLine || 10)) {
+            const line = document.createElement("tr");
+            line.className = "penrose-group-qualification-line";
+            const td = document.createElement("td");
+            td.colSpan = 6;
+            td.textContent = "CONFIRMED QUALIFICATION LINE — TOP " + String(standings.qualificationLine || 10) + " QUALIFIED · BOTTOM " + String(standings.eliminatedCount || 0) + " ELIMINATED";
+            line.appendChild(td);
+            tbody.appendChild(line);
+            tbody.appendChild(makeSectionRow("ELIMINATED — " + String(standings.eliminatedCount || 0) + " TEAMS"));
+          }
+          const tr = document.createElement("tr");
+          tr.className = "penrose-group-team-row " + (team.status === "qualified" ? "is-qualified" : "is-eliminated") + (team.highlight ? " is-our-team" : "");
+          const pos = document.createElement("td");
+          pos.className = "penrose-group-position";
+          pos.textContent = String(team.position) + (team.movement === "up" ? " ↑" : team.movement === "down" ? " ↓" : "");
+          const name = document.createElement("th");
+          name.scope = "row";
+          const teamName = document.createElement("span");
+          teamName.textContent = team.name;
+          name.appendChild(teamName);
+          if (team.highlight) {
+            const tag = document.createElement("small");
+            tag.textContent = "OUR TEAM · QUALIFIED";
+            name.appendChild(tag);
+          } else {
+            const tag = document.createElement("small");
+            tag.textContent = team.status === "qualified" ? "QUALIFIED" : "ELIMINATED";
+            name.appendChild(tag);
+          }
+          const cells = [pos,name];
+          ["r1","r2","penalty","total"].forEach(key => {
+            const td = document.createElement("td");
+            const value = team[key];
+            td.textContent = key === "penalty" ? (value === null || value === undefined ? "—" : String(value)) : String(value ?? "—");
+            if (key === "penalty" && Number(value) < 0) td.className = "has-penalty";
+            if (key === "total") td.className = "penrose-group-total";
+            cells.push(td);
+          });
+          cells.forEach(cell => tr.appendChild(cell));
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        tableWrap.appendChild(table);
+        card.append(heading, resolved, eliminated, tableWrap);
+        panel.appendChild(card);
+        list.appendChild(panel);
+      }
     });
 
     if (!rounds.length) {
