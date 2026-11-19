@@ -7602,3 +7602,230 @@ body.driver-daily-open{overflow:hidden}
     text-align: center !important;
   }
 }
+
+
+/* Penrose Cup Group A final standings, inserted between Group Race 2 and the knockout. */
+.penrose-group-standings-item {
+  display: block;
+  margin: 5px 0 8px;
+}
+.penrose-group-standings {
+  overflow: hidden;
+  border: 1px solid rgba(232,190,105,.32);
+  border-radius: 12px;
+  background: linear-gradient(145deg,rgba(19,29,43,.98),rgba(8,15,25,.99));
+  color: #f1f3f6;
+}
+.penrose-group-standings-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 18px 12px;
+}
+.penrose-group-standings-heading h3 {
+  margin: 0;
+  color: #f3d28b;
+  font: 900 clamp(15px,2vw,20px)/1.2 var(--display);
+}
+.penrose-group-final-badges {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+}
+.penrose-group-final-badges span {
+  padding: 5px 8px;
+  border: 1px solid rgba(91,211,151,.4);
+  border-radius: 20px;
+  color: #a5f0bd;
+  background: rgba(37,105,66,.18);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .4px;
+}
+.penrose-group-resolved {
+  margin: 0 16px 8px;
+  padding: 9px 11px;
+  border: 1px solid rgba(91,211,151,.3);
+  border-radius: 7px;
+  background: rgba(35,101,61,.16);
+  color: #a8e7b9;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+.penrose-group-eliminated-banner {
+  margin: 0 16px 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(232,190,105,.25);
+  border-radius: 7px;
+  background: rgba(176,133,54,.1);
+  color: #f0d28f;
+  font-size: 10px;
+  font-weight: 900;
+}
+.penrose-group-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0 10px 12px;
+  box-sizing: border-box;
+}
+.penrose-group-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 11px;
+}
+.penrose-group-table th,
+.penrose-group-table td {
+  padding: 9px 7px;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.penrose-group-table thead th {
+  color: #f1d99f;
+  background: rgba(255,255,255,.045);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .7px;
+}
+.penrose-group-table th:first-child,
+.penrose-group-table td:first-child {
+  width: 36px;
+  text-align: left;
+}
+.penrose-group-table th:nth-child(2),
+.penrose-group-table td:nth-child(2) {
+  width: auto;
+  text-align: left;
+}
+.penrose-group-table th:nth-child(3),
+.penrose-group-table th:nth-child(4) {
+  width: 39px;
+}
+.penrose-group-table th:nth-child(5) {
+  width: 40px;
+}
+.penrose-group-table th:last-child {
+  width: 51px;
+}
+.penrose-group-table tbody th {
+  color: #f3f5f8;
+  font-weight: 800;
+}
+.penrose-group-table tbody th small {
+  display: block;
+  margin-top: 3px;
+  color: #8bd5a1;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .55px;
+}
+.penrose-group-table tbody td {
+  color: #d7dce5;
+}
+.penrose-group-table tbody .penrose-group-total {
+  color: #f3d28b;
+  font-weight: 900;
+}
+.penrose-group-table .has-penalty {
+  color: #ff8e7f;
+  font-weight: 900;
+}
+.penrose-group-table .penrose-group-table-section td {
+  padding: 9px 7px 6px;
+  color: #f0d28f;
+  background: rgba(255,255,255,.035);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .9px;
+  text-align: left;
+}
+.penrose-group-table .penrose-group-qualification-line td {
+  padding: 9px 5px;
+  border-top: 2px solid #d5ad5d;
+  border-bottom: 2px solid #d5ad5d;
+  color: #f4d58e;
+  font-size: 8px;
+  font-weight: 900;
+  text-align: center;
+  white-space: normal;
+}
+.penrose-group-table .is-eliminated th,
+.penrose-group-table .is-eliminated td {
+  color: #b68e82;
+}
+.penrose-group-table .is-our-team {
+  background: linear-gradient(90deg,rgba(51,127,83,.3),rgba(29,78,58,.17));
+  box-shadow: inset 3px 0 #69d594;
+}
+.penrose-group-table .is-our-team th,
+.penrose-group-table .is-our-team td,
+.penrose-group-table .is-our-team .penrose-group-total {
+  color: #b8f3cb;
+}
+.penrose-group-table .is-our-team th small {
+  color: #8de5aa;
+}
+@media (max-width: 640px) {
+  .penrose-group-standings-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 15px 12px 10px;
+  }
+  .penrose-group-final-badges {
+    justify-items: start;
+  }
+  .penrose-group-resolved,
+  .penrose-group-eliminated-banner {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 8px;
+  }
+  .penrose-group-table-wrap {
+    overflow: hidden;
+    padding: 0 6px 8px;
+  }
+  .penrose-group-table {
+    table-layout: fixed;
+    font-size: 9px;
+  }
+  .penrose-group-table th,
+  .penrose-group-table td {
+    padding: 8px 3px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .penrose-group-table th:first-child,
+  .penrose-group-table td:first-child {
+    width: 29px;
+  }
+  .penrose-group-table th:nth-child(2),
+  .penrose-group-table td:nth-child(2) {
+    width: auto;
+  }
+  .penrose-group-table th:nth-child(3),
+  .penrose-group-table th:nth-child(4) {
+    width: 30px;
+  }
+  .penrose-group-table th:nth-child(5) {
+    width: 31px;
+  }
+  .penrose-group-table th:last-child {
+    width: 39px;
+  }
+  .penrose-group-table tbody th {
+    font-size: 8px;
+    line-height: 1.15;
+  }
+  .penrose-group-table tbody th small {
+    font-size: 6px;
+    letter-spacing: .2px;
+  }
+  .penrose-group-table .penrose-group-table-section td,
+  .penrose-group-table .penrose-group-qualification-line td {
+    font-size: 7px;
+  }
+}
