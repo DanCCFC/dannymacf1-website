@@ -7839,3 +7839,29 @@ a.penrose-group-team-name:focus-visible {
     font-size: 15px;
   }
 }
+
+
+/* Subtle partner recognition for Vitesse Racing League. */
+.penrose-group-team-card.is-partner {
+  border-color: rgba(125,184,255,.3);
+  background: linear-gradient(100deg,rgba(75,132,196,.095),rgba(255,255,255,.018));
+}
+.penrose-group-team-card.is-partner .penrose-group-team-position {
+  border-color: rgba(125,184,255,.3);
+  color: #b5d6fa;
+}
+.penrose-group-partner-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  width: fit-content;
+  padding: 2px 6px;
+  border: 1px solid rgba(125,184,255,.27);
+  border-radius: 4px;
+  background: rgba(91,151,211,.1);
+  color: #a9cbed;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  line-height: 1.4;
+}
