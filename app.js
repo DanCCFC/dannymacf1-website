@@ -1479,7 +1479,8 @@ async function refreshPenroseResults() {
           const teamCard = document.createElement("article");
           teamCard.className = "penrose-group-team-card" +
             (team.status === "qualified" ? " is-qualified" : " is-eliminated") +
-            (team.highlight ? " is-our-team" : "");
+            (team.highlight ? " is-our-team" : "") +
+            (team.name === "Vitesse Racing League" ? " is-partner" : "");
           const identity = document.createElement("div");
           identity.className = "penrose-group-team-identity";
           const position = document.createElement("span");
@@ -1497,7 +1498,14 @@ async function refreshPenroseResults() {
           const status = document.createElement("small");
           status.className = "penrose-group-team-status";
           status.textContent = team.highlight ? "OUR TEAM · KNOCKOUT QUALIFIED" : team.status === "qualified" ? "QUALIFIED" : "ELIMINATED";
-          nameWrap.append(teamName, status);
+          nameWrap.appendChild(teamName);
+          if (team.name === "Vitesse Racing League") {
+            const partnerTag = document.createElement("span");
+            partnerTag.className = "penrose-group-partner-tag";
+            partnerTag.textContent = "OFFICIAL PARTNER";
+            nameWrap.appendChild(partnerTag);
+          }
+          nameWrap.appendChild(status);
           identity.append(position, nameWrap);
 
           const metrics = document.createElement("div");
