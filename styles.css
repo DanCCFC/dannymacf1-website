@@ -7604,228 +7604,238 @@ body.driver-daily-open{overflow:hidden}
 }
 
 
-/* Penrose Cup Group A final standings, inserted between Group Race 2 and the knockout. */
+
+/* Group A standings — bespoke cards styled to match the Penrose website. */
 .penrose-group-standings-item {
   display: block;
-  margin: 5px 0 8px;
+  margin: 8px 0 12px;
 }
 .penrose-group-standings {
   overflow: hidden;
-  border: 1px solid rgba(232,190,105,.32);
-  border-radius: 12px;
-  background: linear-gradient(145deg,rgba(19,29,43,.98),rgba(8,15,25,.99));
-  color: #f1f3f6;
+  padding: clamp(15px,2.4vw,24px);
+  border: 1px solid rgba(125,184,255,.25);
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 8% 0%,rgba(74,133,206,.15),transparent 45%),
+    linear-gradient(145deg,#142b4b 0%,#0c1d35 100%);
+  color: #eef5ff;
 }
 .penrose-group-standings-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 14px;
-  padding: 17px 18px 12px;
+  margin-bottom: 13px;
+}
+.penrose-group-kicker {
+  color: #82baff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
 }
 .penrose-group-standings-heading h3 {
-  margin: 0;
-  color: #f3d28b;
-  font: 900 clamp(15px,2vw,20px)/1.2 var(--display);
+  margin: 5px 0 0;
+  color: #fff;
+  font: 900 clamp(18px,2.2vw,25px)/1.05 var(--display);
 }
-.penrose-group-final-badges {
-  display: grid;
-  gap: 5px;
-  justify-items: end;
-}
-.penrose-group-final-badges span {
-  padding: 5px 8px;
+.penrose-group-qualification-badge {
+  flex: 0 0 auto;
+  padding: 8px 11px;
   border: 1px solid rgba(91,211,151,.4);
-  border-radius: 20px;
-  color: #a5f0bd;
-  background: rgba(37,105,66,.18);
+  border-radius: 8px;
+  background: rgba(43,132,83,.17);
+  color: #a5f0c2;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .6px;
+}
+.penrose-group-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.penrose-group-final-badge {
+  padding: 6px 9px;
+  border: 1px solid rgba(125,184,255,.2);
+  border-radius: 6px;
+  background: rgba(125,184,255,.07);
+  color: #a9cefa;
   font-size: 8px;
-  font-weight: 900;
-  letter-spacing: .4px;
-}
-.penrose-group-resolved {
-  margin: 0 16px 8px;
-  padding: 9px 11px;
-  border: 1px solid rgba(91,211,151,.3);
-  border-radius: 7px;
-  background: rgba(35,101,61,.16);
-  color: #a8e7b9;
-  font-size: 9px;
-  font-weight: 900;
-  line-height: 1.4;
-}
-.penrose-group-eliminated-banner {
-  margin: 0 16px 10px;
-  padding: 10px 12px;
-  border: 1px solid rgba(232,190,105,.25);
-  border-radius: 7px;
-  background: rgba(176,133,54,.1);
-  color: #f0d28f;
-  font-size: 10px;
-  font-weight: 900;
-}
-.penrose-group-table-wrap {
-  width: 100%;
-  overflow-x: auto;
-  padding: 0 10px 12px;
-  box-sizing: border-box;
-}
-.penrose-group-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 11px;
-}
-.penrose-group-table th,
-.penrose-group-table td {
-  padding: 9px 7px;
-  border-bottom: 1px solid rgba(255,255,255,.13);
-  text-align: right;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.penrose-group-table thead th {
-  color: #f1d99f;
-  background: rgba(255,255,255,.045);
-  font-size: 9px;
   font-weight: 900;
   letter-spacing: .7px;
 }
-.penrose-group-table th:first-child,
-.penrose-group-table td:first-child {
-  width: 36px;
-  text-align: left;
+.penrose-group-summary {
+  margin: 10px 0 16px;
+  color: #9db5d4;
+  font-size: 10px;
+  line-height: 1.5;
 }
-.penrose-group-table th:nth-child(2),
-.penrose-group-table td:nth-child(2) {
-  width: auto;
-  text-align: left;
+.penrose-group-team-list {
+  display: grid;
+  gap: 7px;
 }
-.penrose-group-table th:nth-child(3),
-.penrose-group-table th:nth-child(4) {
-  width: 39px;
+.penrose-group-section-label {
+  margin: 8px 0 1px;
+  padding: 7px 10px;
+  border-left: 3px solid #70aef2;
+  border-radius: 4px;
+  background: rgba(125,184,255,.075);
+  color: #9dc9fb;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
-.penrose-group-table th:nth-child(5) {
-  width: 40px;
+.penrose-group-team-card {
+  display: grid;
+  grid-template-columns: minmax(160px,1fr) minmax(250px,1.25fr);
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(125,184,255,.13);
+  border-radius: 9px;
+  background: linear-gradient(105deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
 }
-.penrose-group-table th:last-child {
-  width: 51px;
+.penrose-group-team-card.is-eliminated {
+  opacity: .66;
 }
-.penrose-group-table tbody th {
-  color: #f3f5f8;
-  font-weight: 800;
+.penrose-group-team-identity {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
 }
-.penrose-group-table tbody th small {
-  display: block;
-  margin-top: 3px;
-  color: #8bd5a1;
+.penrose-group-team-position {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(125,184,255,.2);
+  border-radius: 7px;
+  background: rgba(8,19,35,.42);
+  color: #9fcaff;
+  font: 900 15px/1 var(--display);
+}
+.penrose-group-team-name-wrap {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.penrose-group-team-name {
+  color: #f5f8ff;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.25;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+a.penrose-group-team-name:hover,
+a.penrose-group-team-name:focus-visible {
+  color: #8ec3ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.penrose-group-team-status {
+  color: #88c9a5;
   font-size: 7px;
   font-weight: 900;
-  letter-spacing: .55px;
+  letter-spacing: .75px;
 }
-.penrose-group-table tbody td {
-  color: #d7dce5;
+.penrose-group-team-card.is-eliminated .penrose-group-team-status {
+  color: #b28e8a;
 }
-.penrose-group-table tbody .penrose-group-total {
-  color: #f3d28b;
+.penrose-group-team-metrics {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 6px;
+}
+.penrose-group-team-metric {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 7px 4px;
+  border: 1px solid rgba(125,184,255,.12);
+  border-radius: 6px;
+  background: rgba(7,18,34,.34);
+}
+.penrose-group-team-metric span {
+  color: #7f9fc5;
+  font-size: 7px;
   font-weight: 900;
+  letter-spacing: .8px;
 }
-.penrose-group-table .has-penalty {
-  color: #ff8e7f;
-  font-weight: 900;
+.penrose-group-team-metric strong {
+  color: #e5efff;
+  font: 900 14px/1 var(--display);
+  font-variant-numeric: tabular-nums;
 }
-.penrose-group-table .penrose-group-table-section td {
-  padding: 9px 7px 6px;
-  color: #f0d28f;
-  background: rgba(255,255,255,.035);
-  font-size: 8px;
-  font-weight: 900;
-  letter-spacing: .9px;
-  text-align: left;
+.penrose-group-team-metric.is-total {
+  border-color: rgba(125,184,255,.24);
+  background: rgba(125,184,255,.09);
 }
-.penrose-group-table .penrose-group-qualification-line td {
-  padding: 9px 5px;
-  border-top: 2px solid #d5ad5d;
-  border-bottom: 2px solid #d5ad5d;
-  color: #f4d58e;
-  font-size: 8px;
-  font-weight: 900;
-  text-align: center;
-  white-space: normal;
+.penrose-group-team-metric.is-total strong {
+  color: #a9d0ff;
+  font-size: 16px;
 }
-.penrose-group-table .is-eliminated th,
-.penrose-group-table .is-eliminated td {
-  color: #b68e82;
+.penrose-group-team-metric.has-penalty strong {
+  color: #ff9c91;
 }
-.penrose-group-table .is-our-team {
-  background: linear-gradient(90deg,rgba(51,127,83,.3),rgba(29,78,58,.17));
-  box-shadow: inset 3px 0 #69d594;
+.penrose-group-team-card.is-our-team {
+  position: relative;
+  border: 2px solid #62d995;
+  background:
+    linear-gradient(100deg,rgba(49,150,91,.28),rgba(22,83,58,.2)),
+    #102b2c;
+  box-shadow: 0 0 0 2px rgba(98,217,149,.12),0 8px 24px rgba(0,0,0,.2);
 }
-.penrose-group-table .is-our-team th,
-.penrose-group-table .is-our-team td,
-.penrose-group-table .is-our-team .penrose-group-total {
-  color: #b8f3cb;
+.penrose-group-team-card.is-our-team .penrose-group-team-position {
+  border-color: rgba(98,217,149,.55);
+  background: rgba(42,137,81,.24);
+  color: #b5ffd0;
 }
-.penrose-group-table .is-our-team th small {
-  color: #8de5aa;
+.penrose-group-team-card.is-our-team .penrose-group-team-name {
+  color: #c4ffda;
+  font-size: 13px;
+}
+.penrose-group-team-card.is-our-team .penrose-group-team-status {
+  color: #8df0b3;
+}
+.penrose-group-team-card.is-our-team .penrose-group-team-metric {
+  border-color: rgba(98,217,149,.2);
+  background: rgba(5,32,24,.35);
+}
+.penrose-group-team-card.is-our-team .penrose-group-team-metric span {
+  color: #9bd8b2;
+}
+.penrose-group-team-card.is-our-team .penrose-group-team-metric strong,
+.penrose-group-team-card.is-our-team .penrose-group-team-metric.is-total strong {
+  color: #c1ffda;
 }
 @media (max-width: 640px) {
+  .penrose-group-standings {
+    padding: 13px 10px;
+  }
   .penrose-group-standings-heading {
     align-items: flex-start;
     flex-direction: column;
-    padding: 15px 12px 10px;
+    gap: 9px;
   }
-  .penrose-group-final-badges {
-    justify-items: start;
+  .penrose-group-team-card {
+    grid-template-columns: minmax(0,1fr);
+    gap: 9px;
+    padding: 9px;
   }
-  .penrose-group-resolved,
-  .penrose-group-eliminated-banner {
-    margin-right: 10px;
-    margin-left: 10px;
-    font-size: 8px;
+  .penrose-group-team-metrics {
+    gap: 5px;
   }
-  .penrose-group-table-wrap {
-    overflow: hidden;
-    padding: 0 6px 8px;
+  .penrose-group-team-metric {
+    padding: 6px 2px;
   }
-  .penrose-group-table {
-    table-layout: fixed;
-    font-size: 9px;
+  .penrose-group-team-metric strong {
+    font-size: 13px;
   }
-  .penrose-group-table th,
-  .penrose-group-table td {
-    padding: 8px 3px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-  .penrose-group-table th:first-child,
-  .penrose-group-table td:first-child {
-    width: 29px;
-  }
-  .penrose-group-table th:nth-child(2),
-  .penrose-group-table td:nth-child(2) {
-    width: auto;
-  }
-  .penrose-group-table th:nth-child(3),
-  .penrose-group-table th:nth-child(4) {
-    width: 30px;
-  }
-  .penrose-group-table th:nth-child(5) {
-    width: 31px;
-  }
-  .penrose-group-table th:last-child {
-    width: 39px;
-  }
-  .penrose-group-table tbody th {
-    font-size: 8px;
-    line-height: 1.15;
-  }
-  .penrose-group-table tbody th small {
-    font-size: 6px;
-    letter-spacing: .2px;
-  }
-  .penrose-group-table .penrose-group-table-section td,
-  .penrose-group-table .penrose-group-qualification-line td {
-    font-size: 7px;
+  .penrose-group-team-metric.is-total strong {
+    font-size: 15px;
   }
 }
