@@ -7865,3 +7865,19 @@ a.penrose-group-team-name:focus-visible {
   letter-spacing: .7px;
   line-height: 1.4;
 }
+
+
+/* Five-column Penrose driver standings, including average classified finish. */
+@media (max-width: 640px) {
+  .penrose-standings-panel .penrose-standings-table thead th:first-child,
+  .penrose-standings-panel .penrose-standings-table tbody .penrose-standings-position { width: 9% !important; }
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(2) { width: 35% !important; }
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(3) { width: 12% !important; }
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(4) { width: 21% !important; }
+  .penrose-standings-panel .penrose-standings-table thead th:nth-child(5) { width: 23% !important; }
+  .penrose-standings-panel .penrose-standings-table thead th,
+  .penrose-standings-panel .penrose-standings-table tbody td { padding-right: 3px !important; padding-left: 3px !important; }
+  .penrose-standings-panel .penrose-standings-table thead th { font-size: 7px !important; letter-spacing: .15px !important; }
+  .penrose-standings-panel .penrose-standings-table tbody td,
+  .penrose-standings-panel .penrose-standings-table tbody th { font-size: 9px !important; }
+}
