@@ -18,25 +18,25 @@
           "name": "chronic-teziq",
           "qualifying": 4,
           "finish": 6,
-          "points": 19
+          "points": null
         },
         {
           "name": "Roca F1",
           "qualifying": 9,
           "finish": 10,
-          "points": 11
+          "points": null
         },
         {
           "name": "DannyMacF1",
           "qualifying": 16,
           "finish": 12,
-          "points": 9
+          "points": null
         },
         {
           "name": "evthelegend46",
           "qualifying": 15,
           "finish": 14,
-          "points": 7
+          "points": null
         }
       ],
       "venue": "Spanish Grand Prix",
@@ -126,7 +126,7 @@
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "TTDM United finished 10th in Group A and qualified for the Week 4 Knockout."
+      "notes": "TTDM Racing finished 10th in Group A and qualified for the Week 4 Knockout."
     },
     {
       "week": 5,
