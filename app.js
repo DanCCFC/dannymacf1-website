@@ -978,25 +978,25 @@ async function refreshPenroseResults() {
           "name": "chronic-teziq",
           "qualifying": 4,
           "finish": 6,
-          "points": 19
+          "points": null
         },
         {
           "name": "Roca F1",
           "qualifying": 9,
           "finish": 10,
-          "points": 11
+          "points": null
         },
         {
           "name": "DannyMacF1",
           "qualifying": 16,
           "finish": 12,
-          "points": 9
+          "points": null
         },
         {
           "name": "evthelegend46",
           "qualifying": 15,
           "finish": 14,
-          "points": 7
+          "points": null
         }
       ],
       "venue": "Spanish Grand Prix",
@@ -1086,7 +1086,7 @@ async function refreshPenroseResults() {
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "TTDM United finished 10th in Group A and qualified for the Week 4 Knockout."
+      "notes": "TTDM Racing finished 10th in Group A and qualified for the Week 4 Knockout."
     },
     {
       "week": 5,
@@ -1295,16 +1295,16 @@ async function refreshPenroseResults() {
 
     // Build the standings from the six-driver Penrose Cup roster and all completed round results.
     const rosterNames = ["DannyMacF1", "evthelegend46", "Roca F1", "chronic-teziq", "zchxq", "Wdonn"];
-    const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, points: 0}]));
+    const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, finishTotal: 0, points: 0}]));
     rounds.forEach(round => {
       if (round.status !== "complete" || !Array.isArray(round.drivers)) return;
       round.drivers.forEach(driver => {
         const name = String(driver.name || "").trim();
         if (!name) return;
         const key = name.toLowerCase();
-        if (!standings.has(key)) standings.set(key, {name, races: 0, points: 0});
+        if (!standings.has(key)) standings.set(key, {name, races: 0, finishTotal: 0, points: 0});
         const entry = standings.get(key);
-        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") entry.races += 1;
+        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") { entry.races += 1; entry.finishTotal += Number(driver.finish) || 0; }
         if (driver.points !== null && driver.points !== undefined && driver.points !== "") {
           entry.points += Number(driver.points) || 0;
         }
@@ -1325,10 +1325,13 @@ async function refreshPenroseResults() {
           name.textContent = driver.name;
           const races = document.createElement("td");
           races.textContent = String(driver.races);
+          const average = document.createElement("td");
+          average.className = "penrose-standings-average";
+          average.textContent = driver.races ? (driver.finishTotal / driver.races).toFixed(1) : "—";
           const points = document.createElement("td");
           points.className = "penrose-standings-points";
           points.textContent = String(driver.points);
-          row.append(position, name, races, points);
+          row.append(position, name, races, average, points);
           standingsBody.appendChild(row);
         });
     }
