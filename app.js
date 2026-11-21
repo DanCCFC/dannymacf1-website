@@ -21,7 +21,8 @@ const DEFAULT_DRIVERS = [
   {name:"Stoobler",wins:1,country:"scotland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"chronic-teziq",wins:4,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"Hazzk81",wins:0,country:"britain",platform:"PlayStation",favouriteF1Team:"Audi",favouriteF1Driver:"Oscar Piastri",favouriteFootballTeam:"Horsham FC",driverNumber:"71"},
-  {name:"Wdonn",wins:0,country:"",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""}
+  {name:"wdonn",wins:0,country:"",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
+  {name:"bramble618LN4",wins:1,country:"britain",platform:"PlayStation",favouriteF1Team:"",favouriteF1Driver:"Lando Norris",favouriteFootballTeam:"",driverNumber:"67"}
 ];
 
 const STORAGE_KEY = "dannymacf1-championship-v1";
