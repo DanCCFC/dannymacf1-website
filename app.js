@@ -1429,7 +1429,16 @@ async function refreshPenroseResults() {
       if (Array.isArray(round.drivers) && round.drivers.length) {
         const driverResults = document.createElement("div");
         driverResults.className = "penrose-driver-results";
-        round.drivers.forEach(driver => {
+        round.drivers.slice().sort((a, b) => {
+          const finishA = Number(a.finish);
+          const finishB = Number(b.finish);
+          const classifiedA = Number.isFinite(finishA) && finishA > 0;
+          const classifiedB = Number.isFinite(finishB) && finishB > 0;
+          if (classifiedA && classifiedB) return finishA - finishB;
+          if (classifiedA) return -1;
+          if (classifiedB) return 1;
+          return 0;
+        }).forEach(driver => {
           const row = document.createElement("div");
           row.className = "penrose-driver-result";
           const name = document.createElement("strong");
@@ -1440,7 +1449,7 @@ async function refreshPenroseResults() {
             const heading = document.createElement("small");
             heading.textContent = label;
             const value = document.createElement("b");
-            value.textContent = position === null || position === undefined || position === "" ? "—" : "P" + position;
+            value.textContent = position === null || position === undefined || position === "" ? "—" : (String(position).toUpperCase() === "DNF" ? "DNF" : "P" + position);
             metric.append(heading, value);
             return metric;
           };
