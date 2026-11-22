@@ -1,7 +1,7 @@
 {
   "competition": "Penrose Cup",
   "group": "Group A",
-  "groupStatus": "Group A confirmed",
+  "groupStatus": "Eliminated",
   "updatedAt": "2026-11-19",
   "rounds": [
     {
@@ -157,22 +157,22 @@
     {
       "week": 5,
       "name": "Semi-Final",
-      "status": "conditional",
-      "statusLabel": "Subject to progression",
+      "status": "eliminated",
+      "statusLabel": "Eliminated · Did not qualify",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": ""
+      "notes": "Penrose Cup campaign ended after the Knockout round."
     },
     {
       "week": 6,
       "name": "Group Final",
-      "status": "conditional",
-      "statusLabel": "Subject to qualification",
+      "status": "eliminated",
+      "statusLabel": "Not participating · Eliminated",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": ""
+      "notes": "No Group Final participation following elimination."
     }
   ],
   "groupStandings": {
