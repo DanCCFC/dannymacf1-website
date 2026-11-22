@@ -1082,36 +1082,36 @@ async function refreshPenroseResults() {
     {
       "week": 4,
       "name": "Knockout",
-      "status": "upcoming",
-      "statusLabel": "Team confirmed · Race pending",
+      "status": "complete",
+      "statusLabel": "Official results recorded · Knockout",
       "finish": null,
-      "points": null,
+      "points": 26,
       "result": null,
-      "notes": "Confirmed knockout line-up.",
+      "notes": "Knockout round results recorded.",
       "drivers": [
         {
           "name": "DannyMacF1",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 17,
+          "finish": 10,
+          "points": 11
         },
         {
           "name": "evthelegend46",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 16,
+          "finish": 12,
+          "points": 9
         },
         {
           "name": "[AERT] Max Lorrai",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 11,
+          "finish": "DNF",
+          "points": 0
         },
         {
           "name": "zchxq",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 5,
+          "finish": 15,
+          "points": 6
         }
       ]
     },
@@ -1320,18 +1320,18 @@ async function refreshPenroseResults() {
       ? recorded + " of " + rounds.length + " round" + (rounds.length === 1 ? "" : "s") + " with results recorded"
       : "No race results recorded yet.";
 
-    // Build the standings from the six-driver Penrose Cup roster and all completed round results.
+    // Build the standings from the seven-driver Penrose Cup roster and all completed round results.
     const rosterNames = ["DannyMacF1", "evthelegend46", "Roca F1", "chronic-teziq", "zchxq", "Wdonn", "[AERT] Max Lorrai"];
-    const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, finishTotal: 0, points: 0}]));
+    const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, finishTotal: 0, finishCount: 0, points: 0}]));
     rounds.forEach(round => {
       if (round.status !== "complete" || !Array.isArray(round.drivers)) return;
       round.drivers.forEach(driver => {
         const name = String(driver.name || "").trim();
         if (!name) return;
         const key = name.toLowerCase();
-        if (!standings.has(key)) standings.set(key, {name, races: 0, finishTotal: 0, points: 0});
+        if (!standings.has(key)) standings.set(key, {name, races: 0, finishTotal: 0, finishCount: 0, points: 0});
         const entry = standings.get(key);
-        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") { entry.races += 1; entry.finishTotal += Number(driver.finish) || 0; }
+        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") {\n          entry.races += 1;\n          const classifiedFinish = Number(driver.finish);\n          if (Number.isFinite(classifiedFinish) && classifiedFinish > 0) { entry.finishTotal += classifiedFinish; entry.finishCount += 1; }\n        }
         if (driver.points !== null && driver.points !== undefined && driver.points !== "") {
           entry.points += Number(driver.points) || 0;
         }
@@ -1354,7 +1354,7 @@ async function refreshPenroseResults() {
           races.textContent = String(driver.races);
           const average = document.createElement("td");
           average.className = "penrose-standings-average";
-          average.textContent = driver.races ? (driver.finishTotal / driver.races).toFixed(1) : "—";
+          average.textContent = driver.finishCount ? (driver.finishTotal / driver.finishCount).toFixed(1) : "—";
           const points = document.createElement("td");
           points.className = "penrose-standings-points";
           points.textContent = String(driver.points);
