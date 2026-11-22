@@ -509,7 +509,7 @@ function openDriverProfile(driver) {
   document.getElementById("profileChampionshipLabel").textContent =
     Number(driver.wins) === 1 ? "CHAMPIONSHIP WIN" : "CHAMPIONSHIP WINS";
 
-  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq", "wdonn"]);
+  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq", "wdonn", "[aert] max lorrai"]);
   const penroseCard = document.getElementById("profilePenroseCup");
   if (penroseCard) {
     penroseCard.hidden = !penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
@@ -1321,7 +1321,7 @@ async function refreshPenroseResults() {
       : "No race results recorded yet.";
 
     // Build the standings from the six-driver Penrose Cup roster and all completed round results.
-    const rosterNames = ["DannyMacF1", "evthelegend46", "Roca F1", "chronic-teziq", "zchxq", "Wdonn"];
+    const rosterNames = ["DannyMacF1", "evthelegend46", "Roca F1", "chronic-teziq", "zchxq", "Wdonn", "[AERT] Max Lorrai"];
     const standings = new Map(rosterNames.map(name => [name.toLowerCase(), {name, races: 0, finishTotal: 0, points: 0}]));
     rounds.forEach(round => {
       if (round.status !== "complete" || !Array.isArray(round.drivers)) return;
