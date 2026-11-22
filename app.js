@@ -1331,7 +1331,11 @@ async function refreshPenroseResults() {
         const key = name.toLowerCase();
         if (!standings.has(key)) standings.set(key, {name, races: 0, finishTotal: 0, finishCount: 0, points: 0});
         const entry = standings.get(key);
-        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") {\n          entry.races += 1;\n          const classifiedFinish = Number(driver.finish);\n          if (Number.isFinite(classifiedFinish) && classifiedFinish > 0) { entry.finishTotal += classifiedFinish; entry.finishCount += 1; }\n        }
+        if (driver.finish !== null && driver.finish !== undefined && driver.finish !== "") {
+          entry.races += 1;
+          const classifiedFinish = Number(driver.finish);
+          if (Number.isFinite(classifiedFinish) && classifiedFinish > 0) { entry.finishTotal += classifiedFinish; entry.finishCount += 1; }
+        }
         if (driver.points !== null && driver.points !== undefined && driver.points !== "") {
           entry.points += Number(driver.points) || 0;
         }
