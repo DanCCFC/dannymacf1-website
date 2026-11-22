@@ -121,36 +121,36 @@
     {
       "week": 4,
       "name": "Knockout",
-      "status": "upcoming",
-      "statusLabel": "Team confirmed · Race pending",
+      "status": "complete",
+      "statusLabel": "Official results recorded · Knockout",
       "finish": null,
-      "points": null,
+      "points": 26,
       "result": null,
-      "notes": "Confirmed knockout line-up.",
+      "notes": "Knockout round results recorded.",
       "drivers": [
         {
           "name": "DannyMacF1",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 17,
+          "finish": 10,
+          "points": 11
         },
         {
           "name": "evthelegend46",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 16,
+          "finish": 12,
+          "points": 9
         },
         {
           "name": "[AERT] Max Lorrai",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 11,
+          "finish": "DNF",
+          "points": 0
         },
         {
           "name": "zchxq",
-          "qualifying": null,
-          "finish": null,
-          "points": null
+          "qualifying": 5,
+          "finish": 15,
+          "points": 6
         }
       ]
     },
