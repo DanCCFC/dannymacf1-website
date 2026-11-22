@@ -1083,11 +1083,37 @@ async function refreshPenroseResults() {
       "week": 4,
       "name": "Knockout",
       "status": "upcoming",
-      "statusLabel": "Qualified · Knockout confirmed",
+      "statusLabel": "Team confirmed · Race pending",
       "finish": null,
       "points": null,
       "result": null,
-      "notes": "TTDM Racing finished 10th in Group A and qualified for the Week 4 Knockout."
+      "notes": "Confirmed knockout line-up.",
+      "drivers": [
+        {
+          "name": "DannyMacF1",
+          "qualifying": null,
+          "finish": null,
+          "points": null
+        },
+        {
+          "name": "evthelegend46",
+          "qualifying": null,
+          "finish": null,
+          "points": null
+        },
+        {
+          "name": "[AERT] Max Lorrai",
+          "qualifying": null,
+          "finish": null,
+          "points": null
+        },
+        {
+          "name": "zchxq",
+          "qualifying": null,
+          "finish": null,
+          "points": null
+        }
+      ]
     },
     {
       "week": 5,
