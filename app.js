@@ -504,11 +504,10 @@ function openDriverProfile(driver) {
   }
   document.getElementById("profileCountry").textContent =
     country ? country.charAt(0).toUpperCase() + country.slice(1) : "Nationality not added";
-  const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq", "wdonn", "[aert] max lorrai"]);
-  const isPenroseDriver = penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
   const resultsPanel = document.getElementById("profilePenroseResults");
   if (resultsPanel) {
-    resultsPanel.hidden = !isPenroseDriver;
+    // Every driver profile uses the Penrose Cup record panel; drivers without
+    // recorded entries receive the empty-state message instead of legacy stats.
     const rows = document.getElementById("profilePenroseResultRows");
     const average = document.getElementById("profilePenroseAverage");
     const points = document.getElementById("profilePenrosePoints");
