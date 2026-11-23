@@ -506,8 +506,9 @@ function openDriverProfile(driver) {
     country ? country.charAt(0).toUpperCase() + country.slice(1) : "Nationality not added";
   const resultsPanel = document.getElementById("profilePenroseResults");
   if (resultsPanel) {
-    // Every driver profile uses the Penrose Cup record panel; drivers without
-    // recorded entries receive the empty-state message instead of legacy stats.
+    // The panel is hidden in the HTML by default, so explicitly reveal it
+    // whenever a driver profile is opened.
+    resultsPanel.hidden = false;
     const rows = document.getElementById("profilePenroseResultRows");
     const average = document.getElementById("profilePenroseAverage");
     const points = document.getElementById("profilePenrosePoints");
