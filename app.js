@@ -528,10 +528,10 @@ function openDriverProfile(driver) {
         roundName.textContent = round.name || "Round " + round.week;
         const qualifying = document.createElement("span");
         qualifying.className = "profile-penrose-position";
-        qualifying.innerHTML = "<small>Q</small>" + (result.qualifying ?? "—");
+        qualifying.textContent = "P" + (result.qualifying ?? "—");
         const finish = document.createElement("span");
         finish.className = "profile-penrose-position";
-        finish.innerHTML = "<small>FIN</small>" + (result.finish ?? "—");
+        finish.textContent = "P" + (result.finish ?? "—");
         row.append(roundName, qualifying, finish);
         rows.appendChild(row);
         const classified = Number(result.finish);
