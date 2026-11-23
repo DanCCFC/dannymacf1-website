@@ -531,7 +531,7 @@ function openDriverProfile(driver) {
         qualifying.textContent = "P" + (result.qualifying ?? "—");
         const finish = document.createElement("span");
         finish.className = "profile-penrose-position";
-        finish.textContent = "P" + (result.finish ?? "—");
+        finish.textContent = String(result.finish ?? "—").trim().toUpperCase() === "DNF" ? "DNF" : "P" + (result.finish ?? "—");
         row.append(roundName, qualifying, finish);
         rows.appendChild(row);
         const classified = Number(result.finish);
