@@ -504,27 +504,50 @@ function openDriverProfile(driver) {
   }
   document.getElementById("profileCountry").textContent =
     country ? country.charAt(0).toUpperCase() + country.slice(1) : "Nationality not added";
-  document.getElementById("profileChampionshipCount").textContent =
-    String(Math.max(0, Number(driver.wins) || 0));
-  document.getElementById("profileChampionshipLabel").textContent =
-    Number(driver.wins) === 1 ? "CHAMPIONSHIP WIN" : "CHAMPIONSHIP WINS";
-
   const penroseDrivers = new Set(["dannymacf1", "evthelegend46", "roca f1", "chronic-teziq", "zchxq", "wdonn", "[aert] max lorrai"]);
-  const penroseCard = document.getElementById("profilePenroseCup");
-  if (penroseCard) {
-    penroseCard.hidden = !penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
+  const isPenroseDriver = penroseDrivers.has(String(driver.name || "").trim().toLowerCase());
+  const resultsPanel = document.getElementById("profilePenroseResults");
+  if (resultsPanel) {
+    resultsPanel.hidden = !isPenroseDriver;
+    const rows = document.getElementById("profilePenroseResultRows");
+    const average = document.getElementById("profilePenroseAverage");
+    const points = document.getElementById("profilePenrosePoints");
+    if (rows) {
+      rows.replaceChildren();
+      const rounds = penroseCupData && Array.isArray(penroseCupData.rounds) ? penroseCupData.rounds : [];
+      let finishTotal = 0, finishCount = 0, totalPoints = 0;
+      rounds.filter(round => round.status === "complete").forEach(round => {
+        const result = (Array.isArray(round.drivers) ? round.drivers : []).find(entry =>
+          String(entry.name || "").trim().toLowerCase() === String(driver.name || "").trim().toLowerCase()
+        );
+        if (!result) return;
+        const row = document.createElement("div");
+        row.className = "profile-penrose-result-row";
+        const roundName = document.createElement("span");
+        roundName.className = "profile-penrose-round";
+        roundName.textContent = round.name || "Round " + round.week;
+        const qualifying = document.createElement("span");
+        qualifying.className = "profile-penrose-position";
+        qualifying.innerHTML = "<small>Q</small>" + (result.qualifying ?? "—");
+        const finish = document.createElement("span");
+        finish.className = "profile-penrose-position";
+        finish.innerHTML = "<small>FIN</small>" + (result.finish ?? "—");
+        row.append(roundName, qualifying, finish);
+        rows.appendChild(row);
+        const classified = Number(result.finish);
+        if (Number.isFinite(classified) && classified > 0) { finishTotal += classified; finishCount += 1; }
+        totalPoints += Number(result.points) || 0;
+      });
+      if (!rows.children.length) {
+        const empty = document.createElement("p");
+        empty.className = "profile-penrose-empty";
+        empty.textContent = "No Penrose Cup results recorded for this driver yet.";
+        rows.appendChild(empty);
+      }
+      if (average) average.textContent = finishCount ? (finishTotal / finishCount).toFixed(2) : "—";
+      if (points) points.textContent = String(totalPoints);
+    }
   }
-
-  const fields = [
-    ["profilePlatform", driver.platform],
-    ["profileF1Team", driver.favouriteF1Team],
-    ["profileF1Driver", driver.favouriteF1Driver],
-    ["profileFootballTeam", driver.favouriteFootballTeam]
-  ];
-  fields.forEach(([id, value]) => {
-    document.getElementById(id).textContent =
-      value && String(value).trim() ? String(value).trim() : "Not added yet";
-  });
 
   modal.hidden = false;
   document.body.classList.add("profile-modal-open");
@@ -950,7 +973,8 @@ document.querySelectorAll(".penrose-driver[data-driver]").forEach(button => {
   });
 });
 
-// Penrose Cup results: public snapshot is stored separately so each round can be updated without changing the layout.
+// Penrose Cup results: shared with driver profile cards as well as the results section.
+let penroseCupData = null;
 async function refreshPenroseResults() {
   const list = document.getElementById("penroseResultsRounds");
   const group = document.getElementById("penroseGroupStatus");
@@ -1305,6 +1329,7 @@ async function refreshPenroseResults() {
     } catch (fetchError) {
       console.warn("Using the built-in Penrose results snapshot because the results file could not be fetched.", fetchError);
     }
+    penroseCupData = data;
     group.textContent = data.group || data.groupStatus || "To be confirmed after placement";
 
     const rounds = Array.isArray(data.rounds) ? data.rounds : [];
