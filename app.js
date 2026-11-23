@@ -142,6 +142,13 @@ function renderLeaderboard(){
       driverContainer.appendChild(name);
       driverCell.appendChild(driverContainer);
 
+      // Make the full regular championship row open the same standard driver card.
+      tr.classList.add("leaderboard-driver-row");
+      tr.addEventListener("click", event => {
+        if (event.target.closest("button, a")) return;
+        openDriverProfile(driver);
+      });
+
       const winsCell = document.createElement("td");
       const wins = Math.max(0, Number(driver.wins) || 0);
       const winsElement = document.createElement("span");
