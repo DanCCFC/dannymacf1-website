@@ -7881,3 +7881,25 @@ a.penrose-group-team-name:focus-visible {
   .penrose-standings-panel .penrose-standings-table tbody td,
   .penrose-standings-panel .penrose-standings-table tbody th { font-size: 9px !important; }
 }
+
+
+/* Penrose Cup driver profile results */
+.profile-penrose-results { margin-top: 20px; overflow: hidden; border: 1px solid rgba(125,184,255,.24); border-radius: 13px; background: rgba(4,16,34,.38); }
+.profile-penrose-results[hidden] { display:none !important; }
+.profile-penrose-results-heading { display:flex; flex-direction:column; gap:5px; padding:15px 16px 12px; border-bottom:1px solid rgba(125,184,255,.14); }
+.profile-penrose-results-heading span { color:#a9cfff; font-size:10px; font-weight:900; letter-spacing:1.3px; }
+.profile-penrose-results-heading small { color:#829fbe; font-size:8px; font-weight:800; letter-spacing:.9px; }
+.profile-penrose-result-head,.profile-penrose-result-row { display:grid; grid-template-columns:minmax(0,1fr) 68px 68px; align-items:center; gap:8px; }
+.profile-penrose-result-head { padding:9px 15px; background:rgba(125,184,255,.07); color:#8eacd0; font-size:8px; font-weight:900; letter-spacing:.8px; }
+.profile-penrose-result-head span:not(:first-child) { text-align:center; }
+.profile-penrose-result-row { padding:12px 15px; border-top:1px solid rgba(125,184,255,.09); color:#f3f7ff; font-size:12px; }
+.profile-penrose-round { min-width:0; font-weight:800; overflow-wrap:anywhere; }
+.profile-penrose-position { display:flex; justify-content:center; align-items:baseline; gap:4px; font:900 16px/1 var(--display); font-variant-numeric:tabular-nums; }
+.profile-penrose-position small { color:#83a5ce; font:900 8px/1 var(--display); }
+.profile-penrose-empty { margin:0; padding:16px; color:#9ab3d4; font-size:11px; }
+.profile-penrose-summary { display:grid; grid-template-columns:1fr 1fr; margin-top:7px; border-top:1px solid rgba(125,184,255,.22); background:linear-gradient(100deg,rgba(125,184,255,.12),rgba(125,184,255,.04)); }
+.profile-penrose-summary div { display:flex; flex-direction:column; align-items:center; gap:6px; padding:17px 10px; }
+.profile-penrose-summary div+div { border-left:1px solid rgba(125,184,255,.18); }
+.profile-penrose-summary strong { color:#fff; font:900 clamp(30px,7vw,42px)/1 var(--display); font-variant-numeric:tabular-nums; }
+.profile-penrose-summary span { color:#9fcaff; font-size:8px; font-weight:900; letter-spacing:1px; text-align:center; }
+@media(max-width:480px) { .profile-penrose-result-head,.profile-penrose-result-row { grid-template-columns:minmax(0,1fr) 55px 55px; gap:5px; } .profile-penrose-result-row { padding:11px 10px; font-size:11px; } .profile-penrose-result-head { padding:8px 10px; } }
