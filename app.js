@@ -18,11 +18,12 @@ const DEFAULT_DRIVERS = [
   {name:"[AERT] Max Lorrai",wins:3,country:"netherlands",platform:"PC",favouriteF1Team:"Red Bull",favouriteF1Driver:"Max Verstappen",favouriteFootballTeam:"",driverNumber:""},
   {name:"Alexgaitor",wins:1,country:"britain",platform:"PC",favouriteF1Team:"Ferrari",favouriteF1Driver:"Charles Leclerc",favouriteFootballTeam:"",driverNumber:""},
   {name:"Jouzam",wins:1,country:"britain",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
-  {name:"Stoobler",wins:1,country:"scotland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
+  {name:"Stoobler",wins:2,country:"scotland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"chronic-teziq",wins:4,country:"ireland",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
   {name:"Hazzk81",wins:0,country:"britain",platform:"PlayStation",favouriteF1Team:"Audi",favouriteF1Driver:"Oscar Piastri",favouriteFootballTeam:"Horsham FC",driverNumber:"71"},
   {name:"wdonn",wins:0,country:"",platform:"",favouriteF1Team:"",favouriteF1Driver:"",favouriteFootballTeam:"",driverNumber:""},
-  {name:"bramble618LN4",wins:1,country:"britain",platform:"PlayStation",favouriteF1Team:"McLaren",favouriteF1Driver:"Lando Norris",favouriteFootballTeam:"",driverNumber:"67"}
+  {name:"bramble618LN4",wins:1,country:"britain",platform:"PlayStation",favouriteF1Team:"McLaren",favouriteF1Driver:"Lando Norris",favouriteFootballTeam:"",driverNumber:"67"},
+  {name:"AMS_Erik",wins:1,country:"netherlands",platform:"PlayStation",favouriteF1Team:"Red Bull",favouriteF1Driver:"Max Verstappen",favouriteFootballTeam:"",driverNumber:"13"}
 ];
 
 const STORAGE_KEY = "dannymacf1-championship-v1";
